@@ -29,7 +29,7 @@ spec:
         className: internal
         hosts:
           core: harbor.casadewade.com
-    externalURL: harbor.casadewade.com
+    externalURL: https://harbor.casadewade.com
     updateStrategy:
       type: Recreate
     existingSecretAdminPassword: harbor-secrets
