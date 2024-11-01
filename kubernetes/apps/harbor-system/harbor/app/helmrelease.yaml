@@ -28,8 +28,8 @@ spec:
       ingress:
         className: internal
         hosts:
-          core: core.harbor.casadewade.com
-    externalURL: core.harbor.casadewade.com
+          core: harbor.casadewade.com
+    externalURL: harbor.casadewade.com
     updateStrategy:
       type: Recreate
     existingSecretAdminPassword: harbor-secrets
