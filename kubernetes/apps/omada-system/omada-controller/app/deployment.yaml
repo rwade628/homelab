@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omada-controller
+  namespace: omada
+  labels:
+    app: omada-controller
+spec:
+  selector:
+    matchLabels:
+      app: omada-controller
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: omada-controller
+    spec:
+      hostNetwork: true
+      containers:
+        - name: omada-controller
+          image: mbentley/omada-controller:5.14
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "TZ"
+              value: "America/New_York"
+          ports:
+            - name: manage-http
+              containerPort: 8088
+              protocol: TCP
+            - name: manage-https
+              containerPort: 8043
+              protocol: TCP
+            - name: portal-https
+              containerPort: 8843
+            - name: app-discovery
+              containerPort: 27001
+              protocol: UDP
+            - name: discovery
+              containerPort: 29810
+              protocol: UDP
+            - name: manager-v1
+              containerPort: 29811
+              protocol: TCP
+            - name: adopt-v1
+              containerPort: 29812
+              protocol: TCP
+            - name: upgrade-v1
+              containerPort: 29813
+              protocol: TCP
+            - name: manager-v2
+              containerPort: 29814
+              protocol: TCP
+            - name: transfer-v2
+              containerPort: 29815
+              protocol: TCP
+            - name: rtty
+              containerPort: 29816
+              protocol: TCP
+          volumeMounts:
+            - name: omada-controller-data
+              mountPath: /opt/tplink/EAPController/data
+      volumes:
+        - name: omada-controller-data
+          persistentVolumeClaim:
+            claimName: omada-controller-claim
