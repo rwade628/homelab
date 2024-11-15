@@ -47,9 +47,15 @@ spec:
   selector:
     app: omada-controller
   ports:
-    - name: manager-v1
+    - name: portal-https
       protocol: TCP
-      port: 29811
+      port: 8843
+    - name: manage-http
+      protocol: TCP
+      port: 8088
+    - name: manage-https
+      protocol: TCP
+      port: 8043
     - name: adopt-v1
       protocol: TCP
       port: 29812
