@@ -6,13 +6,13 @@ talosVersion: v1.8.1
 kubernetesVersion: v1.31.2
 
 clusterName: "homelab"
-endpoint: https://192.168.2.245:6443
+endpoint: https://10.0.10.251:6443
 clusterPodNets:
   - "10.69.0.0/16"
 clusterSvcNets:
   - "10.96.0.0/16"
 additionalApiServerCertSans: &sans
-  - "192.168.2.245"
+  - "10.0.10.251"
   - 127.0.0.1 # KubePrism
 additionalMachineCertSans: *sans
 
@@ -22,22 +22,22 @@ cniConfig:
 
 nodes:
   - hostname: "nas-vm"
-    ipAddress: "192.168.2.17"
+    ipAddress: "10.0.10.4"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/4dd8e3a8b6203d3c14f049da8db4d3bb0d6d3e70c5e89dfcc1e709e81914f63c
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:a0:98:3f:d4:5f"
+          hardwareAddr: "00:a0:98:20:7c:e9"
         dhcp: false
         addresses:
-          - "192.168.2.17/24"
+          - "10.0.10.4/24"
         routes:
           - network: 0.0.0.0/0
-            gateway: "192.168.2.1"
+            gateway: "10.0.10.1"
         mtu: 1500
         vip:
-          ip: "192.168.2.245"
+          ip: "10.0.10.251"
 
 # Global patches
 patches:

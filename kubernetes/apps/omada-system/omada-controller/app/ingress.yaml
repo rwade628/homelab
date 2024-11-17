@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: omada.casadewade.com
+    - host: omada.${SECRET_DOMAIN}
       http:
         paths:
           - path: /
