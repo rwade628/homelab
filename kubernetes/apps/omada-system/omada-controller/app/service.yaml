@@ -41,21 +41,12 @@ metadata:
   name: omada-controller-lb
   namespace: omada
   annotations:
-    io.cilium/lb-ipam-ips: 10.0.10.249
+    io.cilium/lb-ipam-ips: 192.168.88.249
 spec:
   type: LoadBalancer
   selector:
     app: omada-controller
   ports:
-    - name: portal-https
-      protocol: TCP
-      port: 8843
-    - name: manage-http
-      protocol: TCP
-      port: 8088
-    - name: manage-https
-      protocol: TCP
-      port: 8043
     - name: adopt-v1
       protocol: TCP
       port: 29812
