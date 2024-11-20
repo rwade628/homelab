@@ -1,0 +1,11 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: playground
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  url: ssh://rwade628@github.com:22/rwade628/playground.git
+  ref:
+    branch: main
