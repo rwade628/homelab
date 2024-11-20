@@ -6,12 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  url: ssh://rwade628@github.com:22/rwade628/playground.git
+  url: ssh://git@github.com:22/rwade628/playground.git
   secretRef:
     name: ssh-credentials
   ref:
     branch: main
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-gpg
