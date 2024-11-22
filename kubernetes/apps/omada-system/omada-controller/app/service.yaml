@@ -41,7 +41,7 @@ metadata:
   name: omada-controller-lb
   namespace: omada
   annotations:
-    io.cilium/lb-ipam-ips: 192.168.88.249
+    io.cilium/lb-ipam-ips: 10.0.10.244
 spec:
   type: LoadBalancer
   selector:
