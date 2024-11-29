@@ -38,4 +38,5 @@ spec:
             - name: host-run-netns
               mountPath: /var/run/netns/
       target:
-        kind: Daemonset
+        kind: DaemonSet
+        name: kube-multus-ds
