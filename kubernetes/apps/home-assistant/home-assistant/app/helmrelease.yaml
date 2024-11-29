@@ -28,7 +28,6 @@ spec:
       home-assistant:
         annotations:
           reloader.stakater.com/auto: "true"
-          k8s.v1.cni.cncf.io/networks: iot-macvlan
         containers:
           app:
             image:
@@ -69,6 +68,8 @@ spec:
               limits:
                 memory: 512Mi
     defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: iot-macvlan
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
