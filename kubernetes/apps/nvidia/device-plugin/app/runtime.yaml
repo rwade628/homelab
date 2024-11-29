@@ -4,6 +4,3 @@ kind: RuntimeClass
 metadata:
   name: nvidia
 handler: nvidia
-scheduling:
-  nodeSelector:
-    nvidia.com/gpu.present: true
