@@ -18,14 +18,10 @@ spec:
   interval: 30m
   timeout: 5m
   patches:
-    - patch: |-
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: not-used
-        spec:
-          template:
-            initContainers:
+    - patch: |
+        - op: add
+          path: /spec/template/spec/initContainers
+          value:
             - command:
               - /install-cni.sh
               image: ghcr.io/siderolabs/install-cni:v1.8.2
@@ -36,10 +32,10 @@ spec:
               - mountPath: /host/opt/cni/bin
                 mountPropagation: Bidirectional
                 name: cnibin
-            containers:
-              - name: kube-multus
-                volumeMounts:
-                - name: host-run-netns
-                  mountPath: /var/run/netns/
+        - op: replace
+          path: /spec/template/spec/containers/0/volumeMounts
+          value:
+            - name: host-run-netns
+              mountPath: /var/run/netns/
       target:
         kind: Daemonset
