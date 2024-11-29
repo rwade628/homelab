@@ -33,30 +33,12 @@ spec:
                 mountPropagation: Bidirectional
                 name: cnibin
         - op: replace
-          path: /spec/template/spec/containers/0/volumeMounts
+          path: /spec/template/spec/volumes/8
           value:
-            - name: cni
-              mountPath: /host/etc/cni/net.d
-            - name: cnibin
-              mountPath: /opt/cni/bin
-            - name: host-run
-              mountPath: /host/run
-            - name: host-var-lib-cni-multus
-              mountPath: /var/lib/cni/multus
-            - name: host-var-lib-kubelet
-              mountPath: /var/lib/kubelet
-              mountPropagation: HostToContainer
-            - name: host-run-k8s-cni-cncf-io
-              mountPath: /run/k8s.cni.cncf.io
-            - name: host-run-netns
-              mountPath: /var/run/netns
-              mountPropagation: HostToContainer
-            - name: multus-daemon-config
-              mountPath: /etc/cni/net.d/multus.d
-              readOnly: true
-            - name: hostroot
-              mountPath: /hostroot
-              mountPropagation: HostToContainer
+            # brittle, consider another alternative
+            hostPath:
+              path: /var/run/netns
+            name: host-run-netns
       target:
         kind: DaemonSet
         name: kube-multus-ds
