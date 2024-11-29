@@ -33,9 +33,8 @@ spec:
                 mountPropagation: Bidirectional
                 name: cnibin
         - op: replace
-          path: /spec/template/spec/containers/0/volumeMounts
+          path: /spec/template/spec/containers/0/volumeMounts/host-run-netns
           value:
-            - name: host-run-netns
               mountPath: /var/run/netns/
       target:
         kind: DaemonSet
