@@ -1,0 +1,45 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app mutlus-cni
+  namespace: flux-system
+spec:
+  targetNamespace: kube-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/apps/kube-system/multus-cni/app
+  prune: false # never should be deleted
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 30m
+  timeout: 5m
+  patches:
+    - patch: |-
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: not-used
+        spec:
+          template:
+            initContainers:
+            - command:
+              - /install-cni.sh
+              image: ghcr.io/siderolabs/install-cni:v1.8.2
+              name: install-cni
+              securityContext:
+                privileged: true
+              volumeMounts:
+              - mountPath: /host/opt/cni/bin
+                mountPropagation: Bidirectional
+                name: cnibin
+            containers:
+              - name: kube-multus
+                volumeMounts:
+                - name: host-run-netns
+                  mountPath: /var/run/netns/
+      target:
+        kind: Daemonset
