@@ -19,6 +19,9 @@ spec:
   timeout: 5m
   patches:
     - patch: |
+        - op: replace
+          path: /spec/template/spec/containers/0/resources/requests/memory
+          value: 500Mi
         - op: add
           path: /spec/template/spec/initContainers
           value:
