@@ -1,0 +1,22 @@
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: iot-macvlan
+  namespace: homeassistant
+spec:
+  config: '{
+      "cniVersion": "0.3.0",
+      "type": "macvlan",
+      "master": "eth0",
+      "mode": "bridge",
+      "ipam": {
+        "type": "host-local",
+        "subnet": "10.0.30.0/24",
+        "rangeStart": "10.0.30.250",
+        "rangeEnd": "10.0.30.251",
+        "routes": [
+          { "dst": "0.0.0.0/0" }
+        ],
+        "gateway": "10.0.30.1"
+      }
+    }'
