@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: nvidia-device-config
   namespace: nvidia
-data: |-
+data:
   version: v1
   flags:
     migStrategy: none
