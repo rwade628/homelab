@@ -13,7 +13,8 @@ data:
       passDeviceSpecs: false
       deviceListStrategy: "envvar"
       deviceIDStrategy: "uuid"
-  timeSlicing:
-    resources:
-    - name: nvidia.com/gpu
-      replicas: 4
+  sharing:
+    timeSlicing:
+      resources:
+      - name: nvidia.com/gpu
+        replicas: 4
