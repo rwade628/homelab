@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.5.1
+      version: 3.6.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -93,7 +93,7 @@ spec:
       annotations:
         k8s.v1.cni.cncf.io/networks: default/home-macvlan
       securityContext:
-        runAsNonRoot: true
+        # runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
         fsGroup: 568
