@@ -69,7 +69,7 @@ spec:
                 memory: 512Mi
     defaultPodOptions:
       annotations:
-        k8s.v1.cni.cncf.io/networks: iot-macvlan
+        k8s.v1.cni.cncf.io/networks: default/home-macvlan
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
