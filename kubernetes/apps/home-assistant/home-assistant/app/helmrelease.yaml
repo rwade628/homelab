@@ -75,6 +75,8 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
+      nodeSelector:
+        kubernetes.io/hostname: nas-vm
     service:
       app:
         controller: home-assistant
