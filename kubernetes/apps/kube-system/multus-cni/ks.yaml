@@ -20,7 +20,7 @@ spec:
   patches:
     - patch: |
         - op: replace
-          path: /spec/template/spec/containers/0/resources/requests/memory
+          path: /spec/template/spec/containers/0/resources/limits/memory
           value: 500Mi
         - op: add
           path: /spec/template/spec/initContainers
