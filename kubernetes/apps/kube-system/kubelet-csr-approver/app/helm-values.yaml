@@ -1,3 +1,3 @@
 ---
-providerRegex: ^(nas-vm|pve-vm-nvidia)$
+providerRegex: ^(nas-vm|pve-vm-nvidia|pve-vm-2)$
 bypassDnsResolution: true
