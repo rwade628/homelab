@@ -12,7 +12,28 @@ spec:
         "type": "host-local",
         "subnet": "10.0.10.0/24",
         "rangeStart": "10.0.10.200",
-        "rangeEnd": "10.0.10.249",
+        "rangeEnd": "10.0.10.239",
+        "routes": [
+          { "dst": "10.0.10.0/24" }
+        ],
+        "gateway": "10.0.10.1"
+      }
+    }'
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: vpn-macvlan
+spec:
+  config: '{
+      "cniVersion": "0.3.0",
+      "type": "macvlan",
+      "mode": "bridge",
+      "ipam": {
+        "type": "host-local",
+        "subnet": "10.0.10.0/24",
+        "rangeStart": "10.0.10.240",
+        "rangeEnd": "10.0.10.247",
         "routes": [
           { "dst": "0.0.0.0/0" }
         ],
@@ -28,7 +49,6 @@ spec:
   config: '{
       "cniVersion": "0.3.0",
       "type": "macvlan",
-      "master": "eth0",
       "mode": "bridge",
       "ipam": {
         "type": "host-local",
@@ -36,7 +56,7 @@ spec:
         "rangeStart": "10.0.30.250",
         "rangeEnd": "10.0.30.254",
         "routes": [
-          { "dst": "0.0.0.0/0" }
+          { "dst": "10.0.30.0/24" }
         ],
         "gateway": "10.0.30.1"
       }

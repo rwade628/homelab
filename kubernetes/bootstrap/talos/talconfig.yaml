@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
 ---
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.8.1
+talosVersion: v1.8.2
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.31.2
 
@@ -55,6 +55,21 @@ nodes:
         mtu: 1500
     patches:
       - "@./patches/pve-vm-nvidia/nvidia.yaml"
+  - hostname: "pve-vm-2"
+    ipAddress: "10.0.10.251"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:0b:72:b3"
+        dhcp: false
+        addresses:
+          - "10.0.10.251/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.0.10.1"
+        mtu: 1500
 
 # Global patches
 patches:
@@ -73,4 +88,5 @@ controlPlane:
     - "@./patches/controller/cluster.yaml"
     - "@./patches/controller/disable-admission-controller.yaml"
     - "@./patches/controller/etcd.yaml"
+    - "@./patches/controller/mayastor-patch-cp.yaml"
 
