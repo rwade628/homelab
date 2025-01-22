@@ -23,7 +23,7 @@ spec:
           path: /spec/template/spec/containers/0/resources/limits/memory
           value: 500Mi
         - op: add
-          path: /spec/template/spec/initContainers
+          path: /spec/template/spec/initContainers/-
           value:
             - command:
               - /install-cni.sh
