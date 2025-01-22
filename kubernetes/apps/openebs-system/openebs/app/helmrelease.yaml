@@ -29,7 +29,7 @@ spec:
           enabled: false
       replicated:
         mayastor:
-          enabled: true
+          enabled: false
     localpv-provisioner:
       localpv:
         image:
@@ -42,8 +42,8 @@ spec:
         name: openebs-hostpath
         isDefaultClass: false
         basePath: /var/openebs/local
-    mayastor:
-      csi:
-        node:
-          initContainers:
-            enabled: false
+    # mayastor:
+    #   csi:
+    #     node:
+    #       initContainers:
+    #         enabled: false
