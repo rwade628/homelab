@@ -17,6 +17,20 @@ spec:
         app: omada-controller
     spec:
       hostNetwork: true
+      initContainers:
+        - name: file-sync
+          image: alpine:latest
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: omada-controller-data
+              mountPath: /opt/tplink/EAPController/data
+            - name: original
+              mountPath: /backup
+          command:
+            - '/bin/bash'
+            - '-c'
+            - |
+              cp -R /backup /opt/tplink/EAPController/data
       containers:
         - name: omada-controller
           image: mbentley/omada-controller:5.14
@@ -61,6 +75,9 @@ spec:
             - name: omada-controller-data
               mountPath: /opt/tplink/EAPController/data
       volumes:
+        - name: original
+          persistentVolumeClaim:
+            claimName: omada-controller-claim
         - name: omada-controller-data
           persistentVolumeClaim:
             claimName: omada-claim

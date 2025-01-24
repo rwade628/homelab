@@ -23,6 +23,3 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  dataSource:
-    kind: PersistentVolumeClaim
-    name: omada-controller-claim
