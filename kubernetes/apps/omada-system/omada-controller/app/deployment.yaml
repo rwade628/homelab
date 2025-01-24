@@ -80,6 +80,8 @@ spec:
           volumeMounts:
             - name: omada-controller-data
               mountPath: /opt/tplink/EAPController/data
+            - name: original
+              mountPath: /mnt/backup
       volumes:
         - name: original
           persistentVolumeClaim:
