@@ -30,8 +30,9 @@ spec:
             - 'sh'
             - '-c'
             - |
+              apk add rsync
               echo "Staring copy"
-              cp -r /mnt/backup/. /mnt/new/
+              rsync -avPh /mnt/backup /mnt/new
               echo "Finished copy"
       containers:
         - name: omada-controller
