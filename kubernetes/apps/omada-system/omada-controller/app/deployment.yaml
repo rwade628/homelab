@@ -22,6 +22,7 @@ spec:
           image: alpine
           imagePullPolicy: IfNotPresent
           securityContext:
+            allowPrivilegeEscalation: true
             runAsUser: 0
           volumeMounts:
             - name: omada-controller-data
