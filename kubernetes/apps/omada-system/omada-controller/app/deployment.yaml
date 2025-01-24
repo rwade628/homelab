@@ -35,7 +35,7 @@ spec:
             - |
               apk add rsync
               echo "Staring copy"
-              rsync -avPh /mnt/backup /mnt/new
+              rsync -avPh /mnt/backup/ /mnt/new/
               echo "Finished copy"
       containers:
         - name: omada-controller
@@ -80,8 +80,6 @@ spec:
           volumeMounts:
             - name: omada-controller-data
               mountPath: /opt/tplink/EAPController/data
-            - name: original
-              mountPath: /mnt/backup
       volumes:
         - name: original
           persistentVolumeClaim:
