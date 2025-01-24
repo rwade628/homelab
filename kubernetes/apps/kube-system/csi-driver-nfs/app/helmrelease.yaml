@@ -22,4 +22,4 @@ spec:
       retries: 3
   values:
     controller:
-      workingMountDir: /var/openebs/local
+      workingMountDir: /var/local

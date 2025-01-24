@@ -79,6 +79,7 @@ patches:
   - "@./patches/global/hostdns.yaml"
   - "@./patches/global/kubelet.yaml"
   - "@./patches/global/openebs-local.yaml"
+  - "@./patches/global/csi-local.yaml"
   - "@./patches/global/sysctl.yaml"
 
 # Controller patches
