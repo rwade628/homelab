@@ -21,6 +21,8 @@ spec:
         - name: filesync
           image: alpine
           imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsUser: 0
           volumeMounts:
             - name: omada-controller-data
               mountPath: /mnt/new
