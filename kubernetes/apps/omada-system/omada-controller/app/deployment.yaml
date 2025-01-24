@@ -17,22 +17,22 @@ spec:
         app: omada-controller
     spec:
       hostNetwork: true
-      # initContainers:
-      #   - name: filesync
-      #     image: alpine
-      #     imagePullPolicy: IfNotPresent
-      #     volumeMounts:
-      #       - name: omada-controller-data
-      #         mountPath: /mnt/new
-      #       - name: original
-      #         mountPath: /mnt/backup
-      #     command:
-      #       - 'sh'
-      #       - '-c'
-      #       - |
-      #         echo "Staring copy"
-      #         sudo cp -a /mnt/backup/. /mnt/new/
-      #         echo "Finished copy"
+      initContainers:
+        - name: filesync
+          image: alpine
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: omada-controller-data
+              mountPath: /mnt/new
+            - name: original
+              mountPath: /mnt/backup
+          command:
+            - 'sh'
+            - '-c'
+            - |
+              echo "Staring copy"
+              sudo cp -a /mnt/backup/. /mnt/new/
+              echo "Finished copy"
       containers:
         - name: omada-controller
           image: mbentley/omada-controller:5.14
