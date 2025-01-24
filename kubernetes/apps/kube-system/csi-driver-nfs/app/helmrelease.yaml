@@ -20,6 +20,3 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  values:
-    controller:
-      workingMountDir: /var/local
