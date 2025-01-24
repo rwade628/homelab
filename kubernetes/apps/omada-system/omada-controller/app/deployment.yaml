@@ -23,14 +23,16 @@ spec:
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: omada-controller-data
-              mountPath: /opt/tplink/EAPController/data
+              mountPath: /mnt/new
             - name: original
-              mountPath: /backup
+              mountPath: /mnt/backup
           command:
             - '/bin/bash'
             - '-c'
             - |
-              cp -R /backup /opt/tplink/EAPController/data
+              echo "Staring copy"
+              cp -R /mnt/backup /mnt/new
+              echo "Finished copy"
       containers:
         - name: omada-controller
           image: mbentley/omada-controller:5.14
