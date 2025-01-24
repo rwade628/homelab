@@ -31,7 +31,7 @@ spec:
             - '-c'
             - |
               echo "Staring copy"
-              cp -R /mnt/backup /mnt/new
+              cp -a /mnt/backup/. /mnt/new/
               echo "Finished copy"
       containers:
         - name: omada-controller
