@@ -7,6 +7,7 @@ provisioner: nfs.csi.k8s.io
 parameters:
   server: 10.0.10.3
   share: /mnt/storage/k8s/nfs/vols
+  mountPermissions: 0777
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 allowVolumeExpansion: true
