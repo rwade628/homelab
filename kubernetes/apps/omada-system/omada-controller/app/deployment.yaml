@@ -18,8 +18,8 @@ spec:
     spec:
       hostNetwork: true
       initContainers:
-        - name: file-sync
-          image: alpine:latest
+        - name: filesync
+          image: alpine
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: omada-controller-data
@@ -27,7 +27,7 @@ spec:
             - name: original
               mountPath: /mnt/backup
           command:
-            - '/bin/bash'
+            - 'sh'
             - '-c'
             - |
               echo "Staring copy"
