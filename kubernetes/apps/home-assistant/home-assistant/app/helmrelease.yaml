@@ -121,7 +121,7 @@ spec:
                   port: code-server
     persistence:
       original:
-        existingClaim: hass-config
+        existingClaim: home-assistant
         globalMounts:
           - path: /mnt/original
       config:
