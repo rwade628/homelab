@@ -31,9 +31,9 @@ spec:
             image:
               repository: alpine
               tag: latest
-            # securityContext:
-            #   allowPrivilegeEscalation: true
-            #   runAsUser: 0
+            securityContext:
+              allowPrivilegeEscalation: true
+              runAsUser: 0
             command:
               - 'sh'
               - '-c'
@@ -86,9 +86,9 @@ spec:
       annotations:
         k8s.v1.cni.cncf.io/networks: default/home-macvlan
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
+        # runAsNonRoot: true
+        # runAsUser: 568
+        # runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
