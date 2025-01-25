@@ -29,7 +29,7 @@ spec:
         initContainers:
           filesync:
             image:
-              repository: alpine
+              repository: docker.io/alpine
             securityContext:
               allowPrivilegeEscalation: true
               runAsUser: 0
