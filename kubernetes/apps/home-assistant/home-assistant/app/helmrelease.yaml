@@ -26,22 +26,22 @@ spec:
   values:
     controllers:
       home-assistant:
-        initContainers:
-          filesync:
-            image:
-              repository: docker.io/alpine
-              tag: latest
-            securityContext:
-              allowPrivilegeEscalation: true
-              runAsUser: 0
-            command:
-              - 'sh'
-              - '-c'
-              - |
-                apk add rsync
-                echo "Staring copy"
-                rsync -avPh /mnt/original/ /config/
-                echo "Finished copy"
+        # initContainers:
+        #   filesync:
+        #     image:
+        #       repository: docker.io/alpine
+        #       tag: latest
+        #     securityContext:
+        #       allowPrivilegeEscalation: true
+        #       runAsUser: 0
+        #     command:
+        #       - 'sh'
+        #       - '-c'
+        #       - |
+        #         apk add rsync
+        #         echo "Staring copy"
+        #         rsync -avPh /mnt/original/ /config/
+        #         echo "Finished copy"
         containers:
           app:
             image:
@@ -120,12 +120,13 @@ spec:
                   identifier: app
                   port: code-server
     persistence:
-      original:
-        existingClaim: home-assistant
-        globalMounts:
-          - path: /mnt/original
+      # original:
+      #   existingClaim: home-assistant
+      #   globalMounts:
+      #     - path: /mnt/original
       config:
-        existingClaim: hass-config
+        # existingClaim: hass-config
+        existingClaim: home-assistant
         globalMounts:
           - path: /config
       logs:
