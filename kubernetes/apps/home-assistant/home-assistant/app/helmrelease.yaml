@@ -30,6 +30,7 @@ spec:
           filesync:
             image:
               repository: docker.io/alpine
+              tag: latest
             securityContext:
               allowPrivilegeEscalation: true
               runAsUser: 0
