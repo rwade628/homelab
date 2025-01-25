@@ -10,3 +10,16 @@ spec:
   resources:
     requests:
       storage: 5Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: hass-config
+  namespace: homeassistant
+spec:
+  storageClassName: nfs-csi
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi

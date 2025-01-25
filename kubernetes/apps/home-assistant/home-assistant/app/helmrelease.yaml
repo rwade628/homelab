@@ -26,6 +26,21 @@ spec:
   values:
     controllers:
       home-assistant:
+        initContainers:
+          filesync:
+            image:
+              repository: alpine
+            securityContext:
+              allowPrivilegeEscalation: true
+              runAsUser: 0
+            command:
+              - 'sh'
+              - '-c'
+              - |
+                apk add rsync
+                echo "Staring copy"
+                rsync -avPh /mnt/original/ /config/
+                echo "Finished copy"
         containers:
           app:
             image:
@@ -104,8 +119,12 @@ spec:
                   identifier: app
                   port: code-server
     persistence:
+      original:
+        existingClaim: hass-config
+        globalMounts:
+          - path: /mnt/original
       config:
-        existingClaim: home-assistant
+        existingClaim: hass-config
         globalMounts:
           - path: /config
       logs:
