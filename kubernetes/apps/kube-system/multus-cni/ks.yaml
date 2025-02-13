@@ -23,7 +23,7 @@ spec:
           path: /spec/template/spec/containers/0/resources/limits/memory
           value: 500Mi
         - op: replace
-          path: /spec/template/spec/containers/0/command
+          path: /spec/template/spec/initContainers/0/command
           value:
             - cp
             - -f
