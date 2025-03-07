@@ -1,0 +1,35 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gallery
+  namespace: gallery
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: "internal"
+  rules:
+    - host: gallery.${SECRET_DOMAIN}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gallery-ui
+                port:
+                  number: 80
+          - path: /v1
+            pathType: Prefix
+            backend:
+              service:
+                name: gallery-api
+                port:
+                  number: 8081
+          - path: /v2
+            pathType: Prefix
+            backend:
+              service:
+                name: gallery-api
+                port:
+                  number: 8081

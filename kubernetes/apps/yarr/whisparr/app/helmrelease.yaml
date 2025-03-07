@@ -1,0 +1,109 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: whisparr
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      whisparr:
+        # initContainers:
+        #   init-db:
+        #     image:
+        #       repository: ghcr.io/onedr0p/postgres-init
+        #       tag: 16
+        #     envFrom: &envFrom
+        #       - secretRef:
+        #           name: whisparr-secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jfroy/whisparr-nightly
+              tag: 2.0.0.548@sha256:c9c4e9fd987e0fb10420df2b2cc436df98e5da91f565b4bd6679992d343d334b
+            env:
+              WHISPARR__ANALYTICS_ENABLED: "False"
+              WHISPARR__AUTHENTICATION_METHOD: External
+              WHISPARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              WHISPARR__BRANCH: develop
+              WHISPARR__INSTANCE_NAME: Whisparr
+              WHISPARR__LOG_LEVEL: info
+              WHISPARR__PORT: &port 80
+              TZ: ${TIMEZONE}
+            # envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        # supplementalGroups: [10000]
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        controller: whisparr
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        className: internal
+        hosts:
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths: &paths
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        existingClaim: whisparr
+      tmp:
+        type: emptyDir
+      media:
+        type: nfs
+        server: 10.0.10.3
+        path: /mnt/storage/k8s/media
+        globalMounts:
+          - path: /media
+

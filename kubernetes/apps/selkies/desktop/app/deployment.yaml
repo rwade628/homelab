@@ -1,0 +1,144 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selkies-gstreamer
+  namespace: desktop
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: selkies-gstreamer
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: default/vpn-macvlan
+      labels:
+        app: selkies-gstreamer
+    spec:
+      runtimeClassName: nvidia
+      initContainers:
+        - name: fixroutes
+          image: jrecord/nettools
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: DEV
+            value: eth0
+          command:
+          - '/bin/bash'
+          - '-c'
+          - |
+            POD_IP=$( ip route | grep -P $DEV\\s | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+            ip route del default via $POD_IP
+            ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
+            ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
+            echo -e "\nip route after fix:"     && ip route
+          securityContext:
+            capabilities:
+              add:
+              - NET_ADMIN
+      containers:
+        - name: glx
+          image: ghcr.io/selkies-project/nvidia-glx-desktop:latest
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: "UTC"
+            - name: DISPLAY_SIZEW
+              value: "1920"
+            - name: DISPLAY_SIZEH
+              value: "1080"
+            - name: DISPLAY_REFRESH
+              value: "120"
+            - name: DISPLAY_DPI
+              value: "144"
+            - name: DISPLAY_CDEPTH
+              value: "24"
+            - name: VIDEO_PORT
+              value: "DP-0"
+            - name: PASSWD
+              valueFrom:
+               secretKeyRef:
+                 name: selkies-auth-secret
+                 key: password
+            ###
+            # selkies-gstreamer parameters, for additional configurations see lines that start with "parser.add_argument" in https://github.com/selkies-project/selkies-gstreamer/blob/master/src/selkies_gstreamer/__main__.py
+            ###
+            # Change `WEBRTC_ENCODER` to `x264enc`, `vp8enc`, or `vp9enc` if you are using software fallback without allocated GPUs or your GPU doesn't support `H.264 (AVCHD)` under the `NVENC - Encoding` section in https://developer.nvidia.com/video-encode-and-decode-gpu-support-matrix-new
+            - name: SELKIES_ENCODER
+              value: "nvh264enc"
+            - name: SELKIES_ENABLE_RESIZE
+              value: "false"
+            - name: SELKIES_ENABLE_BASIC_AUTH
+              value: "true"
+            - name: SELKIES_ENABLE_HTTPS_WEB
+              value: "false"
+          ###
+          # Uncomment below to use a TURN server for improved network compatibility
+          ###
+            - name: SELKIES_TURN_HOST
+              value: "10.0.10.254" # TODO use an ingress object
+            - name: SELKIES_TURN_PORT
+              value: "3478"
+            - name: SELKIES_TURN_USERNAME
+              valueFrom:
+               secretKeyRef:
+                 name: stunner-auth-secret
+                 key: username
+            - name: SELKIES_TURN_PASSWORD
+              valueFrom:
+               secretKeyRef:
+                 name: stunner-auth-secret
+                 key: password
+          # # Change to `tcp` if the UDP protocol is throttled or blocked in your client network, or when the TURN server does not support UDP
+            - name: SELKIES_TURN_PROTOCOL
+              value: "udp"
+          # You need a valid hostname and a certificate from authorities such as ZeroSSL (Let's Encrypt may have issues) to enable this
+          #        - name: TURN_TLS
+          #          value: "false"
+          stdin: true
+          tty: true
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: udp-one
+              containerPort: 62001
+              protocol: UDP
+            - name: udp-two
+              containerPort: 62002
+              protocol: UDP
+          resources:
+            limits:
+              memory: 8Gi
+              cpu: "8"
+              nvidia.com/gpu: 1
+            requests:
+              memory: 100Mi
+              cpu: 100m
+          volumeMounts:
+            - mountPath: /dev/shm
+              name: dshm
+            - mountPath: /cache
+              name: selkies-volume
+              subPath: cache
+            - mountPath: /home/ubuntu
+              name: selkies-volume
+              subPath: home
+            - mountPath: /mnt/public
+              name: media-volume
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+        - name: selkies-volume
+          persistentVolumeClaim:
+            claimName: selkies-claim
+        - name: media-volume
+          persistentVolumeClaim:
+            claimName: nfs-claim

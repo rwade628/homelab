@@ -1,0 +1,16 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: media-volume
+  namespace: gallery
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 500Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.0.10.3
+    path: "/mnt/storage/k8s/media"
+  mountOptions:
+    - nfsvers=4.2

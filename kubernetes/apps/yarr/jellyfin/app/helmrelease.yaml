@@ -1,0 +1,85 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jellyfin
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  # dependsOn:
+  #   - name: rook-ceph-cluster
+  #     namespace: rook-ceph
+  values:
+    controllers:
+      jellyfin:
+        # annotations:
+        #   reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jellyfin/jellyfin
+              tag: 10.10.3@sha256:17c3a8d9dddb97789b5f37112840ebf96566442c14d4754193a6c2eb154bc221
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 8Gi
+            securityContext:
+              capabilities:
+                add:
+                  - "SYS_ADMIN"
+                drop:
+                  - "ALL"
+              privileged: false
+    defaultPodOptions:
+      runtimeClassName: nvidia
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        controller: jellyfin
+        ports:
+          http:
+            port: 8096
+    ingress:
+      app:
+        className: internal
+        hosts:
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        existingClaim: jellyfin
+        globalMounts:
+          - path: "/config"
+      media:
+        type: nfs
+        server: 10.0.10.3
+        path: /mnt/storage/k8s/media
+        globalMounts:
+          - path: /media
