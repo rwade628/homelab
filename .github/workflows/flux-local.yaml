@@ -35,6 +35,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Test
+        run: |
+          ls /github/workspace/kubernetes/flux
+
       - name: Run flux-local test
         uses: docker://ghcr.io/allenporter/flux-local:v7.2.1
         with:
