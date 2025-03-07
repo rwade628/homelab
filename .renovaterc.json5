@@ -3,10 +3,11 @@
   "extends": [
     "config:recommended",
     "docker:enableMajor",
+    ":automergeBranch",
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
-    ":automergeBranch"
+    ":timezone(America/New_York)"
   ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
