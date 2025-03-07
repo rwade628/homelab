@@ -15,6 +15,8 @@ spec:
     metadata:
       labels:
         app: omada-controller
+      annotations:
+        k8s.v1.cni.cncf.io/networks: default/home-macvlan
     spec:
       hostNetwork: true
       # initContainers:
