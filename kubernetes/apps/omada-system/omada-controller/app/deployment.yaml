@@ -41,7 +41,7 @@ spec:
       #         echo "Finished copy"
       containers:
         - name: omada-controller
-          image: mbentley/omada-controller:5.14
+          image: mbentley/omada-controller:5.15
           imagePullPolicy: IfNotPresent
           env:
             - name: "TZ"
