@@ -40,7 +40,7 @@ jobs:
 
       - uses: allenporter/flux-local/action/test@4.3.1
         with:
-          path: kubernetes/flux
+          path: kubernetes/flux/config
           enable-helm: true
 
       # - name: Run flux-local test
@@ -79,7 +79,7 @@ jobs:
         id: diff
         with:
           live-branch: main
-          path: kubernetes/flux
+          path: kubernetes/flux/config
           resource: ${{ matrix.resources }}
 
       # - name: Run flux-local diff
