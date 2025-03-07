@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: gallery-ui
-  name: gallery-ui
+  name: gallery-ui-test
   namespace: gallery
 spec:
   ports:
