@@ -36,7 +36,7 @@ spec:
   dependsOn:
     - name: cluster-meta
       namespace: flux-system
-  interval: 1h
+  interval: 30m
   path: ./kubernetes/apps
   prune: true
   postBuild:
