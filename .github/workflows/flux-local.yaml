@@ -37,7 +37,7 @@ jobs:
 
       - name: Test
         run: |
-          ls -R /github/workspace/
+          ls -R /
 
       - name: Run flux-local test
         uses: docker://ghcr.io/allenporter/flux-local:v7.2.1
