@@ -18,27 +18,23 @@ spec:
       annotations:
         k8s.v1.cni.cncf.io/networks: default/home-macvlan
     spec:
-      hostNetwork: true
-      # initContainers:
-      #   - name: filesync
-      #     image: alpine
-      #     imagePullPolicy: IfNotPresent
-      #     securityContext:
-      #       allowPrivilegeEscalation: true
-      #       runAsUser: 0
-      #     volumeMounts:
-      #       - name: omada-controller-data
-      #         mountPath: /mnt/new
-      #       - name: original
-      #         mountPath: /mnt/backup
-      #     command:
-      #       - 'sh'
-      #       - '-c'
-      #       - |
-      #         apk add rsync
-      #         echo "Staring copy"
-      #         rsync -avPh /mnt/backup/ /mnt/new/
-      #         echo "Finished copy"
+      initContainers:
+        - name: fixroutes
+          image: nicolaka/netshoot:v0.13
+          imagePullPolicy: IfNotPresent
+          command:
+            - '/bin/bash'
+            - '-c'
+            - |
+              POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+              ip route del default via $POD_IP
+              ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
+              ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
+              echo -e "\nip route after fix:" && ip route
+          securityContext:
+            capabilities:
+              add:
+              - NET_ADMIN
       containers:
         - name: omada-controller
           image: mbentley/omada-controller:5.15
@@ -83,9 +79,6 @@ spec:
             - name: omada-controller-data
               mountPath: /opt/tplink/EAPController/data
       volumes:
-        # - name: original
-        #   persistentVolumeClaim:
-        #     claimName: omada-controller-claim
         - name: omada-controller-data
           persistentVolumeClaim:
             claimName: omada-claim
