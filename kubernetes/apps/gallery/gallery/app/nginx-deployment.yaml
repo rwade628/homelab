@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gallery-ui
+  namespace: gallery
+  labels:
+    app: gallery-ui
+spec:
+  selector:
+    matchLabels:
+      app: gallery-ui
+  template:
+    metadata:
+      labels:
+        app: gallery-ui
+    spec:
+      imagePullSecrets:
+        - name: ghcr
+      containers:
+        - name: static-server-container
+          image: ghcr.io/rwade628/gallery-ui:latest
+          ports:
+            - containerPort: 80
+              name: gallery-ui
+          volumeMounts:
+            - mountPath: "/usr/share/nginx/html/public"
+              name: media
+          imagePullPolicy: Always
+          resources: {}
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-claim
