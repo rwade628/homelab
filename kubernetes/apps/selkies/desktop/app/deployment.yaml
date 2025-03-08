@@ -138,7 +138,7 @@ spec:
             medium: Memory
         - name: selkies-volume
           persistentVolumeClaim:
-            claimName: desktop-claim
+            claimName: selkies-claim
         - name: media-volume
           persistentVolumeClaim:
             claimName: nfs-claim

@@ -2,15 +2,15 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: desktop-claim
+  name: selkies-claim
   namespace: desktop
 spec:
-  storageClassName: "nfs"
+  storageClassName: "local"
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 100Gi
+      storage: 5Gi
 ---
 kind: PersistentVolume
 apiVersion: v1
