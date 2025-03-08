@@ -22,10 +22,14 @@ spec:
         - name: fixroutes
           image: nicolaka/netshoot:v0.13
           imagePullPolicy: IfNotPresent
+          env:
+          - name: DEV
+            value: eth0
           command:
             - '/bin/bash'
             - '-c'
             - |
+              echo -e "\nip route before fix:" && ip route
               POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
               ip route del default via $POD_IP
               ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
