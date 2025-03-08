@@ -5,9 +5,9 @@ metadata:
   name: selkies-claim
   namespace: desktop
 spec:
-  storageClassName: "openebs-hostpath"
+  storageClassName: "nfs"
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi
