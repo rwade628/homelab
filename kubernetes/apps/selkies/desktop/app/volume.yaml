@@ -2,7 +2,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: selkies-claim
+  name: desktop-claim
   namespace: desktop
 spec:
   storageClassName: "nfs"
@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 5Gi
+      storage: 100Gi
 ---
 kind: PersistentVolume
 apiVersion: v1
