@@ -14,12 +14,38 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
+  name: radarr-config
+  namespace: yarr
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
   name: radarr-cache
   namespace: yarr
 spec:
   storageClassName: "openebs-hostpath"
   accessModes:
     - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: radarr-cache-nfs
+  namespace: yarr
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
   resources:
     requests:
       storage: 10Gi

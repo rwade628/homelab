@@ -10,3 +10,16 @@ spec:
   resources:
     requests:
       storage: 1Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: jellyfin-config
+  namespace: yarr
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

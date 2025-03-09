@@ -30,6 +30,22 @@ spec:
       prowlarr:
         # annotations:
         #   reloader.stakater.com/auto: "true"
+        initContainers:
+          filesync:
+            image:
+              repository: alpine
+              tag: latest
+            securityContext:
+              allowPrivilegeEscalation: true
+              runAsUser: 0
+            command:
+              - 'sh'
+              - '-c'
+              - |
+                apk add rsync
+                echo "Staring copy"
+                rsync -avPh /mnt/original/ /config/
+                echo "Finished copy"
         containers:
           app:
             image:
@@ -95,8 +111,12 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      config:
+      original:
         existingClaim: prowlarr
+        globalMounts:
+          - path: "/mnt/original"
+      config:
+        existingClaim: prowlarr-config
       tmp:
         type: emptyDir
 
