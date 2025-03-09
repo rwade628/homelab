@@ -98,7 +98,7 @@ spec:
       config:
         existingClaim: radarr-config
       cache:
-        existingClaim: radarr-cache-config
+        existingClaim: radarr-cache-nfs
         globalMounts:
           - path: /config/MediaCover
       # scripts:
