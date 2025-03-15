@@ -39,7 +39,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: nfs
+              storageClassName: local
               resources:
                 requests:
                   storage: 1Gi
@@ -75,7 +75,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: nfs
+              storageClassName: local
               resources:
                 requests:
                   storage: 50Gi
