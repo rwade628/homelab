@@ -7,10 +7,10 @@ components:
   - ../../components/common
 resources:
   - ./rook-ceph/ks.yaml
-# patches:
-#   - patch: |-
-#       - op: add
-#         path: /metadata/labels/pod-security.kubernetes.io/enforce
-#         value: priviledged
-#     target:
-#       kind: Namespace
+patches:
+  - patch: |-
+      - op: add
+        path: /metadata/labels/pod-security.kubernetes.io~1enforce
+        value: priviledged
+    target:
+      kind: Namespace
