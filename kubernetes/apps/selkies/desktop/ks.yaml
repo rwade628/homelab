@@ -9,6 +9,7 @@ spec:
   dependsOn:
     - name: gateway
     - name: multus-cni
+      namespace: kube-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
