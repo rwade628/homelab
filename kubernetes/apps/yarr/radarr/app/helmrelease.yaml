@@ -30,6 +30,8 @@ spec:
             securityContext:
               allowPrivilegeEscalation: true
               runAsUser: 0
+              runAsGroup: 0
+              runAsNonRoot: false
             command:
               - 'sh'
               - '-c'
