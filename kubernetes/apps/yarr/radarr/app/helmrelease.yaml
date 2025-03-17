@@ -38,8 +38,9 @@ spec:
               - |
                 apk add rsync
                 echo "Staring copy"
-                rsync -avPh /mnt/original/ /config/
-                rsync -avPh /mnt/originalCache/ /config/MediaCover
+                rm -rf /config
+                rsync -avPh /original/ /config/
+                rsync -avPh /originalCache/ /config/MediaCover/
                 echo "Finished copy"
         containers:
           app:
@@ -108,13 +109,13 @@ spec:
       original-config:
         existingClaim: radarr-config
         globalMounts:
-          - path: /mnt/original
+          - path: /original
       config:
         existingClaim: radarr
       original-cache:
         existingClaim: radarr-cache-nfs
         globalMounts:
-          - path: /mnt/originalCache
+          - path: /originalCache
       cache:
         existingClaim: radarr-cache
         globalMounts:
