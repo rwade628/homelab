@@ -103,13 +103,13 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      originalConfig:
+      original-config:
         existingClaim: radarr-config
         globalMounts:
           - path: /mnt/original
       config:
         existingClaim: radarr
-      originalCache:
+      original-cache:
         existingClaim: radarr-cache-nfs
         globalMounts:
           - path: /mnt/originalCache
