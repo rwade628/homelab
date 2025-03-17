@@ -3,17 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: sonarr
+  name: &app sonarr
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.6.0
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   install:
     remediation:
       retries: 3
@@ -22,19 +17,35 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  # dependsOn:
-  #   - name: rook-ceph-cluster
-  #     namespace: rook-ceph
   values:
     controllers:
       sonarr:
-        # annotations:
-        #   reloader.stakater.com/auto: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          filesync:
+            image:
+              repository: alpine
+              tag: latest
+            securityContext:
+              allowPrivilegeEscalation: true
+              runAsUser: 0
+              runAsGroup: 0
+              runAsNonRoot: false
+            command:
+              - 'sh'
+              - '-c'
+              - |
+                apk add rsync
+                echo "Staring copy"
+                rsync -avPh /original/ /config/
+                rsync -avPh /originalCache/ /config/MediaCover/
+                echo "Finished copy"
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/sonarr-develop
-              tag: 4.0.14.2938@sha256:75da01d2da78d226cd89352fbab919f2eb26ea9a8d6c592bf812dde5f8949243
+              repository: ghcr.io/onedr0p/sonarr
+              tag: 4.0.14.2938@sha256:f82e69b2d290877b89c2bcae9928df7ed74e05ab3cba905ecaeced85f4f1f2c6
             env:
               SONARR__APP__INSTANCENAME: Sonarr
               SONARR__APP__THEME: dark
@@ -45,9 +56,6 @@ spec:
               SONARR__SERVER__PORT: &port 80
               SONARR__UPDATE__BRANCH: develop
               TZ: America/New_York
-            # envFrom:
-            #   - secretRef:
-            #       name: radarr-secret
             probes:
               liveness: &probes
                 enabled: true
@@ -73,11 +81,10 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: sonarr
@@ -96,17 +103,24 @@ spec:
                   port: http
     persistence:
       config:
-        existingClaim: sonarr-config
-      cache:
-        existingClaim: sonarr-cache-nfs
+        existingClaim: sonarr
+      config-cache:
+        existingClaim: sonarr-cache
         globalMounts:
           - path: /config/MediaCover
-      tmp:
-        type: emptyDir
+      original-config:
+        existingClaim: sonar-config
+        globalMounts:
+          - path: /original
+      original-cache:
+        existingClaim: sonarr-cache-nfs
+        globalMounts:
+          - path: /originalCache
       media:
         type: nfs
         server: 10.0.10.3
         path: /mnt/storage/k8s/media
         globalMounts:
           - path: /media
-
+      tmp:
+        type: emptyDir
