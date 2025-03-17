@@ -36,7 +36,7 @@ spec:
           path: /spec/template/spec/initContainers/-
           value:
             name: install-cni
-            image: ghcr.io/siderolabs/install-cni:v1.8.0
+            image: ghcr.io/siderolabs/install-cni:v1.9.0
             command:
               - /install-cni.sh
             securityContext:
