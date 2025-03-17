@@ -39,7 +39,6 @@ spec:
                 apk add rsync
                 echo "Staring copy"
                 rsync -avPh /original/ /config/
-                rsync -avPh /originalCache/ /config/MediaCover/
                 echo "Finished copy"
         containers:
           app:
@@ -112,10 +111,6 @@ spec:
         existingClaim: sonarr-config
         globalMounts:
           - path: /original
-      original-cache:
-        existingClaim: sonarr-cache-nfs
-        globalMounts:
-          - path: /originalCache
       media:
         type: nfs
         server: 10.0.10.3

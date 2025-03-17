@@ -22,25 +22,6 @@ spec:
       radarr:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          filesync:
-            image:
-              repository: alpine
-              tag: latest
-            securityContext:
-              allowPrivilegeEscalation: true
-              runAsUser: 0
-              runAsGroup: 0
-              runAsNonRoot: false
-            command:
-              - 'sh'
-              - '-c'
-              - |
-                apk add rsync
-                echo "Staring copy"
-                rm -rf /config
-                rsync -avPh /original/ /config/
-                echo "Finished copy"
         containers:
           app:
             image:
@@ -105,10 +86,6 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      original-config:
-        existingClaim: radarr-config
-        globalMounts:
-          - path: /original
       config:
         existingClaim: radarr
       cache:
