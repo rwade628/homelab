@@ -40,7 +40,6 @@ spec:
                 echo "Staring copy"
                 rm -rf /config
                 rsync -avPh /original/ /config/
-                rsync -avPh /originalCache/ /config/MediaCover/
                 echo "Finished copy"
         containers:
           app:
@@ -112,10 +111,6 @@ spec:
           - path: /original
       config:
         existingClaim: radarr
-      original-cache:
-        existingClaim: radarr-cache-nfs
-        globalMounts:
-          - path: /originalCache
       cache:
         existingClaim: radarr-cache
         globalMounts:
