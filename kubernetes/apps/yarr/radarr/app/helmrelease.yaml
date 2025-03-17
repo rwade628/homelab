@@ -110,6 +110,7 @@ spec:
       config:
         existingClaim: radarr
       originalCache:
+        existingClaim: radarr-cache-nfs
         globalMounts:
           - path: /mnt/originalCache
       cache:
