@@ -3,14 +3,14 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: rook-ceph-cluster
+  name: coredns
 spec:
   interval: 1h
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
+  url: oci://ghcr.io/coredns/charts/coredns
   ref:
-    tag: v1.16.5
-  url: oci://ghcr.io/onedr0p/charts-mirror/rook-ceph-cluster
+    tag: 1.39.1
   verify:
     provider: cosign

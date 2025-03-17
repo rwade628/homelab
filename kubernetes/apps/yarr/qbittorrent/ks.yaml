@@ -12,6 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: multus-cni
+      namespace: kube-system
   path: ./kubernetes/apps/yarr/qbittorrent/app
   prune: true
   sourceRef:
