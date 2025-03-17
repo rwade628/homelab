@@ -38,7 +38,7 @@ spec:
               - |
                 apk add rsync
                 echo "Staring copy"
-                rsync -avPh /original/ /config/
+                rsync -avPIh /original/ /config
                 echo "Finished copy"
         containers:
           app:
