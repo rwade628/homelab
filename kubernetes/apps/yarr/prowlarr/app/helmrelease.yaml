@@ -27,19 +27,19 @@ spec:
             image:
               repository: alpine
               tag: latest
-            securityContext:
-              allowPrivilegeEscalation: true
-              runAsUser: 0
-              runAsGroup: 0
-              runAsNonRoot: false
+            # securityContext:
+              # allowPrivilegeEscalation: true
+              # runAsUser: 1000
+              # runAsGroup: 0
+              # runAsNonRoot: false
             command:
               - 'sh'
               - '-c'
               - |
                 apk add rsync
                 echo "Staring copy"
-                sudo rm -rf /config
-                sudo rsync -avPIh /original/ /config
+                rm -rf /config
+                rsync -avPIh /original/ /config
                 echo "Finished copy"
         containers:
           app:
