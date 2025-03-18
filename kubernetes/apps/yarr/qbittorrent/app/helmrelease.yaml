@@ -35,6 +35,7 @@ spec:
             - '/bin/bash'
             - '-c'
             - |
+              ip addr
               POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
               ip route del default via $POD_IP
               ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
