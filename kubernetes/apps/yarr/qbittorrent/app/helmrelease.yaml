@@ -96,12 +96,9 @@ spec:
     service:
       app:
         controller: qbittorrent
-        type: ClusterIP
-        # annotations:
-        #   lbipam.cilium.io/ips: 192.168.42.122
         ports:
           http:
-            primary: true
+            # primary: true
             port: *port
           bittorrent:
             enabled: true
