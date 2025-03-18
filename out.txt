@@ -1,1128 +1,0 @@
-fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/main/x86_64/APKINDEX.tar.gz
-fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/community/x86_64/APKINDEX.tar.gz
-(1/7) Installing acl-libs (2.3.2-r1)
-(2/7) Installing lz4-libs (1.10.0-r0)
-(3/7) Installing popt (1.19-r4)
-(4/7) Installing libxxhash (0.8.2-r2)
-(5/7) Installing zstd-libs (1.5.6-r2)
-(6/7) Installing rsync (3.4.0-r0)
-(7/7) Installing sudo (1.9.16_p2-r0)
-Executing busybox-1.37.0-r9.trigger
-OK: 10 MiB in 22 packages
-Staring copy
-total 248
-drwxrwsrwx    6 root     1000          4096 Mar 18 01:03 .
-drwxr-xr-x    1 root     root            91 Mar 18 01:04 ..
-drwxr-sr-x    2 1000     1000         20480 Mar 18 00:59 Definitions
-drwxr-sr-x    3 1000     1000          4096 Mar 17 17:35 Sentry
-drwxr-sr-x    2 1000     1000          4096 Mar 17 17:35 asp
--rw-r--r--    1 1000     1000           330 Mar 18 00:59 config.xml
-drwxr-sr-x    2 1000     1000          4096 Mar 17 17:35 logs
--rw-r--r--    1 1000     1000        208896 Mar 18 01:03 prowlarr.db
--rw-r--r--    1 1000     1000             1 Mar 18 00:59 prowlarr.pid
-rm: can't remove '/config': Resource busy
-total 4
-drwxrwsrwx    2 root     1000          4096 Mar 18 01:04 .
-drwxr-xr-x    1 root     root            91 Mar 18 01:04 ..
-sending incremental file list
-./
-config.xml
-            330 100%    0.00kB/s    0:00:00              330 100%    0.00kB/s    0:00:00 (xfr#1, to-chk=550/552)
-prowlarr.db
-         32.77K  15%   15.62MB/s    0:00:00          208.90K 100%   66.41MB/s    0:00:00 (xfr#2, to-chk=549/552)
-prowlarr.pid
-              1 100%    0.33kB/s    0:00:00                1 100%    0.33kB/s    0:00:00 (xfr#3, to-chk=548/552)
-Definitions/
-Definitions/0daykiev.yml
-          7.91K 100%    1.89MB/s    0:00:00            7.91K 100%    1.89MB/s    0:00:00 (xfr#4, to-chk=543/552)
-Definitions/0magnet.yml
-          1.31K 100%  255.08kB/s    0:00:00            1.31K 100%  255.08kB/s    0:00:00 (xfr#5, to-chk=542/552)
-Definitions/1337x.yml
-         11.46K 100%    1.82MB/s    0:00:00           11.46K 100%    1.82MB/s    0:00:00 (xfr#6, to-chk=541/552)
-Definitions/1ptbar.yml
-          8.50K 100%    1.16MB/s    0:00:00            8.50K 100%    1.16MB/s    0:00:00 (xfr#7, to-chk=540/552)
-Definitions/3changtrai.yml
-          5.68K 100%  793.11kB/s    0:00:00            5.68K 100%  793.11kB/s    0:00:00 (xfr#8, to-chk=539/552)
-Definitions/3dtorrents.yml
-          4.78K 100%  583.74kB/s    0:00:00            4.78K 100%  583.74kB/s    0:00:00 (xfr#9, to-chk=538/552)
-Definitions/4thd.yml
-          4.00K 100%  434.03kB/s    0:00:00            4.00K 100%  434.03kB/s    0:00:00 (xfr#10, to-chk=537/552)
-Definitions/52bt.yml
-          2.64K 100%  257.81kB/s    0:00:00            2.64K 100%  257.81kB/s    0:00:00 (xfr#11, to-chk=536/552)
-Definitions/52pt.yml
-          5.72K 100%  558.69kB/s    0:00:00            5.72K 100%  507.90kB/s    0:00:00 (xfr#12, to-chk=535/552)
-Definitions/Bittorrentfiles.yml
-          7.96K 100%  707.12kB/s    0:00:00            7.96K 100%  707.12kB/s    0:00:00 (xfr#13, to-chk=534/552)
-Definitions/abnormal.yml
-          4.54K 100%  369.71kB/s    0:00:00            4.54K 100%  369.71kB/s    0:00:00 (xfr#14, to-chk=533/552)
-Definitions/abtorrents.yml
-          7.86K 100%  590.67kB/s    0:00:00            7.86K 100%  590.67kB/s    0:00:00 (xfr#15, to-chk=532/552)
-Definitions/acgrip.yml
-          1.04K 100%   72.41kB/s    0:00:00            1.04K 100%   72.41kB/s    0:00:00 (xfr#16, to-chk=531/552)
-Definitions/acrossthetasman.yml
-          1.88K 100%  131.42kB/s    0:00:00            1.88K 100%  131.42kB/s    0:00:00 (xfr#17, to-chk=530/552)
-Definitions/aftershock.yml
-          5.10K 100%  331.77kB/s    0:00:00            5.10K 100%  331.77kB/s    0:00:00 (xfr#18, to-chk=529/552)
-Definitions/agsvpt.yml
-          7.11K 100%  433.72kB/s    0:00:00            7.11K 100%  433.72kB/s    0:00:00 (xfr#19, to-chk=528/552)
-Definitions/aidoruonline.yml
-          3.38K 100%  193.88kB/s    0:00:00            3.38K 100%  193.88kB/s    0:00:00 (xfr#20, to-chk=527/552)
-Definitions/aither-api.yml
-          5.50K 100%  298.18kB/s    0:00:00            5.50K 100%  298.18kB/s    0:00:00 (xfr#21, to-chk=526/552)
-Definitions/amigosshare.yml
-          9.83K 100%  533.09kB/s    0:00:00            9.83K 100%  533.09kB/s    0:00:00 (xfr#22, to-chk=525/552)
-Definitions/anilibria.yml
-         10.21K 100%  525.03kB/s    0:00:00           10.21K 100%  525.03kB/s    0:00:00 (xfr#23, to-chk=524/552)
-Definitions/anime-time.yml
-          1.74K 100%   85.06kB/s    0:00:00            1.74K 100%   85.06kB/s    0:00:00 (xfr#24, to-chk=523/552)
-Definitions/anime-timel.yml
-          2.19K 100%  101.98kB/s    0:00:00            2.19K 100%  101.98kB/s    0:00:00 (xfr#25, to-chk=522/552)
-Definitions/animelayer.yml
-          5.81K 100%  257.86kB/s    0:00:00            5.81K 100%  257.86kB/s    0:00:00 (xfr#26, to-chk=521/552)
-Definitions/animelovers-api.yml
-          5.77K 100%  256.30kB/s    0:00:00            5.77K 100%  256.30kB/s    0:00:00 (xfr#27, to-chk=520/552)
-Definitions/animetorrentsro.yml
-          3.84K 100%  163.17kB/s    0:00:00            3.84K 100%  163.17kB/s    0:00:00 (xfr#28, to-chk=519/552)
-Definitions/animeworld-api.yml
-          6.13K 100%  249.43kB/s    0:00:00            6.13K 100%  249.43kB/s    0:00:00 (xfr#29, to-chk=518/552)
-Definitions/anisource.yml
-          1.89K 100%   73.83kB/s    0:00:00            1.89K 100%   73.83kB/s    0:00:00 (xfr#30, to-chk=517/552)
-Definitions/anthelion-api.yml
-          5.13K 100%  200.55kB/s    0:00:00            5.13K 100%  200.55kB/s    0:00:00 (xfr#31, to-chk=516/552)
-Definitions/arabafenice.yml
-          7.74K 100%  290.87kB/s    0:00:00            7.74K 100%  290.87kB/s    0:00:00 (xfr#32, to-chk=515/552)
-Definitions/arabp2p.yml
-          6.34K 100%  229.31kB/s    0:00:00            6.34K 100%  229.31kB/s    0:00:00 (xfr#33, to-chk=514/552)
-Definitions/arabtorrents.yml
-          7.24K 100%  252.48kB/s    0:00:00            7.24K 100%  252.48kB/s    0:00:00 (xfr#34, to-chk=513/552)
-Definitions/arenabg.yml
-          6.68K 100%  225.05kB/s    0:00:00            6.68K 100%  225.05kB/s    0:00:00 (xfr#35, to-chk=512/552)
-Definitions/asiancinema.yml
-          7.73K 100%  260.41kB/s    0:00:00            7.73K 100%  260.41kB/s    0:00:00 (xfr#36, to-chk=511/552)
-Definitions/asiandvdclub.yml
-          4.16K 100%  135.35kB/s    0:00:00            4.16K 100%  135.35kB/s    0:00:00 (xfr#37, to-chk=510/552)
-Definitions/audiences.yml
-          5.60K 100%  176.47kB/s    0:00:00            5.60K 100%  176.47kB/s    0:00:00 (xfr#38, to-chk=509/552)
-Definitions/audionews.yml
-         14.99K 100%  457.37kB/s    0:00:00           14.99K 100%  457.37kB/s    0:00:00 (xfr#39, to-chk=508/552)
-Definitions/aussierules.yml
-          1.92K 100%   56.76kB/s    0:00:00            1.92K 100%   56.76kB/s    0:00:00 (xfr#40, to-chk=507/552)
-Definitions/azusa.yml
-          4.03K 100%  119.26kB/s    0:00:00            4.03K 100%  119.26kB/s    0:00:00 (xfr#41, to-chk=506/552)
-Definitions/backups.yml
-          6.03K 100%  173.17kB/s    0:00:00            6.03K 100%  173.17kB/s    0:00:00 (xfr#42, to-chk=505/552)
-Definitions/badasstorrents.yml
-          2.44K 100%   68.00kB/s    0:00:00            2.44K 100%   68.00kB/s    0:00:00 (xfr#43, to-chk=504/552)
-Definitions/bangumi-moe.yml
-          2.01K 100%   54.63kB/s    0:00:00            2.01K 100%   54.63kB/s    0:00:00 (xfr#44, to-chk=503/552)
-Definitions/beload.yml
-          4.70K 100%  127.52kB/s    0:00:00            4.70K 100%  127.52kB/s    0:00:00 (xfr#45, to-chk=502/552)
-Definitions/best-torrents.yml
-          3.52K 100%   93.04kB/s    0:00:00            3.52K 100%   93.04kB/s    0:00:00 (xfr#46, to-chk=501/552)
-Definitions/bestcore.yml
-          6.54K 100%  168.02kB/s    0:00:00            6.54K 100%  168.02kB/s    0:00:00 (xfr#47, to-chk=500/552)
-Definitions/bibliotik.yml
-          3.42K 100%   85.56kB/s    0:00:00            3.42K 100%   85.56kB/s    0:00:00 (xfr#48, to-chk=499/552)
-Definitions/bigfangroup.yml
-          9.65K 100%  241.54kB/s    0:00:00            9.65K 100%  241.54kB/s    0:00:00 (xfr#49, to-chk=498/552)
-Definitions/bitbazis.yml
-          5.57K 100%  136.01kB/s    0:00:00            5.57K 100%  136.01kB/s    0:00:00 (xfr#50, to-chk=497/552)
-Definitions/bitded.yml
-          4.68K 100%  111.57kB/s    0:00:00            4.68K 100%  111.57kB/s    0:00:00 (xfr#51, to-chk=496/552)
-Definitions/bitgamer.yml
-          5.03K 100%  117.00kB/s    0:00:00            5.03K 100%  117.00kB/s    0:00:00 (xfr#52, to-chk=495/552)
-Definitions/bithorlo.yml
-          4.96K 100%  112.76kB/s    0:00:00            4.96K 100%  112.76kB/s    0:00:00 (xfr#53, to-chk=494/552)
-Definitions/bithumen.yml
-          4.97K 100%  112.92kB/s    0:00:00            4.97K 100%  112.92kB/s    0:00:00 (xfr#54, to-chk=493/552)
-Definitions/bitmagnet.yml
-          2.20K 100%   48.87kB/s    0:00:00            2.20K 100%   48.87kB/s    0:00:00 (xfr#55, to-chk=492/552)
-Definitions/bitpalace.yml
-          4.51K 100%   97.98kB/s    0:00:00            4.51K 100%   97.98kB/s    0:00:00 (xfr#56, to-chk=491/552)
-Definitions/bitporn.yml
-          6.20K 100%  131.67kB/s    0:00:00            6.20K 100%  131.67kB/s    0:00:00 (xfr#57, to-chk=490/552)
-Definitions/bitru.yml
-          6.97K 100%  144.78kB/s    0:00:00            6.97K 100%  144.78kB/s    0:00:00 (xfr#58, to-chk=489/552)
-Definitions/bitsearch.yml
-          5.08K 100%  105.47kB/s    0:00:00            5.08K 100%  105.47kB/s    0:00:00 (xfr#59, to-chk=488/552)
-Definitions/bitspyder.yml
-          5.06K 100%  102.93kB/s    0:00:00            5.06K 100%  102.93kB/s    0:00:00 (xfr#60, to-chk=487/552)
-Definitions/bitturk.yml
-          7.91K 100%  157.61kB/s    0:00:00            7.91K 100%  157.61kB/s    0:00:00 (xfr#61, to-chk=486/552)
-Definitions/bjshare.yml
-          6.11K 100%  119.24kB/s    0:00:00            6.11K 100%  119.24kB/s    0:00:00 (xfr#62, to-chk=485/552)
-Definitions/bluebird.yml
-          3.93K 100%   76.72kB/s    0:00:00            3.93K 100%   76.72kB/s    0:00:00 (xfr#63, to-chk=484/552)
-Definitions/blueroms.yml
-          2.92K 100%   55.89kB/s    0:00:00            2.92K 100%   55.89kB/s    0:00:00 (xfr#64, to-chk=483/552)
-Definitions/bluraytracker.yml
-          5.37K 100%  100.91kB/s    0:00:00            5.37K 100%  100.91kB/s    0:00:00 (xfr#65, to-chk=482/552)
-Definitions/blutopia-api.yml
-          5.68K 100%  104.62kB/s    0:00:00            5.68K 100%  104.62kB/s    0:00:00 (xfr#66, to-chk=481/552)
-Definitions/booktracker.yml
-          1.97K 100%   35.61kB/s    0:00:00            1.97K 100%   35.61kB/s    0:00:00 (xfr#67, to-chk=480/552)
-Definitions/bootytape.yml
-          3.10K 100%   56.04kB/s    0:00:00            3.10K 100%   56.04kB/s    0:00:00 (xfr#68, to-chk=479/552)
-Definitions/borgzelle.yml
-          7.75K 100%  137.52kB/s    0:00:00            7.75K 100%  137.52kB/s    0:00:00 (xfr#69, to-chk=478/552)
-Definitions/boxingtorrents.yml
-          3.96K 100%   69.09kB/s    0:00:00            3.96K 100%   69.09kB/s    0:00:00 (xfr#70, to-chk=477/552)
-Definitions/brasiltracker.yml
-          5.47K 100%   93.75kB/s    0:00:00            5.47K 100%   93.75kB/s    0:00:00 (xfr#71, to-chk=476/552)
-Definitions/btarg.yml
-          7.40K 100%  124.61kB/s    0:00:00            7.40K 100%  124.61kB/s    0:00:00 (xfr#72, to-chk=475/552)
-Definitions/btdirectory.yml
-          1.83K 100%   30.81kB/s    0:00:00            1.83K 100%   30.81kB/s    0:00:00 (xfr#73, to-chk=474/552)
-Definitions/btetree.yml
-          1.55K 100%   25.61kB/s    0:00:00            1.55K 100%   25.61kB/s    0:00:00 (xfr#74, to-chk=473/552)
-Definitions/btnext.yml
-         10.71K 100%  174.24kB/s    0:00:00           10.71K 100%  174.24kB/s    0:00:00 (xfr#75, to-chk=472/552)
-Definitions/btschool.yml
-          4.91K 100%   78.67kB/s    0:00:00            4.91K 100%   78.67kB/s    0:00:00 (xfr#76, to-chk=471/552)
-Definitions/btsow.yml
-          1.92K 100%   30.77kB/s    0:00:00            1.92K 100%   30.77kB/s    0:00:00 (xfr#77, to-chk=470/552)
-Definitions/bwtorrents.yml
-          9.71K 100%  152.86kB/s    0:00:00            9.71K 100%  152.86kB/s    0:00:00 (xfr#78, to-chk=469/552)
-Definitions/byrbt.yml
-          5.37K 100%   83.24kB/s    0:00:00            5.37K 100%   83.24kB/s    0:00:00 (xfr#79, to-chk=468/552)
-Definitions/byrutor.yml
-         21.80K 100%  332.63kB/s    0:00:00           21.80K 100%  332.63kB/s    0:00:00 (xfr#80, to-chk=467/552)
-Definitions/capybarabr.yml
-          5.95K 100%   89.32kB/s    0:00:00            5.95K 100%   89.32kB/s    0:00:00 (xfr#81, to-chk=466/552)
-Definitions/carpathians.yml
-          4.88K 100%   72.16kB/s    0:00:00            4.88K 100%   72.16kB/s    0:00:00 (xfr#82, to-chk=465/552)
-Definitions/carphunter.yml
-          6.37K 100%   94.30kB/s    0:00:00            6.37K 100%   94.30kB/s    0:00:00 (xfr#83, to-chk=464/552)
-Definitions/carpt.yml
-          5.87K 100%   85.51kB/s    0:00:00            5.87K 100%   85.51kB/s    0:00:00 (xfr#84, to-chk=463/552)
-Definitions/cathoderaytube.yml
-          5.22K 100%   74.94kB/s    0:00:00            5.22K 100%   74.94kB/s    0:00:00 (xfr#85, to-chk=462/552)
-Definitions/catorrent.yml
-          2.83K 100%   39.98kB/s    0:00:00            2.83K 100%   39.98kB/s    0:00:00 (xfr#86, to-chk=461/552)
-Definitions/cdfile.yml
-          6.19K 100%   86.34kB/s    0:00:00            6.19K 100%   86.34kB/s    0:00:00 (xfr#87, to-chk=460/552)
-Definitions/ceskeforum.yml
-          5.27K 100%   73.55kB/s    0:00:00            5.27K 100%   73.55kB/s    0:00:00 (xfr#88, to-chk=459/552)
-Definitions/chdbits.yml
-          4.64K 100%   63.77kB/s    0:00:00            4.64K 100%   63.77kB/s    0:00:00 (xfr#89, to-chk=458/552)
-Definitions/chilebt-api.yml
-          5.61K 100%   76.14kB/s    0:00:00            5.61K 100%   76.14kB/s    0:00:00 (xfr#90, to-chk=457/552)
-Definitions/cinemageddon.yml
-          3.50K 100%   46.88kB/s    0:00:00            3.50K 100%   46.88kB/s    0:00:00 (xfr#91, to-chk=456/552)
-Definitions/cinemamovies.yml
-          7.32K 100%   96.53kB/s    0:00:00            7.32K 100%   96.53kB/s    0:00:00 (xfr#92, to-chk=455/552)
-Definitions/cinematik.yml
-          5.78K 100%   76.25kB/s    0:00:00            5.78K 100%   76.25kB/s    0:00:00 (xfr#93, to-chk=454/552)
-Definitions/coastalcrew.yml
-          6.34K 100%   82.53kB/s    0:00:00            6.34K 100%   82.53kB/s    0:00:00 (xfr#94, to-chk=453/552)
-Definitions/comicat.yml
-          2.95K 100%   37.92kB/s    0:00:00            2.95K 100%   37.92kB/s    0:00:00 (xfr#95, to-chk=452/552)
-Definitions/concen.yml
-          1.72K 100%   21.79kB/s    0:00:00            1.72K 100%   21.79kB/s    0:00:00 (xfr#96, to-chk=451/552)
-Definitions/concertos.yml
-          5.79K 100%   73.41kB/s    0:00:00            5.79K 100%   73.41kB/s    0:00:00 (xfr#97, to-chk=450/552)
-Definitions/cpabien.yml
-          4.18K 100%   52.28kB/s    0:00:00            4.18K 100%   52.28kB/s    0:00:00 (xfr#98, to-chk=449/552)
-Definitions/cpasbienclone.yml
-          3.71K 100%   45.86kB/s    0:00:00            3.71K 100%   45.86kB/s    0:00:00 (xfr#99, to-chk=448/552)
-Definitions/crabpt.yml
-          7.21K 100%   88.04kB/s    0:00:00            7.21K 100%   88.04kB/s    0:00:00 (xfr#100, to-chk=447/552)
-Definitions/crackingpatching.yml
-          3.15K 100%   38.04kB/s    0:00:00            3.15K 100%   38.04kB/s    0:00:00 (xfr#101, to-chk=446/552)
-Definitions/crazyspirits.yml
-         10.09K 100%  120.13kB/s    0:00:00           10.09K 100%  120.13kB/s    0:00:00 (xfr#102, to-chk=445/552)
-Definitions/crnaberza.yml
-          5.56K 100%   65.45kB/s    0:00:00            5.56K 100%   65.45kB/s    0:00:00 (xfr#103, to-chk=444/552)
-Definitions/crt2fa.yml
-          5.01K 100%   59.01kB/s    0:00:00            5.01K 100%   59.01kB/s    0:00:00 (xfr#104, to-chk=443/552)
-Definitions/cyanbug.yml
-          6.87K 100%   79.83kB/s    0:00:00            6.87K 100%   79.83kB/s    0:00:00 (xfr#105, to-chk=442/552)
-Definitions/danishbytes-api.yml
-          4.60K 100%   52.84kB/s    0:00:00            4.60K 100%   52.84kB/s    0:00:00 (xfr#106, to-chk=441/552)
-Definitions/dark-shadow.yml
-          5.20K 100%   59.09kB/s    0:00:00            5.20K 100%   59.09kB/s    0:00:00 (xfr#107, to-chk=440/552)
-Definitions/darkpeers.yml
-          5.56K 100%   62.40kB/s    0:00:00            5.56K 100%   62.40kB/s    0:00:00 (xfr#108, to-chk=439/552)
-Definitions/dasunerwartete.yml
-          5.83K 100%   65.41kB/s    0:00:00            5.83K 100%   65.41kB/s    0:00:00 (xfr#109, to-chk=438/552)
-Definitions/datascene-api.yml
-          7.01K 100%   77.81kB/s    0:00:00            7.01K 100%   77.81kB/s    0:00:00 (xfr#110, to-chk=437/552)
-Definitions/deildu.yml
-          3.10K 100%   33.98kB/s    0:00:00            3.10K 100%   33.98kB/s    0:00:00 (xfr#111, to-chk=436/552)
-Definitions/desitorrents-api.yml
-          4.85K 100%   52.65kB/s    0:00:00            4.85K 100%   52.65kB/s    0:00:00 (xfr#112, to-chk=435/552)
-Definitions/devil-torrents.yml
-          5.76K 100%   61.82kB/s    0:00:00            5.76K 100%   61.82kB/s    0:00:00 (xfr#113, to-chk=434/552)
-Definitions/diablotorrent.yml
-          5.84K 100%   62.66kB/s    0:00:00            5.84K 100%   62.66kB/s    0:00:00 (xfr#114, to-chk=433/552)
-Definitions/digitalcore.yml
-          7.71K 100%   81.85kB/s    0:00:00            7.71K 100%   81.85kB/s    0:00:00 (xfr#115, to-chk=432/552)
-Definitions/dimeadozen.yml
-          5.33K 100%   55.98kB/s    0:00:00            5.33K 100%   55.98kB/s    0:00:00 (xfr#116, to-chk=431/552)
-Definitions/discfan.yml
-          5.02K 100%   52.17kB/s    0:00:00            5.02K 100%   52.17kB/s    0:00:00 (xfr#117, to-chk=430/552)
-Definitions/divteam.yml
-          6.88K 100%   70.74kB/s    0:00:00            6.88K 100%   70.74kB/s    0:00:00 (xfr#118, to-chk=429/552)
-Definitions/dmhy.yml
-          2.87K 100%   29.18kB/s    0:00:00            2.87K 100%   29.18kB/s    0:00:00 (xfr#119, to-chk=428/552)
-Definitions/docspedia.yml
-          5.26K 100%   53.52kB/s    0:00:00            5.26K 100%   53.52kB/s    0:00:00 (xfr#120, to-chk=427/552)
-Definitions/dreamingtree.yml
-          3.68K 100%   37.04kB/s    0:00:00            3.68K 100%   37.04kB/s    0:00:00 (xfr#121, to-chk=426/552)
-Definitions/drugari.yml
-          7.29K 100%   72.60kB/s    0:00:00            7.29K 100%   72.60kB/s    0:00:00 (xfr#122, to-chk=425/552)
-Definitions/dxp.yml
-          8.37K 100%   82.55kB/s    0:00:00            8.37K 100%   82.55kB/s    0:00:00 (xfr#123, to-chk=424/552)
-Definitions/ebookbay.yml
-          5.65K 100%   55.16kB/s    0:00:00            5.65K 100%   55.16kB/s    0:00:00 (xfr#124, to-chk=423/552)
-Definitions/ebooks-shares.yml
-         19.68K 100%  190.25kB/s    0:00:00           19.68K 100%  190.25kB/s    0:00:00 (xfr#125, to-chk=422/552)
-Definitions/ehentai.yml
-          1.31K 100%   12.66kB/s    0:00:00            1.31K 100%   12.66kB/s    0:00:00 (xfr#126, to-chk=421/552)
-Definitions/electro-torrent.yml
-          6.97K 100%   66.78kB/s    0:00:00            6.97K 100%   66.78kB/s    0:00:00 (xfr#127, to-chk=420/552)
-Definitions/elitetorrent-wf.yml
-          3.15K 100%   29.89kB/s    0:00:00            3.15K 100%   29.89kB/s    0:00:00 (xfr#128, to-chk=419/552)
-Definitions/empornium.yml
-          4.90K 100%   46.02kB/s    0:00:00            4.90K 100%   46.02kB/s    0:00:00 (xfr#129, to-chk=418/552)
-Definitions/empornium2fa.yml
-          4.86K 100%   45.62kB/s    0:00:00            4.86K 100%   45.18kB/s    0:00:00 (xfr#130, to-chk=417/552)
-Definitions/emuwarez.yml
-          5.27K 100%   49.05kB/s    0:00:00            5.27K 100%   49.05kB/s    0:00:00 (xfr#131, to-chk=416/552)
-Definitions/eniahd.yml
-          9.99K 100%   92.03kB/s    0:00:00            9.99K 100%   92.03kB/s    0:00:00 (xfr#132, to-chk=415/552)
-Definitions/enthralled.yml
-          3.40K 100%   31.00kB/s    0:00:00            3.40K 100%   31.00kB/s    0:00:00 (xfr#133, to-chk=414/552)
-Definitions/enthralled2fa.yml
-          3.36K 100%   30.39kB/s    0:00:00            3.36K 100%   30.39kB/s    0:00:00 (xfr#134, to-chk=413/552)
-Definitions/esharenet.yml
-          8.55K 100%   76.58kB/s    0:00:00            8.55K 100%   76.58kB/s    0:00:00 (xfr#135, to-chk=412/552)
-Definitions/estone.yml
-          4.86K 100%   43.56kB/s    0:00:00            4.86K 100%   43.56kB/s    0:00:00 (xfr#136, to-chk=411/552)
-Definitions/ex-torrenty.yml
-          5.09K 100%   45.15kB/s    0:00:00            5.09K 100%   45.15kB/s    0:00:00 (xfr#137, to-chk=410/552)
-Definitions/exitorrent-org.yml
-          5.31K 100%   46.73kB/s    0:00:00            5.31K 100%   46.73kB/s    0:00:00 (xfr#138, to-chk=409/552)
-Definitions/exkinoray.yml
-          9.34K 100%   81.46kB/s    0:00:00            9.34K 100%   81.46kB/s    0:00:00 (xfr#139, to-chk=408/552)
-Definitions/explosiv-world.yml
-          5.59K 100%   48.29kB/s    0:00:00            5.59K 100%   48.29kB/s    0:00:00 (xfr#140, to-chk=407/552)
-Definitions/extratorrent-st.yml
-          4.65K 100%   39.80kB/s    0:00:00            4.65K 100%   39.80kB/s    0:00:00 (xfr#141, to-chk=406/552)
-Definitions/extremebits.yml
-          4.45K 100%   38.08kB/s    0:00:00            4.45K 100%   38.08kB/s    0:00:00 (xfr#142, to-chk=405/552)
-Definitions/extremlymtorrents.yml
-          5.84K 100%   49.58kB/s    0:00:00            5.84K 100%   49.58kB/s    0:00:00 (xfr#143, to-chk=404/552)
-Definitions/exttorrents.yml
-          6.38K 100%   53.75kB/s    0:00:00            6.38K 100%   53.75kB/s    0:00:00 (xfr#144, to-chk=403/552)
-Definitions/eztv.yml
-          2.68K 100%   22.37kB/s    0:00:00            2.68K 100%   22.37kB/s    0:00:00 (xfr#145, to-chk=402/552)
-Definitions/f1carreras-api.yml
-          5.08K 100%   42.08kB/s    0:00:00            5.08K 100%   42.08kB/s    0:00:00 (xfr#146, to-chk=401/552)
-Definitions/fanoin.yml
-          4.57K 100%   37.81kB/s    0:00:00            4.57K 100%   37.81kB/s    0:00:00 (xfr#147, to-chk=400/552)
-Definitions/fappaizuri.yml
-          3.57K 100%   29.32kB/s    0:00:00            3.57K 100%   29.32kB/s    0:00:00 (xfr#148, to-chk=399/552)
-Definitions/fearnopeer.yml
-          5.35K 100%   43.52kB/s    0:00:00            5.35K 100%   43.52kB/s    0:00:00 (xfr#149, to-chk=398/552)
-Definitions/femdomcult.yml
-          4.69K 100%   37.82kB/s    0:00:00            4.69K 100%   37.82kB/s    0:00:00 (xfr#150, to-chk=397/552)
-Definitions/file-tracker.yml
-         32.77K  70%  262.30kB/s    0:00:00           46.32K 100%  370.79kB/s    0:00:00 (xfr#151, to-chk=396/552)
-Definitions/finelite.yml
-          5.10K 100%   40.49kB/s    0:00:00            5.10K 100%   40.49kB/s    0:00:00 (xfr#152, to-chk=395/552)
-Definitions/finvip.yml
-          5.61K 100%   44.54kB/s    0:00:00            5.61K 100%   44.54kB/s    0:00:00 (xfr#153, to-chk=394/552)
-Definitions/fluxzone.yml
-          4.60K 100%   36.24kB/s    0:00:00            4.60K 100%   36.24kB/s    0:00:00 (xfr#154, to-chk=393/552)
-Definitions/freefarm.yml
-          8.61K 100%   67.30kB/s    0:00:00            8.61K 100%   67.30kB/s    0:00:00 (xfr#155, to-chk=392/552)
-Definitions/fsm.yml
-          2.77K 100%   21.51kB/s    0:00:00            2.77K 100%   21.51kB/s    0:00:00 (xfr#156, to-chk=391/552)
-Definitions/funkytorrents.yml
-          4.92K 100%   37.80kB/s    0:00:00            4.92K 100%   37.80kB/s    0:00:00 (xfr#157, to-chk=390/552)
-Definitions/futuretorrent.yml
-          6.43K 100%   49.44kB/s    0:00:00            6.43K 100%   49.05kB/s    0:00:00 (xfr#158, to-chk=389/552)
-Definitions/fuzer.yml
-          5.73K 100%   43.69kB/s    0:00:00            5.73K 100%   43.69kB/s    0:00:00 (xfr#159, to-chk=388/552)
-Definitions/gamestorrents.yml
-          2.08K 100%   15.76kB/s    0:00:00            2.08K 100%   15.76kB/s    0:00:00 (xfr#160, to-chk=387/552)
-Definitions/gay-torrents.yml
-          6.20K 100%   46.57kB/s    0:00:00            6.20K 100%   46.57kB/s    0:00:00 (xfr#161, to-chk=386/552)
-Definitions/gay-torrentsorg.yml
-          5.00K 100%   37.24kB/s    0:00:00            5.00K 100%   37.24kB/s    0:00:00 (xfr#162, to-chk=385/552)
-Definitions/gaytorrentru.yml
-          6.24K 100%   46.52kB/s    0:00:00            6.24K 100%   46.52kB/s    0:00:00 (xfr#163, to-chk=384/552)
-Definitions/generationfree-api.yml
-          7.33K 100%   54.21kB/s    0:00:00            7.33K 100%   54.21kB/s    0:00:00 (xfr#164, to-chk=383/552)
-Definitions/genesismovement.yml
-          4.05K 100%   29.72kB/s    0:00:00            4.05K 100%   29.72kB/s    0:00:00 (xfr#165, to-chk=382/552)
-Definitions/ggpt.yml
-          5.70K 100%   41.53kB/s    0:00:00            5.70K 100%   41.53kB/s    0:00:00 (xfr#166, to-chk=381/552)
-Definitions/gigatorrents.yml
-          5.57K 100%   40.31kB/s    0:00:00            5.57K 100%   40.31kB/s    0:00:00 (xfr#167, to-chk=380/552)
-Definitions/gimmepeers.yml
-          5.22K 100%   37.80kB/s    0:00:00            5.22K 100%   37.80kB/s    0:00:00 (xfr#168, to-chk=379/552)
-Definitions/girotorrent.yml
-          9.01K 100%   64.69kB/s    0:00:00            9.01K 100%   64.69kB/s    0:00:00 (xfr#169, to-chk=378/552)
-Definitions/glodls.yml
-          3.35K 100%   23.89kB/s    0:00:00            3.35K 100%   23.89kB/s    0:00:00 (xfr#170, to-chk=377/552)
-Definitions/gtorrentpro.yml
-          2.04K 100%   14.40kB/s    0:00:00            2.04K 100%   14.40kB/s    0:00:00 (xfr#171, to-chk=376/552)
-Definitions/haidan.yml
-          6.38K 100%   45.16kB/s    0:00:00            6.38K 100%   45.16kB/s    0:00:00 (xfr#172, to-chk=375/552)
-Definitions/haitang.yml
-          5.30K 100%   37.22kB/s    0:00:00            5.30K 100%   37.22kB/s    0:00:00 (xfr#173, to-chk=374/552)
-Definitions/happyfappy.yml
-          4.22K 100%   29.46kB/s    0:00:00            4.22K 100%   29.46kB/s    0:00:00 (xfr#174, to-chk=373/552)
-Definitions/happyfappy2fa.yml
-          4.18K 100%   28.98kB/s    0:00:00            4.18K 100%   28.98kB/s    0:00:00 (xfr#175, to-chk=372/552)
-Definitions/hawke-uno.yml
-          4.25K 100%   29.45kB/s    0:00:00            4.25K 100%   29.45kB/s    0:00:00 (xfr#176, to-chk=371/552)
-Definitions/hd-club.yml
-          3.87K 100%   26.58kB/s    0:00:00            3.87K 100%   26.58kB/s    0:00:00 (xfr#177, to-chk=370/552)
-Definitions/hd-unit3d-api.yml
-          5.41K 100%   37.17kB/s    0:00:00            5.41K 100%   37.17kB/s    0:00:00 (xfr#178, to-chk=369/552)
-Definitions/hdarea.yml
-          5.60K 100%   38.23kB/s    0:00:00            5.60K 100%   38.23kB/s    0:00:00 (xfr#179, to-chk=368/552)
-Definitions/hdatmos.yml
-          6.71K 100%   45.50kB/s    0:00:00            6.71K 100%   45.50kB/s    0:00:00 (xfr#180, to-chk=367/552)
-Definitions/hdbao.yml
-          5.57K 100%   37.49kB/s    0:00:00            5.57K 100%   37.49kB/s    0:00:00 (xfr#181, to-chk=366/552)
-Definitions/hdc.yml
-          4.92K 100%   33.12kB/s    0:00:00            4.92K 100%   33.12kB/s    0:00:00 (xfr#182, to-chk=365/552)
-Definitions/hdclone.yml
-          6.32K 100%   42.29kB/s    0:00:00            6.32K 100%   42.29kB/s    0:00:00 (xfr#183, to-chk=364/552)
-Definitions/hdcztorrent.yml
-          5.46K 100%   36.25kB/s    0:00:00            5.46K 100%   36.25kB/s    0:00:00 (xfr#184, to-chk=363/552)
-Definitions/hddolby.yml
-          5.69K 100%   37.81kB/s    0:00:00            5.69K 100%   37.81kB/s    0:00:00 (xfr#185, to-chk=362/552)
-Definitions/hdfans.yml
-          6.99K 100%   46.10kB/s    0:00:00            6.99K 100%   46.10kB/s    0:00:00 (xfr#186, to-chk=361/552)
-Definitions/hdforever.yml
-          9.69K 100%   63.54kB/s    0:00:00            9.69K 100%   63.54kB/s    0:00:00 (xfr#187, to-chk=360/552)
-Definitions/hdfun.yml
-          7.85K 100%   51.46kB/s    0:00:00            7.85K 100%   51.46kB/s    0:00:00 (xfr#188, to-chk=359/552)
-Definitions/hdgalaktik.yml
-          9.69K 100%   63.10kB/s    0:00:00            9.69K 100%   63.10kB/s    0:00:00 (xfr#189, to-chk=358/552)
-Definitions/hdhome.yml
-          5.75K 100%   37.21kB/s    0:00:00            5.75K 100%   37.21kB/s    0:00:00 (xfr#190, to-chk=357/552)
-Definitions/hdkylin.yml
-          5.41K 100%   34.98kB/s    0:00:00            5.41K 100%   34.98kB/s    0:00:00 (xfr#191, to-chk=356/552)
-Definitions/hdolimpo-api.yml
-          7.29K 100%   46.82kB/s    0:00:00            7.29K 100%   46.82kB/s    0:00:00 (xfr#192, to-chk=355/552)
-Definitions/hdonly-api.yml
-          9.94K 100%   63.43kB/s    0:00:00            9.94K 100%   63.43kB/s    0:00:00 (xfr#193, to-chk=354/552)
-Definitions/hdroute.yml
-          3.15K 100%   19.98kB/s    0:00:00            3.15K 100%   19.98kB/s    0:00:00 (xfr#194, to-chk=353/552)
-Definitions/hdsky.yml
-          5.02K 100%   31.83kB/s    0:00:00            5.02K 100%   31.83kB/s    0:00:00 (xfr#195, to-chk=352/552)
-Definitions/hdspace.yml
-          5.39K 100%   33.95kB/s    0:00:00            5.39K 100%   33.95kB/s    0:00:00 (xfr#196, to-chk=351/552)
-Definitions/hdt-lafenice.yml
-          4.85K 100%   30.37kB/s    0:00:00            4.85K 100%   30.37kB/s    0:00:00 (xfr#197, to-chk=350/552)
-Definitions/hdtime.yml
-          5.84K 100%   36.32kB/s    0:00:00            5.84K 100%   36.32kB/s    0:00:00 (xfr#198, to-chk=349/552)
-Definitions/hdtorrentsit.yml
-          5.65K 100%   35.13kB/s    0:00:00            5.65K 100%   35.13kB/s    0:00:00 (xfr#199, to-chk=348/552)
-Definitions/hdturk.yml
-          6.52K 100%   40.31kB/s    0:00:00            6.52K 100%   40.31kB/s    0:00:00 (xfr#200, to-chk=347/552)
-Definitions/hdu.yml
-          5.42K 100%   33.26kB/s    0:00:00            5.42K 100%   33.26kB/s    0:00:00 (xfr#201, to-chk=346/552)
-Definitions/hdvideo.yml
-          5.81K 100%   35.71kB/s    0:00:00            5.81K 100%   35.71kB/s    0:00:00 (xfr#202, to-chk=345/552)
-Definitions/hdzero.yml
-          5.44K 100%   33.21kB/s    0:00:00            5.44K 100%   33.21kB/s    0:00:00 (xfr#203, to-chk=344/552)
-Definitions/hebits.yml
-          5.93K 100%   35.96kB/s    0:00:00            5.93K 100%   35.96kB/s    0:00:00 (xfr#204, to-chk=343/552)
-Definitions/hellashut-api.yml
-          5.62K 100%   33.87kB/s    0:00:00            5.62K 100%   33.87kB/s    0:00:00 (xfr#205, to-chk=342/552)
-Definitions/hellashut.yml
-          7.07K 100%   42.64kB/s    0:00:00            7.07K 100%   42.64kB/s    0:00:00 (xfr#206, to-chk=341/552)
-Definitions/helltorrents.yml
-          6.01K 100%   36.04kB/s    0:00:00            6.01K 100%   36.04kB/s    0:00:00 (xfr#207, to-chk=340/552)
-Definitions/hhanclub.yml
-          6.36K 100%   37.88kB/s    0:00:00            6.36K 100%   37.88kB/s    0:00:00 (xfr#208, to-chk=339/552)
-Definitions/hhd-api.yml
-          5.74K 100%   34.16kB/s    0:00:00            5.74K 100%   34.16kB/s    0:00:00 (xfr#209, to-chk=338/552)
-Definitions/homeporntorrents.yml
-          4.68K 100%   27.72kB/s    0:00:00            4.68K 100%   27.72kB/s    0:00:00 (xfr#210, to-chk=337/552)
-Definitions/houseofdevil.yml
-          6.09K 100%   35.84kB/s    0:00:00            6.09K 100%   35.84kB/s    0:00:00 (xfr#211, to-chk=336/552)
-Definitions/hudbt.yml
-          6.66K 100%   38.94kB/s    0:00:00            6.66K 100%   38.94kB/s    0:00:00 (xfr#212, to-chk=335/552)
-Definitions/huntorrent.yml
-          5.18K 100%   30.29kB/s    0:00:00            5.18K 100%   30.29kB/s    0:00:00 (xfr#213, to-chk=334/552)
-Definitions/ianon.yml
-          3.36K 100%   19.51kB/s    0:00:00            3.36K 100%   19.51kB/s    0:00:00 (xfr#214, to-chk=333/552)
-Definitions/icc2022.yml
-          5.88K 100%   33.98kB/s    0:00:00            5.88K 100%   33.98kB/s    0:00:00 (xfr#215, to-chk=332/552)
-Definitions/idope.yml
-          3.70K 100%   21.38kB/s    0:00:00            3.70K 100%   21.38kB/s    0:00:00 (xfr#216, to-chk=331/552)
-Definitions/ilcorsaroblu.yml
-          8.87K 100%   50.94kB/s    0:00:00            8.87K 100%   50.94kB/s    0:00:00 (xfr#217, to-chk=330/552)
-Definitions/ilcorsaronero.yml
-          5.77K 100%   32.94kB/s    0:00:00            5.77K 100%   32.94kB/s    0:00:00 (xfr#218, to-chk=329/552)
-Definitions/ildragonero.yml
-          9.85K 100%   56.26kB/s    0:00:00            9.85K 100%   56.26kB/s    0:00:00 (xfr#219, to-chk=328/552)
-Definitions/ilolicon.yml
-          7.12K 100%   40.44kB/s    0:00:00            7.12K 100%   40.44kB/s    0:00:00 (xfr#220, to-chk=327/552)
-Definitions/immortuos.yml
-          7.79K 100%   44.00kB/s    0:00:00            7.79K 100%   44.00kB/s    0:00:00 (xfr#221, to-chk=326/552)
-Definitions/indietorrents.yml
-          3.71K 100%   20.92kB/s    0:00:00            3.71K 100%   20.92kB/s    0:00:00 (xfr#222, to-chk=325/552)
-Definitions/infinity-api.yml
-          5.36K 100%   30.08kB/s    0:00:00            5.36K 100%   30.08kB/s    0:00:00 (xfr#223, to-chk=324/552)
-Definitions/infire.yml
-          8.44K 100%   47.10kB/s    0:00:00            8.44K 100%   47.10kB/s    0:00:00 (xfr#224, to-chk=323/552)
-Definitions/insanetracker.yml
-          5.18K 100%   28.91kB/s    0:00:00            5.18K 100%   28.91kB/s    0:00:00 (xfr#225, to-chk=322/552)
-Definitions/internetarchive.yml
-          3.04K 100%   16.84kB/s    0:00:00            3.04K 100%   16.84kB/s    0:00:00 (xfr#226, to-chk=321/552)
-Definitions/irishtv.yml
-          5.25K 100%   28.95kB/s    0:00:00            5.25K 100%   28.95kB/s    0:00:00 (xfr#227, to-chk=320/552)
-Definitions/isohunt2.yml
-          2.22K 100%   12.23kB/s    0:00:00            2.22K 100%   12.23kB/s    0:00:00 (xfr#228, to-chk=319/552)
-Definitions/itatorrents.yml
-          6.53K 100%   35.84kB/s    0:00:00            6.53K 100%   35.84kB/s    0:00:00 (xfr#229, to-chk=318/552)
-Definitions/itorrent.yml
-          2.42K 100%   13.21kB/s    0:00:00            2.42K 100%   13.21kB/s    0:00:00 (xfr#230, to-chk=317/552)
-Definitions/jav-torrent.yml
-            975 100%    5.32kB/s    0:00:00              975 100%    5.29kB/s    0:00:00 (xfr#231, to-chk=316/552)
-Definitions/jme-reunit3d-api.yml
-          4.51K 100%   24.50kB/s    0:00:00            4.51K 100%   24.50kB/s    0:00:00 (xfr#232, to-chk=315/552)
-Definitions/joyhd.yml
-          4.97K 100%   26.81kB/s    0:00:00            4.97K 100%   26.81kB/s    0:00:00 (xfr#233, to-chk=314/552)
-Definitions/jpopsuki.yml
-          4.07K 100%   21.94kB/s    0:00:00            4.07K 100%   21.94kB/s    0:00:00 (xfr#234, to-chk=313/552)
-Definitions/kamept.yml
-          4.46K 100%   23.90kB/s    0:00:00            4.46K 100%   23.90kB/s    0:00:00 (xfr#235, to-chk=312/552)
-Definitions/karagarga.yml
-          4.48K 100%   23.93kB/s    0:00:00            4.48K 100%   23.93kB/s    0:00:00 (xfr#236, to-chk=311/552)
-Definitions/keepfriends.yml
-          6.58K 100%   35.11kB/s    0:00:00            6.58K 100%   35.11kB/s    0:00:00 (xfr#237, to-chk=310/552)
-Definitions/kelu.yml
-          4.85K 100%   25.74kB/s    0:00:00            4.85K 100%   25.74kB/s    0:00:00 (xfr#238, to-chk=309/552)
-Definitions/kickasstorrents-to.yml
-          4.21K 100%   22.37kB/s    0:00:00            4.21K 100%   22.37kB/s    0:00:00 (xfr#239, to-chk=308/552)
-Definitions/kickasstorrents-ws.yml
-          2.95K 100%   15.57kB/s    0:00:00            2.95K 100%   15.57kB/s    0:00:00 (xfr#240, to-chk=307/552)
-Definitions/kinorun.yml
-          4.93K 100%   25.91kB/s    0:00:00            4.93K 100%   25.91kB/s    0:00:00 (xfr#241, to-chk=306/552)
-Definitions/kinozal-magnet.yml
-         10.56K 100%   55.46kB/s    0:00:00           10.56K 100%   55.46kB/s    0:00:00 (xfr#242, to-chk=305/552)
-Definitions/kinozal.yml
-         10.24K 100%   53.46kB/s    0:00:00           10.24K 100%   53.46kB/s    0:00:00 (xfr#243, to-chk=304/552)
-Definitions/korsar.yml
-         32.77K  67%  170.21kB/s    0:00:00           48.33K 100%  251.04kB/s    0:00:00 (xfr#244, to-chk=303/552)
-Definitions/krazyzone.yml
-          7.62K 100%   39.39kB/s    0:00:00            7.62K 100%   39.39kB/s    0:00:00 (xfr#245, to-chk=302/552)
-Definitions/kufei.yml
-          6.66K 100%   34.41kB/s    0:00:00            6.66K 100%   34.41kB/s    0:00:00 (xfr#246, to-chk=301/552)
-Definitions/kufirc.yml
-          5.84K 100%   30.03kB/s    0:00:00            5.84K 100%   30.03kB/s    0:00:00 (xfr#247, to-chk=300/552)
-Definitions/laidbackmanor.yml
-          4.71K 100%   24.09kB/s    0:00:00            4.71K 100%   24.09kB/s    0:00:00 (xfr#248, to-chk=299/552)
-Definitions/lastdigitalunderground.yml
-          7.90K 100%   40.40kB/s    0:00:00            7.90K 100%   40.40kB/s    0:00:00 (xfr#249, to-chk=298/552)
-Definitions/lastfiles.yml
-          7.72K 100%   39.25kB/s    0:00:00            7.72K 100%   39.25kB/s    0:00:00 (xfr#250, to-chk=297/552)
-Definitions/lat-team-api.yml
-          6.40K 100%   32.37kB/s    0:00:00            6.40K 100%   32.37kB/s    0:00:00 (xfr#251, to-chk=296/552)
-Definitions/le-cinephile.yml
-          8.61K 100%   43.56kB/s    0:00:00            8.61K 100%   43.56kB/s    0:00:00 (xfr#252, to-chk=295/552)
-Definitions/learnbits.yml
-          8.60K 100%   43.27kB/s    0:00:00            8.60K 100%   43.27kB/s    0:00:00 (xfr#253, to-chk=294/552)
-Definitions/learnflakes.yml
-          5.48K 100%   27.45kB/s    0:00:00            5.48K 100%   27.45kB/s    0:00:00 (xfr#254, to-chk=293/552)
-Definitions/leech24.yml
-          5.09K 100%   25.39kB/s    0:00:00            5.09K 100%   25.39kB/s    0:00:00 (xfr#255, to-chk=292/552)
-Definitions/lemonhd.yml
-          4.84K 100%   24.12kB/s    0:00:00            4.84K 100%   24.12kB/s    0:00:00 (xfr#256, to-chk=291/552)
-Definitions/lepornoinfo.yml
-          2.87K 100%   14.23kB/s    0:00:00            2.87K 100%   14.23kB/s    0:00:00 (xfr#257, to-chk=290/552)
-Definitions/lesaloon.yml
-          8.33K 100%   41.07kB/s    0:00:00            8.33K 100%   41.07kB/s    0:00:00 (xfr#258, to-chk=289/552)
-Definitions/lesbians4u.yml
-          4.67K 100%   22.90kB/s    0:00:00            4.67K 100%   22.90kB/s    0:00:00 (xfr#259, to-chk=288/552)
-Definitions/letseed.yml
-          6.55K 100%   32.14kB/s    0:00:00            6.55K 100%   32.14kB/s    0:00:00 (xfr#260, to-chk=287/552)
-Definitions/libranet.yml
-          3.44K 100%   16.81kB/s    0:00:00            3.44K 100%   16.81kB/s    0:00:00 (xfr#261, to-chk=286/552)
-Definitions/libronube.yml
-          1.39K 100%    6.75kB/s    0:00:00            1.39K 100%    6.75kB/s    0:00:00 (xfr#262, to-chk=285/552)
-Definitions/limetorrents.yml
-          4.04K 100%   19.62kB/s    0:00:00            4.04K 100%   19.62kB/s    0:00:00 (xfr#263, to-chk=284/552)
-Definitions/linkomanija.yml
-          4.75K 100%   22.95kB/s    0:00:00            4.75K 100%   22.95kB/s    0:00:00 (xfr#264, to-chk=283/552)
-Definitions/linuxtracker.yml
-         17.13K 100%   82.39kB/s    0:00:00           17.13K 100%   82.39kB/s    0:00:00 (xfr#265, to-chk=282/552)
-Definitions/locadora.yml
-          5.49K 100%   26.28kB/s    0:00:00            5.49K 100%   26.28kB/s    0:00:00 (xfr#266, to-chk=281/552)
-Definitions/losslessclub.yml
-          2.48K 100%   11.85kB/s    0:00:00            2.48K 100%   11.85kB/s    0:00:00 (xfr#267, to-chk=280/552)
-Definitions/lst.yml
-          5.73K 100%   27.31kB/s    0:00:00            5.73K 100%   27.31kB/s    0:00:00 (xfr#268, to-chk=279/552)
-Definitions/mactorrentsdownload.yml
-          1.82K 100%    8.64kB/s    0:00:00            1.82K 100%    8.64kB/s    0:00:00 (xfr#269, to-chk=278/552)
-Definitions/madsrevolution.yml
-          6.07K 100%   28.77kB/s    0:00:00            6.07K 100%   28.77kB/s    0:00:00 (xfr#270, to-chk=277/552)
-Definitions/magnetcat.yml
-          2.55K 100%   12.03kB/s    0:00:00            2.55K 100%   12.03kB/s    0:00:00 (xfr#271, to-chk=276/552)
-Definitions/majomparade.yml
-          6.85K 100%   32.18kB/s    0:00:00            6.85K 100%   32.18kB/s    0:00:00 (xfr#272, to-chk=275/552)
-Definitions/makingoff.yml
-         32.77K  53%  153.11kB/s    0:00:00           61.36K 100%  286.72kB/s    0:00:00 (xfr#273, to-chk=274/552)
-Definitions/malayabits-api.yml
-          5.28K 100%   24.53kB/s    0:00:00            5.28K 100%   24.53kB/s    0:00:00 (xfr#274, to-chk=273/552)
-Definitions/marinetracker.yml
-         20.39K 100%   94.36kB/s    0:00:00           20.39K 100%   94.36kB/s    0:00:00 (xfr#275, to-chk=272/552)
-Definitions/masters-tb.yml
-          5.06K 100%   23.41kB/s    0:00:00            5.06K 100%   23.41kB/s    0:00:00 (xfr#276, to-chk=271/552)
-Definitions/matrix.yml
-          5.00K 100%   23.01kB/s    0:00:00            5.00K 100%   23.01kB/s    0:00:00 (xfr#277, to-chk=270/552)
-Definitions/mazepa.yml
-         16.33K 100%   74.89kB/s    0:00:00           16.33K 100%   74.89kB/s    0:00:00 (xfr#278, to-chk=269/552)
-Definitions/mdan.yml
-          4.21K 100%   19.32kB/s    0:00:00            4.21K 100%   19.32kB/s    0:00:00 (xfr#279, to-chk=268/552)
-Definitions/megamixtracker.yml
-          5.80K 100%   26.49kB/s    0:00:00            5.80K 100%   26.49kB/s    0:00:00 (xfr#280, to-chk=267/552)
-Definitions/megapeer.yml
-          8.49K 100%   38.57kB/s    0:00:00            8.49K 100%   38.57kB/s    0:00:00 (xfr#281, to-chk=266/552)
-Definitions/mesevilag.yml
-          5.09K 100%   23.14kB/s    0:00:00            5.09K 100%   23.14kB/s    0:00:00 (xfr#282, to-chk=265/552)
-Definitions/metalguru.yml
-          4.67K 100%   21.11kB/s    0:00:00            4.67K 100%   21.11kB/s    0:00:00 (xfr#283, to-chk=264/552)
-Definitions/metaltracker.yml
-          2.58K 100%   11.62kB/s    0:00:00            2.58K 100%   11.62kB/s    0:00:00 (xfr#284, to-chk=263/552)
-Definitions/mikan.yml
-          1.75K 100%    7.88kB/s    0:00:00            1.75K 100%    7.88kB/s    0:00:00 (xfr#285, to-chk=262/552)
-Definitions/milkie.yml
-          1.89K 100%    8.46kB/s    0:00:00            1.89K 100%    8.46kB/s    0:00:00 (xfr#286, to-chk=261/552)
-Definitions/miobt.yml
-          2.45K 100%   10.97kB/s    0:00:00            2.45K 100%   10.97kB/s    0:00:00 (xfr#287, to-chk=260/552)
-Definitions/mircrew.yml
-          8.15K 100%   36.34kB/s    0:00:00            8.15K 100%   36.34kB/s    0:00:00 (xfr#288, to-chk=259/552)
-Definitions/mixtapetorrent.yml
-          1.50K 100%    6.68kB/s    0:00:00            1.50K 100%    6.65kB/s    0:00:00 (xfr#289, to-chk=258/552)
-Definitions/mma-torrents.yml
-          5.56K 100%   24.69kB/s    0:00:00            5.56K 100%   24.69kB/s    0:00:00 (xfr#290, to-chk=257/552)
-Definitions/mnv.yml
-          5.08K 100%   22.44kB/s    0:00:00            5.08K 100%   22.44kB/s    0:00:00 (xfr#291, to-chk=256/552)
-Definitions/mojblink.yml
-          8.15K 100%   36.03kB/s    0:00:00            8.15K 100%   36.03kB/s    0:00:00 (xfr#292, to-chk=255/552)
-Definitions/monikadesign-api.yml
-          4.41K 100%   19.42kB/s    0:00:00            4.41K 100%   19.42kB/s    0:00:00 (xfr#293, to-chk=254/552)
-Definitions/mousebits.yml
-          3.58K 100%   15.67kB/s    0:00:00            3.58K 100%   15.67kB/s    0:00:00 (xfr#294, to-chk=253/552)
-Definitions/moviesdvdr.yml
-          2.94K 100%   12.88kB/s    0:00:00            2.94K 100%   12.88kB/s    0:00:00 (xfr#295, to-chk=252/552)
-Definitions/musebootlegs.yml
-          7.29K 100%   31.78kB/s    0:00:00            7.29K 100%   31.78kB/s    0:00:00 (xfr#296, to-chk=251/552)
-Definitions/mvgroupforum.yml
-          6.31K 100%   27.38kB/s    0:00:00            6.31K 100%   27.38kB/s    0:00:00 (xfr#297, to-chk=250/552)
-Definitions/mvgroupmain.yml
-          6.30K 100%   27.37kB/s    0:00:00            6.30K 100%   27.37kB/s    0:00:00 (xfr#298, to-chk=249/552)
-Definitions/mypornclub.yml
-          1.53K 100%    6.63kB/s    0:00:00            1.53K 100%    6.63kB/s    0:00:00 (xfr#299, to-chk=248/552)
-Definitions/myspleen.yml
-          2.34K 100%   10.10kB/s    0:00:00            2.34K 100%   10.10kB/s    0:00:00 (xfr#300, to-chk=247/552)
-Definitions/ncore.yml
-          4.99K 100%   21.45kB/s    0:00:00            4.99K 100%   21.45kB/s    0:00:00 (xfr#301, to-chk=246/552)
-Definitions/nethd.yml
-          4.63K 100%   19.85kB/s    0:00:00            4.63K 100%   19.85kB/s    0:00:00 (xfr#302, to-chk=245/552)
-Definitions/newheaven.yml
-          7.40K 100%   31.70kB/s    0:00:00            7.40K 100%   31.70kB/s    0:00:00 (xfr#303, to-chk=244/552)
-Definitions/newretro.yml
-          6.29K 100%   26.84kB/s    0:00:00            6.29K 100%   26.84kB/s    0:00:00 (xfr#304, to-chk=243/552)
-Definitions/newstudio.yml
-          4.58K 100%   19.43kB/s    0:00:00            4.58K 100%   19.43kB/s    0:00:00 (xfr#305, to-chk=242/552)
-Definitions/newstudiol.yml
-          5.26K 100%   22.33kB/s    0:00:00            5.26K 100%   22.33kB/s    0:00:00 (xfr#306, to-chk=241/552)
-Definitions/nicept.yml
-          5.73K 100%   24.21kB/s    0:00:00            5.73K 100%   24.21kB/s    0:00:00 (xfr#307, to-chk=240/552)
-Definitions/nipponsei.yml
-          1.34K 100%    5.65kB/s    0:00:00            1.34K 100%    5.65kB/s    0:00:00 (xfr#308, to-chk=239/552)
-Definitions/nirvana.yml
-          5.32K 100%   22.39kB/s    0:00:00            5.32K 100%   22.39kB/s    0:00:00 (xfr#309, to-chk=238/552)
-Definitions/noname-club.yml
-         32.77K  53%  137.34kB/s    0:00:00           61.69K 100%  258.56kB/s    0:00:00 (xfr#310, to-chk=237/552)
-Definitions/noname-clubl.yml
-         32.77K  52%  136.17kB/s    0:00:00           62.71K 100%  260.61kB/s    0:00:00 (xfr#311, to-chk=236/552)
-Definitions/nordicquality.yml
-          5.88K 100%   24.43kB/s    0:00:00            5.88K 100%   24.43kB/s    0:00:00 (xfr#312, to-chk=235/552)
-Definitions/nortorrent.yml
-          5.00K 100%   20.71kB/s    0:00:00            5.00K 100%   20.71kB/s    0:00:00 (xfr#313, to-chk=234/552)
-Definitions/ntelogo.yml
-          5.48K 100%   22.58kB/s    0:00:00            5.48K 100%   22.58kB/s    0:00:00 (xfr#314, to-chk=233/552)
-Definitions/nusantarare.yml
-          5.57K 100%   22.97kB/s    0:00:00            5.57K 100%   22.97kB/s    0:00:00 (xfr#315, to-chk=232/552)
-Definitions/nyaapantsu.yml
-          4.65K 100%   19.07kB/s    0:00:00            4.65K 100%   19.07kB/s    0:00:00 (xfr#316, to-chk=231/552)
-Definitions/nyaasi.yml
-         10.55K 100%   43.10kB/s    0:00:00           10.55K 100%   43.10kB/s    0:00:00 (xfr#317, to-chk=230/552)
-Definitions/okpt.yml
-          6.79K 100%   27.74kB/s    0:00:00            6.79K 100%   27.74kB/s    0:00:00 (xfr#318, to-chk=229/552)
-Definitions/oldgreektracker.yml
-          7.81K 100%   31.77kB/s    0:00:00            7.81K 100%   31.77kB/s    0:00:00 (xfr#319, to-chk=228/552)
-Definitions/oldtoonsworld.yml
-          5.81K 100%   23.53kB/s    0:00:00            5.81K 100%   23.53kB/s    0:00:00 (xfr#320, to-chk=227/552)
-Definitions/onejav.yml
-          1.62K 100%    6.58kB/s    0:00:00            1.62K 100%    6.58kB/s    0:00:00 (xfr#321, to-chk=226/552)
-Definitions/onlyencodes-api.yml
-          5.36K 100%   21.61kB/s    0:00:00            5.36K 100%   21.61kB/s    0:00:00 (xfr#322, to-chk=225/552)
-Definitions/opencd.yml
-          5.79K 100%   23.27kB/s    0:00:00            5.79K 100%   23.27kB/s    0:00:00 (xfr#323, to-chk=224/552)
-Definitions/opensharing.yml
-         12.52K 100%   50.33kB/s    0:00:00           12.52K 100%   50.33kB/s    0:00:00 (xfr#324, to-chk=223/552)
-Definitions/oshenpt.yml
-          6.22K 100%   24.91kB/s    0:00:00            6.22K 100%   24.91kB/s    0:00:00 (xfr#325, to-chk=222/552)
-Definitions/ostwiki.yml
-          4.49K 100%   17.90kB/s    0:00:00            4.49K 100%   17.90kB/s    0:00:00 (xfr#326, to-chk=221/552)
-Definitions/ourbits.yml
-          5.66K 100%   22.54kB/s    0:00:00            5.66K 100%   22.54kB/s    0:00:00 (xfr#327, to-chk=220/552)
-Definitions/oxtorrent-co.yml
-          3.19K 100%   12.66kB/s    0:00:00            3.19K 100%   12.66kB/s    0:00:00 (xfr#328, to-chk=219/552)
-Definitions/oxtorrent-vip.yml
-          5.06K 100%   20.02kB/s    0:00:00            5.06K 100%   20.02kB/s    0:00:00 (xfr#329, to-chk=218/552)
-Definitions/p2pbg.yml
-          6.45K 100%   25.52kB/s    0:00:00            6.45K 100%   25.52kB/s    0:00:00 (xfr#330, to-chk=217/552)
-Definitions/panda.yml
-          6.83K 100%   26.91kB/s    0:00:00            6.83K 100%   26.91kB/s    0:00:00 (xfr#331, to-chk=216/552)
-Definitions/pandahd.yml
-          5.39K 100%   21.16kB/s    0:00:00            5.39K 100%   21.16kB/s    0:00:00 (xfr#332, to-chk=215/552)
-Definitions/party-tracker.yml
-          4.72K 100%   18.52kB/s    0:00:00            4.72K 100%   18.52kB/s    0:00:00 (xfr#333, to-chk=214/552)
-Definitions/pctorrent.yml
-          1.32K 100%    5.14kB/s    0:00:00            1.32K 100%    5.14kB/s    0:00:00 (xfr#334, to-chk=213/552)
-Definitions/peeratiko.yml
-          7.60K 100%   29.67kB/s    0:00:00            7.60K 100%   29.67kB/s    0:00:00 (xfr#335, to-chk=212/552)
-Definitions/peersfm.yml
-          4.91K 100%   19.09kB/s    0:00:00            4.91K 100%   19.09kB/s    0:00:00 (xfr#336, to-chk=211/552)
-Definitions/pier720.yml
-          6.91K 100%   26.76kB/s    0:00:00            6.91K 100%   26.76kB/s    0:00:00 (xfr#337, to-chk=210/552)
-Definitions/pignetwork.yml
-          7.09K 100%   27.48kB/s    0:00:00            7.09K 100%   27.48kB/s    0:00:00 (xfr#338, to-chk=209/552)
-Definitions/pixelcove.yml
-          6.26K 100%   24.17kB/s    0:00:00            6.26K 100%   24.17kB/s    0:00:00 (xfr#339, to-chk=208/552)
-Definitions/pixelcove2fa.yml
-          6.20K 100%   23.83kB/s    0:00:00            6.20K 100%   23.83kB/s    0:00:00 (xfr#340, to-chk=207/552)
-Definitions/plugintorrent.yml
-          1.45K 100%    5.56kB/s    0:00:00            1.45K 100%    5.56kB/s    0:00:00 (xfr#341, to-chk=206/552)
-Definitions/polishtorrent.yml
-          7.93K 100%   30.37kB/s    0:00:00            7.93K 100%   30.37kB/s    0:00:00 (xfr#342, to-chk=205/552)
-Definitions/polishtracker-api.yml
-          5.03K 100%   19.19kB/s    0:00:00            5.03K 100%   19.19kB/s    0:00:00 (xfr#343, to-chk=204/552)
-Definitions/polskie-torrenty.yml
-          7.03K 100%   26.82kB/s    0:00:00            7.03K 100%   26.82kB/s    0:00:00 (xfr#344, to-chk=203/552)
-Definitions/pornbay.yml
-          4.47K 100%   16.97kB/s    0:00:00            4.47K 100%   16.97kB/s    0:00:00 (xfr#345, to-chk=202/552)
-Definitions/pornolab.yml
-         16.52K 100%   62.52kB/s    0:00:00           16.52K 100%   62.52kB/s    0:00:00 (xfr#346, to-chk=201/552)
-Definitions/pornotorrent.yml
-          1.08K 100%    4.10kB/s    0:00:00            1.08K 100%    4.10kB/s    0:00:00 (xfr#347, to-chk=200/552)
-Definitions/pornrips.yml
-          1.03K 100%    3.90kB/s    0:00:00            1.03K 100%    3.90kB/s    0:00:00 (xfr#348, to-chk=199/552)
-Definitions/portugas-api.yml
-          5.89K 100%   22.19kB/s    0:00:00            5.89K 100%   22.19kB/s    0:00:00 (xfr#349, to-chk=198/552)
-Definitions/postman.yml
-          3.39K 100%   12.74kB/s    0:00:00            3.39K 100%   12.74kB/s    0:00:00 (xfr#350, to-chk=197/552)
-Definitions/privatesilverscreen-api.yml
-          5.64K 100%   21.11kB/s    0:00:00            5.64K 100%   21.11kB/s    0:00:00 (xfr#351, to-chk=196/552)
-Definitions/proaudiotorrents.yml
-          3.76K 100%   14.05kB/s    0:00:00            3.76K 100%   14.05kB/s    0:00:00 (xfr#352, to-chk=195/552)
-Definitions/proporno.yml
-          3.83K 100%   14.28kB/s    0:00:00            3.83K 100%   14.28kB/s    0:00:00 (xfr#353, to-chk=194/552)
-Definitions/ptcafe.yml
-          5.50K 100%   20.43kB/s    0:00:00            5.50K 100%   20.43kB/s    0:00:00 (xfr#354, to-chk=193/552)
-Definitions/ptchina.yml
-          6.32K 100%   23.47kB/s    0:00:00            6.32K 100%   23.47kB/s    0:00:00 (xfr#355, to-chk=192/552)
-Definitions/pterclub.yml
-          7.17K 100%   26.53kB/s    0:00:00            7.17K 100%   26.53kB/s    0:00:00 (xfr#356, to-chk=191/552)
-Definitions/ptfans.yml
-          8.62K 100%   31.78kB/s    0:00:00            8.62K 100%   31.78kB/s    0:00:00 (xfr#357, to-chk=190/552)
-Definitions/ptfiles.yml
-          5.20K 100%   19.17kB/s    0:00:00            5.20K 100%   19.17kB/s    0:00:00 (xfr#358, to-chk=189/552)
-Definitions/ptgtk.yml
-          6.42K 100%   23.57kB/s    0:00:00            6.42K 100%   23.57kB/s    0:00:00 (xfr#359, to-chk=188/552)
-Definitions/pthome.yml
-          4.00K 100%   14.61kB/s    0:00:00            4.00K 100%   14.61kB/s    0:00:00 (xfr#360, to-chk=187/552)
-Definitions/ptitzmx.yml
-          5.16K 100%   18.89kB/s    0:00:00            5.16K 100%   18.89kB/s    0:00:00 (xfr#361, to-chk=186/552)
-Definitions/ptsbao.yml
-          4.46K 100%   16.23kB/s    0:00:00            4.46K 100%   16.23kB/s    0:00:00 (xfr#362, to-chk=185/552)
-Definitions/pttime.yml
-          7.54K 100%   27.37kB/s    0:00:00            7.54K 100%   27.37kB/s    0:00:00 (xfr#363, to-chk=184/552)
-Definitions/ptvicomo.yml
-          6.54K 100%   23.76kB/s    0:00:00            6.54K 100%   23.76kB/s    0:00:00 (xfr#364, to-chk=183/552)
-Definitions/punkshorror.yml
-          4.72K 100%   17.07kB/s    0:00:00            4.72K 100%   17.07kB/s    0:00:00 (xfr#365, to-chk=182/552)
-Definitions/puntotorrent.yml
-         13.41K 100%   48.50kB/s    0:00:00           13.41K 100%   48.50kB/s    0:00:00 (xfr#366, to-chk=181/552)
-Definitions/pussytorrents.yml
-          2.12K 100%    7.62kB/s    0:00:00            2.12K 100%    7.62kB/s    0:00:00 (xfr#367, to-chk=180/552)
-Definitions/putao.yml
-          6.88K 100%   24.68kB/s    0:00:00            6.88K 100%   24.68kB/s    0:00:00 (xfr#368, to-chk=179/552)
-Definitions/pwtorrents.yml
-          4.14K 100%   14.86kB/s    0:00:00            4.14K 100%   14.86kB/s    0:00:00 (xfr#369, to-chk=178/552)
-Definitions/qingwa.yml
-          5.82K 100%   20.82kB/s    0:00:00            5.82K 100%   20.82kB/s    0:00:00 (xfr#370, to-chk=177/552)
-Definitions/r3vwtf.yml
-          4.91K 100%   17.49kB/s    0:00:00            4.91K 100%   17.49kB/s    0:00:00 (xfr#371, to-chk=176/552)
-Definitions/racing4everyone-api.yml
-          5.79K 100%   20.65kB/s    0:00:00            5.79K 100%   20.65kB/s    0:00:00 (xfr#372, to-chk=175/552)
-Definitions/racingforme.yml
-         10.95K 100%   38.90kB/s    0:00:00           10.95K 100%   38.90kB/s    0:00:00 (xfr#373, to-chk=174/552)
-Definitions/rain.yml
-          6.14K 100%   21.80kB/s    0:00:00            6.14K 100%   21.80kB/s    0:00:00 (xfr#374, to-chk=173/552)
-Definitions/rainbowtracker.yml
-         13.92K 100%   49.24kB/s    0:00:00           13.92K 100%   49.24kB/s    0:00:00 (xfr#375, to-chk=172/552)
-Definitions/rapidzona.yml
-          6.68K 100%   23.55kB/s    0:00:00            6.68K 100%   23.55kB/s    0:00:00 (xfr#376, to-chk=171/552)
-Definitions/rareshare2.yml
-          4.90K 100%   17.27kB/s    0:00:00            4.90K 100%   17.27kB/s    0:00:00 (xfr#377, to-chk=170/552)
-Definitions/redleaves.yml
-          5.58K 100%   19.61kB/s    0:00:00            5.58K 100%   19.61kB/s    0:00:00 (xfr#378, to-chk=169/552)
-Definitions/redstartorrent.yml
-          3.35K 100%   11.72kB/s    0:00:00            3.35K 100%   11.72kB/s    0:00:00 (xfr#379, to-chk=168/552)
-Definitions/reelflix-api.yml
-          5.38K 100%   18.82kB/s    0:00:00            5.38K 100%   18.82kB/s    0:00:00 (xfr#380, to-chk=167/552)
-Definitions/rgfootball.yml
-         32.77K  92%  114.29kB/s    0:00:00           35.35K 100%  123.31kB/s    0:00:00 (xfr#381, to-chk=166/552)
-Definitions/rintor.yml
-          6.54K 100%   22.75kB/s    0:00:00            6.54K 100%   22.75kB/s    0:00:00 (xfr#382, to-chk=165/552)
-Definitions/rintornet.yml
-          3.63K 100%   12.57kB/s    0:00:00            3.63K 100%   12.57kB/s    0:00:00 (xfr#383, to-chk=164/552)
-Definitions/riperam.yml
-         32.77K  52%  113.07kB/s    0:00:00           61.86K 100%  213.47kB/s    0:00:00 (xfr#384, to-chk=163/552)
-Definitions/rockbox.yml
-          2.78K 100%    9.57kB/s    0:00:00            2.78K 100%    9.57kB/s    0:00:00 (xfr#385, to-chk=162/552)
-Definitions/rockethd.yml
-          4.97K 100%   17.10kB/s    0:00:00            4.97K 100%   17.10kB/s    0:00:00 (xfr#386, to-chk=161/552)
-Definitions/romanianmetaltorrents.yml
-          5.42K 100%   18.57kB/s    0:00:00            5.42K 100%   18.57kB/s    0:00:00 (xfr#387, to-chk=160/552)
-Definitions/rotorrent.yml
-          5.30K 100%   18.08kB/s    0:00:00            5.30K 100%   18.08kB/s    0:00:00 (xfr#388, to-chk=159/552)
-Definitions/rousi.yml
-          9.06K 100%   30.93kB/s    0:00:00            9.06K 100%   30.93kB/s    0:00:00 (xfr#389, to-chk=158/552)
-Definitions/rudub.yml
-          8.17K 100%   27.80kB/s    0:00:00            8.17K 100%   27.80kB/s    0:00:00 (xfr#390, to-chk=157/552)
-Definitions/rustorka.yml
-         32.77K  53%  111.11kB/s    0:00:00           61.26K 100%  207.74kB/s    0:00:00 (xfr#391, to-chk=156/552)
-Definitions/rutor.yml
-          8.35K 100%   28.23kB/s    0:00:00            8.35K 100%   28.23kB/s    0:00:00 (xfr#392, to-chk=155/552)
-Definitions/rutracker-ru.yml
-         32.77K  88%  110.34kB/s    0:00:00           36.91K 100%  124.30kB/s    0:00:00 (xfr#393, to-chk=154/552)
-Definitions/samaritano.yml
-          6.12K 100%   20.52kB/s    0:00:00            6.12K 100%   20.52kB/s    0:00:00 (xfr#394, to-chk=153/552)
-Definitions/satclubbing.yml
-          4.80K 100%   16.10kB/s    0:00:00            4.80K 100%   16.10kB/s    0:00:00 (xfr#395, to-chk=152/552)
-Definitions/scenerush.yml
-          5.83K 100%   19.50kB/s    0:00:00            5.83K 100%   19.50kB/s    0:00:00 (xfr#396, to-chk=151/552)
-Definitions/seedfile.yml
-          4.40K 100%   14.72kB/s    0:00:00            4.40K 100%   14.72kB/s    0:00:00 (xfr#397, to-chk=150/552)
-Definitions/seedpool-api.yml
-          5.84K 100%   19.46kB/s    0:00:00            5.84K 100%   19.46kB/s    0:00:00 (xfr#398, to-chk=149/552)
-Definitions/selezen.yml
-          8.33K 100%   27.67kB/s    0:00:00            8.33K 100%   27.67kB/s    0:00:00 (xfr#399, to-chk=148/552)
-Definitions/sexypics.yml
-          2.04K 100%    6.79kB/s    0:00:00            2.04K 100%    6.79kB/s    0:00:00 (xfr#400, to-chk=147/552)
-Definitions/sfp.yml
-          6.44K 100%   21.32kB/s    0:00:00            6.44K 100%   21.32kB/s    0:00:00 (xfr#401, to-chk=146/552)
-Definitions/shadowflow.yml
-          4.93K 100%   16.25kB/s    0:00:00            4.93K 100%   16.25kB/s    0:00:00 (xfr#402, to-chk=145/552)
-Definitions/shanaproject.yml
-          3.78K 100%   12.47kB/s    0:00:00            3.78K 100%   12.47kB/s    0:00:00 (xfr#403, to-chk=144/552)
-Definitions/shareisland-api.yml
-          7.21K 100%   23.72kB/s    0:00:00            7.21K 100%   23.72kB/s    0:00:00 (xfr#404, to-chk=143/552)
-Definitions/sharewood-api.yml
-          6.52K 100%   21.43kB/s    0:00:00            6.52K 100%   21.43kB/s    0:00:00 (xfr#405, to-chk=142/552)
-Definitions/showrss.yml
-            968 100%    3.17kB/s    0:00:00              968 100%    3.17kB/s    0:00:00 (xfr#406, to-chk=141/552)
-Definitions/siambit.yml
-         10.14K 100%   33.11kB/s    0:00:00           10.14K 100%   33.11kB/s    0:00:00 (xfr#407, to-chk=140/552)
-Definitions/sktorrent-org.yml
-          4.78K 100%   15.61kB/s    0:00:00            4.78K 100%   15.61kB/s    0:00:00 (xfr#408, to-chk=139/552)
-Definitions/sktorrent.yml
-          9.04K 100%   29.42kB/s    0:00:00            9.04K 100%   29.42kB/s    0:00:00 (xfr#409, to-chk=138/552)
-Definitions/snowpt.yml
-          2.81K 100%    9.10kB/s    0:00:00            2.81K 100%    9.10kB/s    0:00:00 (xfr#410, to-chk=137/552)
-Definitions/solidtorrents.yml
-          4.81K 100%   15.62kB/s    0:00:00            4.81K 100%   15.62kB/s    0:00:00 (xfr#411, to-chk=136/552)
-Definitions/sosulki.yml
-          2.71K 100%    8.78kB/s    0:00:00            2.71K 100%    8.78kB/s    0:00:00 (xfr#412, to-chk=135/552)
-Definitions/soulvoice.yml
-          6.42K 100%   20.75kB/s    0:00:00            6.42K 100%   20.75kB/s    0:00:00 (xfr#413, to-chk=134/552)
-Definitions/speedmasterhd.yml
-          6.88K 100%   22.18kB/s    0:00:00            6.88K 100%   22.18kB/s    0:00:00 (xfr#414, to-chk=133/552)
-Definitions/spiritofrevolution.yml
-          5.86K 100%   18.83kB/s    0:00:00            5.86K 100%   18.83kB/s    0:00:00 (xfr#415, to-chk=132/552)
-Definitions/sportscult.yml
-          7.88K 100%   25.33kB/s    0:00:00            7.88K 100%   25.33kB/s    0:00:00 (xfr#416, to-chk=131/552)
-Definitions/springsunday.yml
-          5.01K 100%   16.05kB/s    0:00:00            5.01K 100%   16.05kB/s    0:00:00 (xfr#417, to-chk=130/552)
-Definitions/sugoimusic.yml
-          5.45K 100%   17.45kB/s    0:00:00            5.45K 100%   17.45kB/s    0:00:00 (xfr#418, to-chk=129/552)
-Definitions/sukebeinyaasi.yml
-          2.81K 100%    8.97kB/s    0:00:00            2.81K 100%    8.97kB/s    0:00:00 (xfr#419, to-chk=128/552)
-Definitions/superbits.yml
-          8.31K 100%   26.43kB/s    0:00:00            8.31K 100%   26.43kB/s    0:00:00 (xfr#420, to-chk=127/552)
-Definitions/swarmazon-api.yml
-          2.73K 100%    8.70kB/s    0:00:00            2.73K 100%    8.70kB/s    0:00:00 (xfr#421, to-chk=126/552)
-Definitions/tapochek.yml
-         30.83K 100%   97.76kB/s    0:00:00           30.83K 100%   97.76kB/s    0:00:00 (xfr#422, to-chk=125/552)
-Definitions/tasmanit.yml
-          5.09K 100%   16.08kB/s    0:00:00            5.09K 100%   16.08kB/s    0:00:00 (xfr#423, to-chk=124/552)
-Definitions/teamctgame.yml
-          9.60K 100%   30.25kB/s    0:00:00            9.60K 100%   30.25kB/s    0:00:00 (xfr#424, to-chk=123/552)
-Definitions/teamhd.yml
-          4.96K 100%   15.62kB/s    0:00:00            4.96K 100%   15.62kB/s    0:00:00 (xfr#425, to-chk=122/552)
-Definitions/teamos.yml
-          7.52K 100%   23.61kB/s    0:00:00            7.52K 100%   23.61kB/s    0:00:00 (xfr#426, to-chk=121/552)
-Definitions/tekno3d.yml
-          4.14K 100%   12.95kB/s    0:00:00            4.14K 100%   12.95kB/s    0:00:00 (xfr#427, to-chk=120/552)
-Definitions/thecrazyones.yml
-          6.48K 100%   20.21kB/s    0:00:00            6.48K 100%   20.21kB/s    0:00:00 (xfr#428, to-chk=119/552)
-Definitions/theempire.yml
-          5.28K 100%   16.41kB/s    0:00:00            5.28K 100%   16.41kB/s    0:00:00 (xfr#429, to-chk=118/552)
-Definitions/thefallingangels.yml
-          7.62K 100%   23.61kB/s    0:00:00            7.62K 100%   23.61kB/s    0:00:00 (xfr#430, to-chk=117/552)
-Definitions/thegeeks.yml
-          8.48K 100%   26.28kB/s    0:00:00            8.48K 100%   26.28kB/s    0:00:00 (xfr#431, to-chk=116/552)
-Definitions/thekitchen.yml
-          6.28K 100%   19.42kB/s    0:00:00            6.28K 100%   19.42kB/s    0:00:00 (xfr#432, to-chk=115/552)
-Definitions/theleachzone-api.yml
-          4.60K 100%   14.17kB/s    0:00:00            4.60K 100%   14.17kB/s    0:00:00 (xfr#433, to-chk=114/552)
-Definitions/themixingbowl.yml
-          3.57K 100%   10.97kB/s    0:00:00            3.57K 100%   10.97kB/s    0:00:00 (xfr#434, to-chk=113/552)
-Definitions/thenewfun.yml
-          6.37K 100%   19.57kB/s    0:00:00            6.37K 100%   19.57kB/s    0:00:00 (xfr#435, to-chk=112/552)
-Definitions/theoccult.yml
-          6.39K 100%   19.55kB/s    0:00:00            6.39K 100%   19.55kB/s    0:00:00 (xfr#436, to-chk=111/552)
-Definitions/theoldschool-api.yml
-          6.96K 100%   21.25kB/s    0:00:00            6.96K 100%   21.25kB/s    0:00:00 (xfr#437, to-chk=110/552)
-Definitions/theparadiese.yml
-          6.81K 100%   20.71kB/s    0:00:00            6.81K 100%   20.71kB/s    0:00:00 (xfr#438, to-chk=109/552)
-Definitions/thepiratebay.yml
-          7.22K 100%   21.88kB/s    0:00:00            7.22K 100%   21.88kB/s    0:00:00 (xfr#439, to-chk=108/552)
-Definitions/thepiratedship.yml
-          6.15K 100%   18.65kB/s    0:00:00            6.15K 100%   18.65kB/s    0:00:00 (xfr#440, to-chk=107/552)
-Definitions/theplace.yml
-          5.60K 100%   16.93kB/s    0:00:00            5.60K 100%   16.93kB/s    0:00:00 (xfr#441, to-chk=106/552)
-Definitions/therarbg.yml
-          2.98K 100%    8.98kB/s    0:00:00            2.98K 100%    8.98kB/s    0:00:00 (xfr#442, to-chk=105/552)
-Definitions/theshow.yml
-          6.84K 100%   20.55kB/s    0:00:00            6.84K 100%   20.55kB/s    0:00:00 (xfr#443, to-chk=104/552)
-Definitions/thevault.yml
-          6.47K 100%   19.43kB/s    0:00:00            6.47K 100%   19.43kB/s    0:00:00 (xfr#444, to-chk=103/552)
-Definitions/tjupt.yml
-          6.52K 100%   19.53kB/s    0:00:00            6.52K 100%   19.53kB/s    0:00:00 (xfr#445, to-chk=102/552)
-Definitions/tlfbits.yml
-          4.72K 100%   14.09kB/s    0:00:00            4.72K 100%   14.09kB/s    0:00:00 (xfr#446, to-chk=101/552)
-Definitions/tmghub.yml
-          5.86K 100%   17.44kB/s    0:00:00            5.86K 100%   17.44kB/s    0:00:00 (xfr#447, to-chk=100/552)
-Definitions/tocashare.yml
-          5.40K 100%   16.04kB/s    0:00:00            5.40K 100%   16.04kB/s    0:00:00 (xfr#448, to-chk=99/552)
-Definitions/tokyotosho.yml
-          3.12K 100%    9.25kB/s    0:00:00            3.12K 100%    9.25kB/s    0:00:00 (xfr#449, to-chk=98/552)
-Definitions/torlock.yml
-          6.34K 100%   18.77kB/s    0:00:00            6.34K 100%   18.77kB/s    0:00:00 (xfr#450, to-chk=97/552)
-Definitions/tormac.yml
-         11.06K 100%   32.63kB/s    0:00:00           11.06K 100%   32.63kB/s    0:00:00 (xfr#451, to-chk=96/552)
-Definitions/tornado.yml
-          5.40K 100%   15.89kB/s    0:00:00            5.40K 100%   15.89kB/s    0:00:00 (xfr#452, to-chk=95/552)
-Definitions/torrent-heaven.yml
-          5.20K 100%   15.26kB/s    0:00:00            5.20K 100%   15.26kB/s    0:00:00 (xfr#453, to-chk=94/552)
-Definitions/torrent-pirat.yml
-         12.56K 100%   36.84kB/s    0:00:00           12.56K 100%   36.84kB/s    0:00:00 (xfr#454, to-chk=93/552)
-Definitions/torrent-turk.yml
-          6.97K 100%   20.38kB/s    0:00:00            6.97K 100%   20.38kB/s    0:00:00 (xfr#455, to-chk=92/552)
-Definitions/torrent9.yml
-          6.39K 100%   18.62kB/s    0:00:00            6.39K 100%   18.62kB/s    0:00:00 (xfr#456, to-chk=91/552)
-Definitions/torrentbd.yml
-          5.91K 100%   17.17kB/s    0:00:00            5.91K 100%   17.17kB/s    0:00:00 (xfr#457, to-chk=90/552)
-Definitions/torrentby.yml
-          3.80K 100%   11.00kB/s    0:00:00            3.80K 100%   11.00kB/s    0:00:00 (xfr#458, to-chk=89/552)
-Definitions/torrentccf.yml
-          5.71K 100%   16.56kB/s    0:00:00            5.71K 100%   16.56kB/s    0:00:00 (xfr#459, to-chk=88/552)
-Definitions/torrentcore.yml
-          3.48K 100%   10.07kB/s    0:00:00            3.48K 100%   10.07kB/s    0:00:00 (xfr#460, to-chk=87/552)
-Definitions/torrentdd.yml
-          6.56K 100%   18.89kB/s    0:00:00            6.56K 100%   18.89kB/s    0:00:00 (xfr#461, to-chk=86/552)
-Definitions/torrentdownload.yml
-          5.65K 100%   16.23kB/s    0:00:00            5.65K 100%   16.23kB/s    0:00:00 (xfr#462, to-chk=85/552)
-Definitions/torrentdownloads.yml
-          3.19K 100%    9.13kB/s    0:00:00            3.19K 100%    9.13kB/s    0:00:00 (xfr#463, to-chk=84/552)
-Definitions/torrenteros-api.yml
-          5.22K 100%   14.94kB/s    0:00:00            5.22K 100%   14.94kB/s    0:00:00 (xfr#464, to-chk=83/552)
-Definitions/torrentfunk.yml
-          3.48K 100%    9.93kB/s    0:00:00            3.48K 100%    9.93kB/s    0:00:00 (xfr#465, to-chk=82/552)
-Definitions/torrenthr.yml
-          4.62K 100%   13.15kB/s    0:00:00            4.62K 100%   13.15kB/s    0:00:00 (xfr#466, to-chk=81/552)
-Definitions/torrenting.yml
-          3.92K 100%   11.13kB/s    0:00:00            3.92K 100%   11.13kB/s    0:00:00 (xfr#467, to-chk=80/552)
-Definitions/torrentkitty.yml
-          1.51K 100%    4.30kB/s    0:00:00            1.51K 100%    4.30kB/s    0:00:00 (xfr#468, to-chk=79/552)
-Definitions/torrentleech-pl.yml
-          6.51K 100%   18.43kB/s    0:00:00            6.51K 100%   18.43kB/s    0:00:00 (xfr#469, to-chk=78/552)
-Definitions/torrentleech.yml
-          7.64K 100%   21.56kB/s    0:00:00            7.64K 100%   21.56kB/s    0:00:00 (xfr#470, to-chk=77/552)
-Definitions/torrentlt.yml
-          5.95K 100%   16.75kB/s    0:00:00            5.95K 100%   16.75kB/s    0:00:00 (xfr#471, to-chk=76/552)
-Definitions/torrentmasters.yml
-          5.40K 100%   15.15kB/s    0:00:00            5.40K 100%   15.15kB/s    0:00:00 (xfr#472, to-chk=75/552)
-Definitions/torrentoyunindir.yml
-          1.16K 100%    3.24kB/s    0:00:00            1.16K 100%    3.24kB/s    0:00:00 (xfr#473, to-chk=74/552)
-Definitions/torrentproject2.yml
-          3.01K 100%    8.41kB/s    0:00:00            3.01K 100%    8.41kB/s    0:00:00 (xfr#474, to-chk=73/552)
-Definitions/torrentqq.yml
-          3.52K 100%    9.82kB/s    0:00:00            3.52K 100%    9.82kB/s    0:00:00 (xfr#475, to-chk=72/552)
-Definitions/torrentseeds-api.yml
-          4.47K 100%   12.43kB/s    0:00:00            4.47K 100%   12.43kB/s    0:00:00 (xfr#476, to-chk=71/552)
-Definitions/torrentsir.yml
-          3.30K 100%    9.16kB/s    0:00:00            3.30K 100%    9.16kB/s    0:00:00 (xfr#477, to-chk=70/552)
-Definitions/torrentslocal.yml
-         26.63K 100%   73.87kB/s    0:00:00           26.63K 100%   73.87kB/s    0:00:00 (xfr#478, to-chk=69/552)
-Definitions/torrentsome.yml
-          2.80K 100%    7.75kB/s    0:00:00            2.80K 100%    7.75kB/s    0:00:00 (xfr#479, to-chk=68/552)
-Definitions/torrentssg.yml
-          3.91K 100%   10.79kB/s    0:00:00            3.91K 100%   10.79kB/s    0:00:00 (xfr#480, to-chk=67/552)
-Definitions/torrenttip.yml
-          3.21K 100%    8.84kB/s    0:00:00            3.21K 100%    8.84kB/s    0:00:00 (xfr#481, to-chk=66/552)
-Definitions/torrenttrader.yml
-          5.80K 100%   15.95kB/s    0:00:00            5.80K 100%   15.95kB/s    0:00:00 (xfr#482, to-chk=65/552)
-Definitions/torrentz2nz.yml
-          1.61K 100%    4.41kB/s    0:00:00            1.61K 100%    4.41kB/s    0:00:00 (xfr#483, to-chk=64/552)
-Definitions/totheglory.yml
-          7.02K 100%   19.20kB/s    0:00:00            7.02K 100%   19.20kB/s    0:00:00 (xfr#484, to-chk=63/552)
-Definitions/totheglory2fa.yml
-          5.75K 100%   15.70kB/s    0:00:00            5.75K 100%   15.70kB/s    0:00:00 (xfr#485, to-chk=62/552)
-Definitions/trackermk.yml
-          5.14K 100%   14.02kB/s    0:00:00            5.14K 100%   14.02kB/s    0:00:00 (xfr#486, to-chk=61/552)
-Definitions/traht.yml
-          1.32K 100%    3.59kB/s    0:00:00            1.32K 100%    3.59kB/s    0:00:00 (xfr#487, to-chk=60/552)
-Definitions/trancetraffic.yml
-          2.09K 100%    5.67kB/s    0:00:00            2.09K 100%    5.67kB/s    0:00:00 (xfr#488, to-chk=59/552)
-Definitions/trellas.yml
-         11.75K 100%   31.78kB/s    0:00:00           11.75K 100%   31.78kB/s    0:00:00 (xfr#489, to-chk=58/552)
-Definitions/trezzor.yml
-          6.58K 100%   17.74kB/s    0:00:00            6.58K 100%   17.74kB/s    0:00:00 (xfr#490, to-chk=57/552)
-Definitions/trezzorcookie.yml
-          6.62K 100%   17.85kB/s    0:00:00            6.62K 100%   17.85kB/s    0:00:00 (xfr#491, to-chk=56/552)
-Definitions/tribalmixes.yml
-          3.52K 100%    9.47kB/s    0:00:00            3.52K 100%    9.47kB/s    0:00:00 (xfr#492, to-chk=55/552)
-Definitions/trupornolabs.yml
-          2.12K 100%    5.68kB/s    0:00:00            2.12K 100%    5.68kB/s    0:00:00 (xfr#493, to-chk=54/552)
-Definitions/turkseed-api.yml
-          6.40K 100%   17.13kB/s    0:00:00            6.40K 100%   17.13kB/s    0:00:00 (xfr#494, to-chk=53/552)
-Definitions/turktorrent.yml
-          7.35K 100%   19.61kB/s    0:00:00            7.35K 100%   19.61kB/s    0:00:00 (xfr#495, to-chk=52/552)
-Definitions/tvchaosuk.yml
-          8.19K 100%   21.84kB/s    0:00:00            8.19K 100%   21.84kB/s    0:00:00 (xfr#496, to-chk=51/552)
-Definitions/u2.yml
-          5.00K 100%   13.31kB/s    0:00:00            5.00K 100%   13.31kB/s    0:00:00 (xfr#497, to-chk=50/552)
-Definitions/u3c3.yml
-          1.90K 100%    5.04kB/s    0:00:00            1.90K 100%    5.04kB/s    0:00:00 (xfr#498, to-chk=49/552)
-Definitions/ubits.yml
-          6.54K 100%   17.31kB/s    0:00:00            6.54K 100%   17.31kB/s    0:00:00 (xfr#499, to-chk=48/552)
-Definitions/uhdbits.yml
-          5.57K 100%   14.70kB/s    0:00:00            5.57K 100%   14.70kB/s    0:00:00 (xfr#500, to-chk=47/552)
-Definitions/uindex.yml
-          1.51K 100%    3.96kB/s    0:00:00            1.51K 100%    3.96kB/s    0:00:00 (xfr#501, to-chk=46/552)
-Definitions/ultrahd.yml
-          5.17K 100%   13.61kB/s    0:00:00            5.17K 100%   13.61kB/s    0:00:00 (xfr#502, to-chk=45/552)
-Definitions/uniondht.yml
-         32.77K  67%   85.79kB/s    0:00:00           48.76K 100%  127.65kB/s    0:00:00 (xfr#503, to-chk=44/552)
-Definitions/unionfansub.yml
-          3.83K 100%   10.03kB/s    0:00:00            3.83K 100%   10.03kB/s    0:00:00 (xfr#504, to-chk=43/552)
-Definitions/unlimitz.yml
-          6.18K 100%   16.13kB/s    0:00:00            6.18K 100%   16.13kB/s    0:00:00 (xfr#505, to-chk=42/552)
-Definitions/uploadcx.yml
-          5.48K 100%   14.27kB/s    0:00:00            5.48K 100%   14.27kB/s    0:00:00 (xfr#506, to-chk=41/552)
-Definitions/upscalevault.yml
-          5.20K 100%   13.50kB/s    0:00:00            5.20K 100%   13.50kB/s    0:00:00 (xfr#507, to-chk=40/552)
-Definitions/utopia.yml
-          5.99K 100%   15.51kB/s    0:00:00            5.99K 100%   15.51kB/s    0:00:00 (xfr#508, to-chk=39/552)
-Definitions/vault-network.yml
-          5.44K 100%   14.08kB/s    0:00:00            5.44K 100%   14.08kB/s    0:00:00 (xfr#509, to-chk=38/552)
-Definitions/videoteka.yml
-          6.78K 100%   17.52kB/s    0:00:00            6.78K 100%   17.52kB/s    0:00:00 (xfr#510, to-chk=37/552)
-Definitions/vsthouse.yml
-          1.38K 100%    3.56kB/s    0:00:00            1.38K 100%    3.56kB/s    0:00:00 (xfr#511, to-chk=36/552)
-Definitions/vstorrent.yml
-          1.43K 100%    3.66kB/s    0:00:00            1.43K 100%    3.66kB/s    0:00:00 (xfr#512, to-chk=35/552)
-Definitions/vsttorrents.yml
-          1.20K 100%    3.09kB/s    0:00:00            1.20K 100%    3.09kB/s    0:00:00 (xfr#513, to-chk=34/552)
-Definitions/wdt.yml
-          6.42K 100%   16.47kB/s    0:00:00            6.42K 100%   16.47kB/s    0:00:00 (xfr#514, to-chk=33/552)
-Definitions/whiteangel.yml
-          5.44K 100%   13.91kB/s    0:00:00            5.44K 100%   13.91kB/s    0:00:00 (xfr#515, to-chk=32/552)
-Definitions/wihd.yml
-         10.32K 100%   26.32kB/s    0:00:00           10.32K 100%   26.32kB/s    0:00:00 (xfr#516, to-chk=31/552)
-Definitions/wintersakura.yml
-          6.66K 100%   16.97kB/s    0:00:00            6.66K 100%   16.97kB/s    0:00:00 (xfr#517, to-chk=30/552)
-Definitions/world-of-tomorrow.yml
-          6.87K 100%   17.47kB/s    0:00:00            6.87K 100%   17.47kB/s    0:00:00 (xfr#518, to-chk=29/552)
-Definitions/wukong.yml
-          5.45K 100%   13.83kB/s    0:00:00            5.45K 100%   13.83kB/s    0:00:00 (xfr#519, to-chk=28/552)
-Definitions/x-ite.me.yml
-          6.01K 100%   15.19kB/s    0:00:00            6.01K 100%   15.19kB/s    0:00:00 (xfr#520, to-chk=27/552)
-Definitions/xider-torrent.yml
-          4.40K 100%   11.14kB/s    0:00:00            4.40K 100%   11.14kB/s    0:00:00 (xfr#521, to-chk=26/552)
-Definitions/xthor-api.yml
-          7.20K 100%   18.16kB/s    0:00:00            7.20K 100%   18.16kB/s    0:00:00 (xfr#522, to-chk=25/552)
-Definitions/xthor-scraping.yml
-          7.99K 100%   20.10kB/s    0:00:00            7.99K 100%   20.10kB/s    0:00:00 (xfr#523, to-chk=24/552)
-Definitions/xtorrenty.yml
-          5.36K 100%   13.46kB/s    0:00:00            5.36K 100%   13.46kB/s    0:00:00 (xfr#524, to-chk=23/552)
-Definitions/xtremebytes.yml
-          4.10K 100%   10.29kB/s    0:00:00            4.10K 100%   10.29kB/s    0:00:00 (xfr#525, to-chk=22/552)
-Definitions/xwtclassics.yml
-          3.87K 100%    9.68kB/s    0:00:00            3.87K 100%    9.68kB/s    0:00:00 (xfr#526, to-chk=21/552)
-Definitions/xwtorrents.yml
-          6.42K 100%   16.05kB/s    0:00:00            6.42K 100%   16.05kB/s    0:00:00 (xfr#527, to-chk=20/552)
-Definitions/xxxadulttorrent.yml
-          1.43K 100%    3.56kB/s    0:00:00            1.43K 100%    3.56kB/s    0:00:00 (xfr#528, to-chk=19/552)
-Definitions/xxxclub.yml
-          2.34K 100%    5.82kB/s    0:00:00            2.34K 100%    5.82kB/s    0:00:00 (xfr#529, to-chk=18/552)
-Definitions/xxxtor.yml
-          2.15K 100%    5.34kB/s    0:00:00            2.15K 100%    5.34kB/s    0:00:00 (xfr#530, to-chk=17/552)
-Definitions/yggcookie.yml
-         14.36K 100%   35.59kB/s    0:00:00           14.36K 100%   35.59kB/s    0:00:00 (xfr#531, to-chk=16/552)
-Definitions/yggtorrent.yml
-         14.54K 100%   35.94kB/s    0:00:00           14.54K 100%   35.94kB/s    0:00:00 (xfr#532, to-chk=15/552)
-Definitions/yoinked.yml
-          5.35K 100%   13.19kB/s    0:00:00            5.35K 100%   13.19kB/s    0:00:00 (xfr#533, to-chk=14/552)
-Definitions/yourbittorrent.yml
-          2.83K 100%    6.95kB/s    0:00:00            2.83K 100%    6.95kB/s    0:00:00 (xfr#534, to-chk=13/552)
-Definitions/yts.yml
-          3.79K 100%    9.34kB/s    0:00:00            3.79K 100%    9.34kB/s    0:00:00 (xfr#535, to-chk=12/552)
-Definitions/yuscene-api.yml
-          5.60K 100%   13.74kB/s    0:00:00            5.60K 100%   13.74kB/s    0:00:00 (xfr#536, to-chk=11/552)
-Definitions/zamundanet.yml
-          6.12K 100%   14.99kB/s    0:00:00            6.12K 100%   14.99kB/s    0:00:00 (xfr#537, to-chk=10/552)
-Definitions/zelkaorg.yml
-          5.77K 100%   14.08kB/s    0:00:00            5.77K 100%   14.08kB/s    0:00:00 (xfr#538, to-chk=9/552)
-Definitions/zetorrents.yml
-          3.66K 100%    8.94kB/s    0:00:00            3.66K 100%    8.94kB/s    0:00:00 (xfr#539, to-chk=8/552)
-Definitions/zktorrent.yml
-          4.51K 100%   10.99kB/s    0:00:00            4.51K 100%   10.99kB/s    0:00:00 (xfr#540, to-chk=7/552)
-Definitions/zmpt.yml
-          6.27K 100%   15.23kB/s    0:00:00            6.27K 100%   15.23kB/s    0:00:00 (xfr#541, to-chk=6/552)
-Definitions/zomb.yml
-          3.33K 100%    8.06kB/s    0:00:00            3.33K 100%    8.06kB/s    0:00:00 (xfr#542, to-chk=5/552)
-Definitions/ztracker.yml
-          5.83K 100%   14.10kB/s    0:00:00            5.83K 100%   14.10kB/s    0:00:00 (xfr#543, to-chk=4/552)
-Sentry/
-Sentry/FDD003821460B16D4E0D4235129BD6BFAF29B751/
-Sentry/FDD003821460B16D4E0D4235129BD6BFAF29B751/__processing/
-asp/
-asp/key-4fca1d78-127d-4619-bfcf-6356e80661e4.xml
-          1.00K 100%    2.42kB/s    0:00:00            1.00K 100%    2.42kB/s    0:00:00 (xfr#544, to-chk=1/552)
-logs/
-logs/prowlarr.txt
-         32.77K  28%   78.82kB/s    0:00:01          115.18K 100%  276.37kB/s    0:00:00 (xfr#545, to-chk=0/552)
-
-sent 3.90M bytes  received 10.41K bytes  7.81M bytes/sec
-total size is 3.86M  speedup is 0.99
-Finished copy
