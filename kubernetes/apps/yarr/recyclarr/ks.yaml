@@ -15,7 +15,7 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/default/recyclarr/app
+  path: ./kubernetes/apps/yarr/recyclarr/app
   postBuild:
     substitute:
       APP: *app
