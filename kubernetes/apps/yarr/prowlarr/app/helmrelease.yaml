@@ -37,10 +37,10 @@ spec:
               - 'sh'
               - '-c'
               - |
-                apk add rsync
+                apk add rsync sudo
                 echo "Staring copy"
-                rm -rf /config
-                rsync -avPIh /original/ /config
+                sudo rm -rf /config
+                sudo rsync -avPIh /original/ /config
                 echo "Finished copy"
         containers:
           app:
