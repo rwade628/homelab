@@ -39,10 +39,9 @@ spec:
               - |
                 apk add rsync sudo
                 echo "Staring copy"
-                ls -al /config
                 sudo rm -rf /config
-                ls -al /config
                 sudo rsync -avPIh /original/ /config
+                ls -al /config
                 echo "Finished copy"
         containers:
           app:
