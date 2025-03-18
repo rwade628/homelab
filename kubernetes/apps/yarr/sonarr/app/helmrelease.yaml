@@ -22,24 +22,6 @@ spec:
       sonarr:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          filesync:
-            image:
-              repository: alpine
-              tag: latest
-            securityContext:
-              allowPrivilegeEscalation: true
-              runAsUser: 0
-              runAsGroup: 0
-              runAsNonRoot: false
-            command:
-              - 'sh'
-              - '-c'
-              - |
-                apk add rsync
-                echo "Staring copy"
-                rsync -avPIh /original/ /config
-                echo "Finished copy"
         containers:
           app:
             image:
@@ -107,10 +89,6 @@ spec:
         existingClaim: sonarr-cache
         globalMounts:
           - path: /config/MediaCover
-      original-config:
-        existingClaim: sonarr-config
-        globalMounts:
-          - path: /original
       media:
         type: nfs
         server: 10.0.10.3
