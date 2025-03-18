@@ -96,7 +96,7 @@ spec:
     service:
       app:
         controller: qbittorrent
-        type: LoadBalancer
+        type: ClusterIP
         # annotations:
         #   lbipam.cilium.io/ips: 192.168.42.122
         ports:
