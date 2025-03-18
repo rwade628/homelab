@@ -27,11 +27,12 @@ spec:
             image:
               repository: alpine
               tag: latest
-            # securityContext:
-              # allowPrivilegeEscalation: true
-              # runAsUser: 1000
-              # runAsGroup: 0
-              # runAsNonRoot: false
+            securityContext:
+              allowPrivilegeEscalation: true
+              runAsUser: 0
+              runAsGroup: 0
+              fsGroup: 0
+              runAsNonRoot: false
             command:
               - 'sh'
               - '-c'
