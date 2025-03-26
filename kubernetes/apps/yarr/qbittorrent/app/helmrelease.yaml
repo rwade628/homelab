@@ -58,18 +58,19 @@ spec:
               QBT_WEBUI_PORT: &port 80
               QBT_TORRENTING_PORT: &torrentPort 50413
             probes:
-              liveness: &probes
+              liveness: #&probes
                 enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/v2/app/version
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+                # custom: true
+                # spec:
+                #   httpGet:
+                #     path: /api/v2/app/version
+                #     port: *port
+                #   initialDelaySeconds: 0
+                #   periodSeconds: 10
+                #   timeoutSeconds: 1
+                #   failureThreshold: 3
+              readiness: #*probes
+                enabled: true
               startup:
                 enabled: true
                 spec:
