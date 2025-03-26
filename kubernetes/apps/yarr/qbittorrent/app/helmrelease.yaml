@@ -17,6 +17,11 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: multus-cni
+      namespace: kube-system
   values:
     controllers:
       qbittorrent:
@@ -102,7 +107,7 @@ spec:
         #   lbipam.cilium.io/ips: 192.168.42.122
         ports:
           http:
-            primary: true
+            # primary: true
             port: *port
           bittorrent:
             enabled: true
