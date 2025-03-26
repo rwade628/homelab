@@ -22,24 +22,6 @@ spec:
       jellyfin:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          filesync:
-            image:
-              repository: alpine
-              tag: latest
-            securityContext:
-              allowPrivilegeEscalation: true
-              runAsUser: 0
-              runAsGroup: 0
-              runAsNonRoot: false
-            command:
-              - 'sh'
-              - '-c'
-              - |
-                apk add rsync
-                echo "Starting copy"
-                rsync -avPh /original/ /config/
-                echo "Finished copy"
         containers:
           app:
             image:
@@ -60,9 +42,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
@@ -83,12 +65,6 @@ spec:
     persistence:
       config:
         existingClaim: jellyfin
-      original-config:
-        type: nfs
-        server: 10.0.10.3
-        path: /mnt/storage/k8s/nfs/migrate/jellyfin
-        globalMounts:
-          - path: /original
       media:
         type: nfs
         server: 10.0.10.3
