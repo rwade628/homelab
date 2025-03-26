@@ -27,55 +27,54 @@ spec:
       qbittorrent:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          network:
-            image:
-              repository: nicolaka/netshoot
-              tag: v0.13
-              pullPolicy: IfNotPresent
-            env:
-            - name: DEV
-              value: eth0
-            command:
-            - '/bin/bash'
-            - '-c'
-            - |
-              POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
-              ip route del default via $POD_IP
-              ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
-              ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
-              echo -e "\nip route after fix:" && ip route
-            securityContext:
-              runAsNonRoot: false
-              runAsUser: 0
-              runAsGroup: 0
-              allowPrivilegeEscalation: true
-              capabilities:
-                add:
-                - NET_ADMIN
+        # initContainers:
+        #   network:
+        #     image:
+        #       repository: nicolaka/netshoot
+        #       tag: v0.13
+        #       pullPolicy: IfNotPresent
+        #     env:
+        #     - name: DEV
+        #       value: eth0
+        #     command:
+        #     - '/bin/bash'
+        #     - '-c'
+        #     - |
+        #       POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+        #       ip route del default via $POD_IP
+        #       ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
+        #       ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
+        #       echo -e "\nip route after fix:" && ip route
+        #     securityContext:
+        #       runAsNonRoot: false
+        #       runAsUser: 0
+        #       runAsGroup: 0
+        #       allowPrivilegeEscalation: true
+        #       capabilities:
+        #         add:
+        #         - NET_ADMIN
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/qbittorrent
-              tag: 5.0.3@sha256:0c0310d8266d62debd8c402a3183d646757e9bb982925a7c64be4beea57618f0
+              repository: ghcr.io/home-operations/qbittorrent
+              tag: 5.0.4@sha256:995c561247b069c10b1fa098186f35b3155c2df63912041f70637a9232755756
             env:
               TZ: America/New_York
               QBT_WEBUI_PORT: &port 80
               QBT_TORRENTING_PORT: &torrentPort 50413
             probes:
-              liveness: #&probes
+              liveness: &probes
                 enabled: true
-                # custom: true
-                # spec:
-                #   httpGet:
-                #     path: /api/v2/app/version
-                #     port: *port
-                #   initialDelaySeconds: 0
-                #   periodSeconds: 10
-                #   timeoutSeconds: 1
-                #   failureThreshold: 3
-              readiness: #*probes
-                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
               startup:
                 enabled: true
                 spec:
@@ -91,8 +90,8 @@ spec:
               limits:
                 memory: 4Gi
     defaultPodOptions:
-      annotations:
-        k8s.v1.cni.cncf.io/networks: default/vpn-macvlan
+      # annotations:
+      #   k8s.v1.cni.cncf.io/networks: default/vpn-macvlan
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -107,7 +106,7 @@ spec:
         #   lbipam.cilium.io/ips: 192.168.42.122
         ports:
           http:
-            # primary: true
+            primary: true
             port: *port
           bittorrent:
             enabled: true
