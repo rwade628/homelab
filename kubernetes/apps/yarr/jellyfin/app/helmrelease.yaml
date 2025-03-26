@@ -37,7 +37,7 @@ spec:
               - '-c'
               - |
                 apk add rsync
-                echo "Staring copy"
+                echo "Starting copy"
                 rsync -avPh /original/ /config/
                 echo "Finished copy"
         containers:
