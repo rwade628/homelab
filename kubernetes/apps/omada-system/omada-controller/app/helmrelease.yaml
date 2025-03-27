@@ -17,6 +17,7 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+    timeout: 20m
   values:
     controllers:
       omada:
