@@ -31,14 +31,17 @@ spec:
               allowPrivilegeEscalation: true
               runAsUser: 0
               runAsGroup: 0
+              fsGroup: 0
               runAsNonRoot: false
             command:
               - 'sh'
               - '-c'
               - |
-                echo "Staring chown"
-                chown -R 508:508 /opt/tplink/EAPController/data/
-                echo "Finished chown"
+                apk add rsync
+                apk add sudo
+                echo "Staring copy"
+                sudo rsync -avPIh /original/ /opt/tplink/EAPController/data/
+                echo "Finished copy"
         containers:
           app:
             image:
@@ -135,3 +138,9 @@ spec:
         existingClaim: omada
         globalMounts:
           - path: /opt/tplink/EAPController/data
+      original:
+        type: nfs
+        server: 10.0.10.3
+        path: /mnt/storage/k8s/nfs/migrate/omada
+        globalMounts:
+          - path: /original
