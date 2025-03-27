@@ -22,27 +22,6 @@ spec:
       prowlarr:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          filesync:
-            image:
-              repository: alpine
-              tag: latest
-            securityContext:
-              allowPrivilegeEscalation: true
-              runAsUser: 0
-              runAsGroup: 0
-              fsGroup: 0
-              runAsNonRoot: false
-            command:
-              - 'sh'
-              - '-c'
-              - |
-                apk add rsync sudo
-                echo "Staring copy"
-                sudo rm -rf /config
-                sudo rsync -avPIh /original/ /config
-                ls -al /config
-                echo "Finished copy"
         containers:
           app:
             image:
@@ -104,12 +83,6 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      original:
-        type: nfs
-        server: 10.0.10.3
-        path: /mnt/storage/k8s/nfs/migrate/prowlarr
-        globalMounts:
-          - path: /original
       config:
         existingClaim: prowlarr
       tmp:

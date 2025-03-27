@@ -19,25 +19,6 @@ spec:
   values:
     controllers:
       home-assistant:
-        initContainers:
-          filesync:
-            image:
-              repository: alpine
-              tag: latest
-            securityContext:
-              allowPrivilegeEscalation: true
-              runAsUser: 0
-              runAsGroup: 0
-              runAsNonRoot: false
-            command:
-              - 'sh'
-              - '-c'
-              - |
-                apk add rsync
-                echo "Staring copy"
-                rm -rf /config/
-                rsync -avPh /original/ /config/
-                echo "Finished copy"
         containers:
           app:
             image:
@@ -112,12 +93,6 @@ spec:
                   identifier: app
                   port: code-server
     persistence:
-      original:
-        type: nfs
-        server: 10.0.10.3
-        path: /mnt/storage/k8s/nfs/migrate/hass
-        globalMounts:
-          - path: /original
       config:
         existingClaim: homeassistant
         globalMounts:
