@@ -136,10 +136,6 @@ spec:
         existingClaim: omada
         globalMounts:
           - path: /opt/tplink/EAPController/data
-      logs:
-        existingClaim: omada-logs
-        globalMounts:
-          - path: /opt/tplink/EAPController/logs
       original:
         type: nfs
         server: 10.0.10.3
