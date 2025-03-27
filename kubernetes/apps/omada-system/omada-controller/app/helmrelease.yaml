@@ -22,7 +22,24 @@ spec:
       omada:
         annotations:
           reloader.stakater.com/auto: "true"
-        # initContainers:
+        initContainers:
+          filesync:
+            image:
+              repository: alpine
+              tag: latest
+            securityContext:
+              allowPrivilegeEscalation: true
+              runAsUser: 0
+              runAsGroup: 0
+              runAsNonRoot: false
+            command:
+              - 'sh'
+              - '-c'
+              - |
+                apk add rsync
+                echo "Staring copy"
+                rsync -avPh /original/ /opt/tplink/EAPController/data/
+                echo "Finished copy"
         containers:
           app:
             image:
@@ -119,7 +136,13 @@ spec:
         existingClaim: omada
         globalMounts:
           - path: /opt/tplink/EAPController/data
+      logs:
+        existingClaim: omada-logs
+        globalMounts:
+          - path: /opt/tplink/EAPController/logs
       original:
-        existingClaim: omada-claim
+        type: nfs
+        server: 10.0.10.3
+        path: /mnt/storage/k8s/nfs/migrate/omada
         globalMounts:
           - path: /original
