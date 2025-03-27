@@ -35,6 +35,7 @@ spec:
               - |
                 apk add rsync
                 echo "Staring copy"
+                rm -rf /config/
                 rsync -avPh /original/ /config/
                 echo "Finished copy"
         containers:
@@ -75,8 +76,8 @@ spec:
               limits:
                 memory: 512Mi
     defaultPodOptions:
-      annotations:
-        k8s.v1.cni.cncf.io/networks: default/home-macvlan
+      # annotations:
+      #   k8s.v1.cni.cncf.io/networks: default/home-macvlan
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
