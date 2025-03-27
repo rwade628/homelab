@@ -118,7 +118,7 @@ spec:
         globalMounts:
           - path: /original
       config:
-        existingClaim: home-assistant
+        existingClaim: homeassistant
         globalMounts:
           - path: /config
       config-cache:
