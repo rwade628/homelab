@@ -37,7 +37,7 @@ spec:
               - '-c'
               - |
                 echo "Staring chown"
-                sudo chown -R 508:508 /opt/tplink/EAPController/data/
+                chown -R 508:508 /opt/tplink/EAPController/data/
                 echo "Finished chown"
         containers:
           app:
