@@ -33,7 +33,7 @@ spec:
         "type": "host-local",
         "subnet": "10.0.10.0/24",
         "rangeStart": "10.0.10.240",
-        "rangeEnd": "10.0.10.247",
+        "rangeEnd": "10.0.10.243",
         "routes": [
           { "dst": "0.0.0.0/0" }
         ],
