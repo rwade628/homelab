@@ -22,26 +22,6 @@ spec:
       omada:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          filesync:
-            image:
-              repository: alpine
-              tag: latest
-            securityContext:
-              allowPrivilegeEscalation: true
-              runAsUser: 0
-              runAsGroup: 0
-              fsGroup: 0
-              runAsNonRoot: false
-            command:
-              - 'sh'
-              - '-c'
-              - |
-                apk add rsync
-                apk add sudo
-                echo "Staring copy"
-                sudo rsync -avPIh /original/ /opt/tplink/EAPController/data/
-                echo "Finished copy"
         containers:
           app:
             image:
@@ -61,8 +41,9 @@ spec:
               PORT_TRANSFER_V2: &transfer-v2 "29815"
               PORT_RTTY: &rtty "29816"
               TZ: America/New_York
+              PUID: 1000
               PGID: 1000
-              PGROUP: nogroup
+              PGROUP: users
             # probes:
             #   liveness: &probes
             #     enabled: true
@@ -140,9 +121,3 @@ spec:
         existingClaim: omada
         globalMounts:
           - path: /opt/tplink/EAPController/data
-      original:
-        type: nfs
-        server: 10.0.10.3
-        path: /mnt/storage/k8s/nfs/migrate/omada
-        globalMounts:
-          - path: /original
