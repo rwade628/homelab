@@ -79,7 +79,9 @@ spec:
           lbipam.cilium.io/ips: 10.0.10.244
         ports:
           http:
+            primary: true
             port: *manage-https
+            protocol: HTTPS
           app-discovery:
             port: *app-discovery
             protocol: UDP
@@ -107,6 +109,8 @@ spec:
     ingress:
       app:
         className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         hosts:
           - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
