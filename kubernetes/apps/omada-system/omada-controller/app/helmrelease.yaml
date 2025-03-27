@@ -36,10 +36,9 @@ spec:
               - 'sh'
               - '-c'
               - |
-                apk add rsync
-                echo "Staring copy"
-                rsync -avPh /original/ /opt/tplink/EAPController/data/
-                echo "Finished copy"
+                echo "Staring chown"
+                sudo chown -R 508:508 /opt/tplink/EAPController/data/
+                echo "Finished chown"
         containers:
           app:
             image:
@@ -84,9 +83,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 508
+        runAsGroup: 508
+        fsGroup: 508
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
@@ -136,9 +135,3 @@ spec:
         existingClaim: omada
         globalMounts:
           - path: /opt/tplink/EAPController/data
-      original:
-        type: nfs
-        server: 10.0.10.3
-        path: /mnt/storage/k8s/nfs/migrate/omada
-        globalMounts:
-          - path: /original
