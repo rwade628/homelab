@@ -61,6 +61,8 @@ spec:
               PORT_TRANSFER_V2: &transfer-v2 "29815"
               PORT_RTTY: &rtty "29816"
               TZ: America/New_York
+              PGID: 1000
+              PGROUP: nogroup
             # probes:
             #   liveness: &probes
             #     enabled: true
@@ -86,9 +88,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 508
-        runAsGroup: 508
-        fsGroup: 508
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
