@@ -59,12 +59,3 @@ spec:
             port: *port
           metrics:
             port: *metricsPort
-    serviceMonitor:
-      app:
-        serviceName: flaresolverr
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
