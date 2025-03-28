@@ -6,13 +6,22 @@ metadata:
   name: &app desktop
   namespace: &namespace desktop
 spec:
-  dependsOn:
-    - name: gateway
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: gateway
+      namespace: stunner
   interval: 1h
   path: ./kubernetes/apps/selkies/desktop/app
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 100Gi
   prune: true
   retryInterval: 2m
   sourceRef:
