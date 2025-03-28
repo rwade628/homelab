@@ -73,6 +73,7 @@ spec:
               SELKIES_FRAMERATE: "120"
               SELKIES_AUDIO_BITRATE: "256000"
               SELKIES_ENABLE_BASIC_AUTH: "true"
+              SELKIES_PORT: &port 80
               SELKIES_ENABLE_HTTPS_WEB: "false"
               SELKIES_TURN_HOST: "10.0.10.254"
               SELKIES_TURN_PORT: "3478"
@@ -116,7 +117,7 @@ spec:
         ports:
           http:
             primary: true
-            port: 8080
+            port: *port
           upd-one:
             port: 62001
             protocol: UDP
