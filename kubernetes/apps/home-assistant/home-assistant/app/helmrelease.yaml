@@ -3,45 +3,21 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: home-assistant
-  namespace: homeassistant
-spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  name: &app home-assistant
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
   values:
     controllers:
       home-assistant:
-        # initContainers:
-        #   filesync:
-        #     image:
-        #       repository: alpine
-        #       tag: latest
-        #     securityContext:
-        #       allowPrivilegeEscalation: true
-        #       runAsUser: 0
-        #     command:
-        #       - 'sh'
-        #       - '-c'
-        #       - |
-        #         apk add rsync
-        #         echo "Staring copy"
-        #         rsync -avPh /mnt/original/ /config/
-        #         echo "Finished copy"
         containers:
           app:
             image:
@@ -54,9 +30,6 @@ spec:
               HASS_HTTP_TRUSTED_PROXY_3: 10.0.10.0/16
               HASS_HTTP_TRUSTED_PROXY_4: 10.0.30.0/16
               HOME_ASSISTANT__HACS_INSTALL: true
-            # envFrom:
-            #   - secretRef:
-            #       name: home-assistant-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -83,15 +56,14 @@ spec:
               limits:
                 memory: 512Mi
     defaultPodOptions:
-      annotations:
-        k8s.v1.cni.cncf.io/networks: default/home-macvlan
+      # annotations:
+      #   k8s.v1.cni.cncf.io/networks: default/home-macvlan
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: home-assistant
@@ -120,19 +92,19 @@ spec:
                   identifier: app
                   port: code-server
     persistence:
-      # original:
-      #   existingClaim: home-assistant
-      #   globalMounts:
-      #     - path: /mnt/original
       config:
-        existingClaim: hass-config
+        existingClaim: homeassistant
         globalMounts:
           - path: /config
-      logs:
+      config-cache:
+        existingClaim: home-assistant-cache
+        globalMounts:
+          - path: /config/.venv
+      config-logs:
         type: emptyDir
         globalMounts:
           - path: /config/logs
-      tts:
+      config-tts:
         type: emptyDir
         globalMounts:
           - path: /config/tts
@@ -140,4 +112,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
-

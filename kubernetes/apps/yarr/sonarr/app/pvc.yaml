@@ -1,26 +1,11 @@
 ---
-kind: PersistentVolumeClaim
 apiVersion: v1
-metadata:
-  name: sonarr-config
-  namespace: yarr
-spec:
-  storageClassName: nfs-csi
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 5Gi
----
 kind: PersistentVolumeClaim
-apiVersion: v1
 metadata:
-  name: sonarr-cache-nfs
-  namespace: yarr
+  name: sonarr-cache
 spec:
-  storageClassName: "nfs-csi"
-  accessModes:
-    - ReadWriteMany
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 10Gi
+  storageClassName: ceph-block

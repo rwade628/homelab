@@ -3,17 +3,14 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: rook-ceph
+  name: app-template
 spec:
-  interval: 5m
+  interval: 1h
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v1.16.5
-  url: oci://ghcr.io/home-operations/charts-mirror/rook-ceph
+    tag: 3.7.3
+  url: oci://ghcr.io/bjw-s/helm/app-template
   verify:
     provider: cosign
-    matchOIDCIdentity:
-      - issuer: "^https://token.actions.githubusercontent.com$"
-        subject: "^https://github.com/home-operations/charts-mirror.*$"
