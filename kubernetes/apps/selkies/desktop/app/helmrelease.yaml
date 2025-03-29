@@ -69,9 +69,7 @@ spec:
                    key: password
               SELKIES_ENCODER: "nvh264enc"
               SELKIES_ENABLE_RESIZE: "false"
-              SELKIES_VIDEO_BITRATE: "32000"
               SELKIES_FRAMERATE: "120"
-              SELKIES_AUDIO_BITRATE: "256000"
               SELKIES_ENABLE_BASIC_AUTH: "true"
               SELKIES_ENABLE_HTTPS_WEB: "false"
               SELKIES_TURN_HOST: "10.0.10.254"
