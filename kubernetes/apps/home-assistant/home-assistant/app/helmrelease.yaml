@@ -19,6 +19,8 @@ spec:
   values:
     controllers:
       home-assistant:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -27,9 +29,8 @@ spec:
             env:
               TZ: America/New_York
               HASS_HTTP_TRUSTED_PROXY_1: 192.168.88.0/24
-              HASS_HTTP_TRUSTED_PROXY_2: 10.69.10.0/16
-              HASS_HTTP_TRUSTED_PROXY_3: 10.0.10.0/16
-              HASS_HTTP_TRUSTED_PROXY_4: 10.0.30.0/16
+              HASS_HTTP_TRUSTED_PROXY_2: 10.69.0.0/16
+              HASS_HTTP_TRUSTED_PROXY_3: 10.0.10.0/24
               HOME_ASSISTANT__HACS_INSTALL: true
             securityContext:
               allowPrivilegeEscalation: false
@@ -71,6 +72,7 @@ spec:
         ports:
           http:
             port: 8123
+            primary: true
           code-server:
             port: 12321
     ingress:
