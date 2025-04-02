@@ -34,9 +34,9 @@ spec:
             - |
               apk add iproute2
               MULTUS_NIC=$( ip link show | grep net1 | cut -d ' ' -f 2 )
+              echo $MULTUS_NIC
               if [[ -z "$MULTUS_NIC" ]] then
                 echo "Multus is not up yet"
-                exit 1
               fi
               POD_IP=$( ip route | grep eth1 | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
               ip route del default via $POD_IP
