@@ -52,8 +52,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/selkies-project/nvidia-glx-desktop
-              tag: 24.04@sha256:478d11e8af99d9b7e7e498f1ce656a354011186bb2d498f98c12cb10b9479c5c
+              repository: ghcr.io/selkies-project/nvidia-egl-desktop
+              tag: 24.04@sha256:24e5bae8cb44627ea5f69e3cc58eed8344528cf581b548cc121ab755445f1379
             env:
               TZ: America/New_York
               DISPLAY_SIZEW: "1920"
