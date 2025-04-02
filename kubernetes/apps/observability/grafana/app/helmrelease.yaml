@@ -183,16 +183,20 @@ spec:
           datasource: Prometheus
         amdgpu:
           url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_gpu.json
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         amdjob:
           url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_job.json
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         amdnode:
           url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_node.json
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         amdoverview:
           url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_overview.json
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         # smartctl-exporter:
         #   # renovate: depName="SMARTctl Exporter Dashboard"
         #   gnetId: 22604
