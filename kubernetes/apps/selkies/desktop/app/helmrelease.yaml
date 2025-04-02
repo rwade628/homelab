@@ -17,7 +17,7 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-    timeout: 20m
+    timeout: 5m
   values:
     controllers:
       desktop:
@@ -26,10 +26,10 @@ spec:
         initContainers:
           network:
             image:
-              repository: alpine
-              tag: 3.21.3@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c
+              repository: busybox
+              tag: stable@sha256:e246aa22ad2cbdfbd19e2a6ca2b275e26245a21920e2b2d0666324cee3f15549
             command:
-            - '/bin/bash'
+            - '/bin/sh'
             - '-c'
             - |
               apk add iproute2
@@ -37,6 +37,7 @@ spec:
               echo $MULTUS_NIC
               if [[ -z "$MULTUS_NIC" ]] then
                 echo "Multus is not up yet"
+                exit 1
               fi
               POD_IP=$( ip route | grep eth1 | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
               ip route del default via $POD_IP
