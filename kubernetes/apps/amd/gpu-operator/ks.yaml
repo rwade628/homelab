@@ -4,13 +4,13 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app amd-operator
-  namespace: &namespace kube-system
+  namespace: &namespace amd
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   interval: 1h
-  path: ./kubernetes/apps/kube-system/amd-operator/app
+  path: ./kubernetes/apps/amd/gpu-operator/app
   prune: false # never should be deleted
   retryInterval: 2m
   sourceRef:
