@@ -1,0 +1,22 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: amd-operator
+  namespace: kube-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: amd-gpu-operator
+      version: 1.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: amd
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
