@@ -7,12 +7,11 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: amd-gpu-operator
+      chart: gpu-operator-charts
       version: 1.2.0
       sourceRef:
         kind: HelmRepository
         name: amd-gpu-operator
-        namespace: amd
   install:
     remediation:
       retries: 3
