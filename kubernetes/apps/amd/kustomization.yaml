@@ -6,4 +6,4 @@ namespace: amd
 components:
   - ../../components/common
 resources:
-  - ./cilium/ks.yaml
+  - ./gpu-operator/ks.yaml
