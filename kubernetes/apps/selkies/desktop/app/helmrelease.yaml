@@ -26,17 +26,19 @@ spec:
         initContainers:
           network:
             image:
-              repository: nicolaka/netshoot
-              tag: v0.13
-              pullPolicy: IfNotPresent
-            env:
-            - name: DEV
-              value: eth0
+              repository: alpine
+              tag: 3.21.3@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c
             command:
             - '/bin/bash'
             - '-c'
             - |
-              POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+              apk add iproute2
+              MULTUS_NIC=$( ip link show | grep net1 | cut -d ' ' -f 2 )
+              if [[ -z "$MULTUS_NIC" ]] then
+                echo "Multus is not up yet"
+                exit 1
+              fi
+              POD_IP=$( ip route | grep eth1 | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
               ip route del default via $POD_IP
               ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
               ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
