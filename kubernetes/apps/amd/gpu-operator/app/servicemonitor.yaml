@@ -30,3 +30,17 @@ spec:
     - port: metrics
       path: /metrics
       interval: 15s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kmm-metrics-exporter
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kmm
+      control-plan: controller
+  endpoints:
+    - port: https
+      path: /metrics
+      interval: 15t
