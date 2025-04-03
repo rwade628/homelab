@@ -1,0 +1,16 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: deviceconfig-metrics-exporter
+spec:
+  jobLabel: deviceconfig-metrics-exporter
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: metrics-exporter
+  namespaceSelector:
+    matchNames:
+    - amd
+  endpoints:
+  - port: 5000
+    interval: 15s
