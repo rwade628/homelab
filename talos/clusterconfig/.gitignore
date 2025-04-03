@@ -2,3 +2,4 @@ homelab-nas-vm.yaml
 talosconfig
 homelab-pve-vm-nvidia.yaml
 homelab-pve-vm-2.yaml
+homelab-ser8-1.yaml
