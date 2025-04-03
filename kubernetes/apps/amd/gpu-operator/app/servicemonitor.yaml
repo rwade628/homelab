@@ -4,13 +4,12 @@ kind: ServiceMonitor
 metadata:
   name: deviceconfig-metrics-exporter
 spec:
-  jobLabel: deviceconfig-metrics-exporter
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: deviceconfig-metrics-exporter
+  endpoints:
+  - interval: 10s
+    port: "5000"
   namespaceSelector:
     matchNames:
     - amd
-  endpoints:
-  - port: "5000"
-    interval: 15s
+  selector:
+    matchSelector:
+      app.kubernetes.io/name: deviceconfig-metrics-exporter
