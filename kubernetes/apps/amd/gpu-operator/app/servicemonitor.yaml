@@ -39,7 +39,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: kmm
-      control-plan: controller
+      control-plane: controller
   endpoints:
     - port: https
       path: /metrics
