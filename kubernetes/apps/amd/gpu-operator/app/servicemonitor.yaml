@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: deviceconfig-metrics-exporter-custom
   labels:
-    app.kubernetes.io/name: metrics-exporter
+    app.kubernetes.io/name: amd-operator
     daemonset-name: deviceconfig
 spec:
   type: ClusterIP
@@ -24,7 +24,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: metrics-exporter
+      app.kubernetes.io/name: amd-operator
       daemonset-name: deviceconfig
   endpoints:
     - port: metrics
