@@ -43,4 +43,4 @@ spec:
   endpoints:
     - port: https
       path: /metrics
-      interval: 15t
+      interval: 15s
