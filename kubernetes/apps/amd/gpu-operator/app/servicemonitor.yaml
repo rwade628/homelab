@@ -12,5 +12,5 @@ spec:
     matchNames:
     - amd
   endpoints:
-  - port: 5000
+  - port: "5000"
     interval: 15s
