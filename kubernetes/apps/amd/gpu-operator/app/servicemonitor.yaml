@@ -11,5 +11,5 @@ spec:
     matchNames:
     - amd
   selector:
-    matchSelector:
+    matchLabels:
       app.kubernetes.io/name: deviceconfig-metrics-exporter
