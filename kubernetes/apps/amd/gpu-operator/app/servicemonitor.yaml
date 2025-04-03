@@ -7,7 +7,7 @@ spec:
   jobLabel: deviceconfig-metrics-exporter
   selector:
     matchLabels:
-      app.kubernetes.io/name: metrics-exporter
+      app.kubernetes.io/name: deviceconfig-metrics-exporter
   namespaceSelector:
     matchNames:
     - amd
