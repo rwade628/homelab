@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/alertmanagerconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: alertmanager
+spec:
+  route:
+    groupBy: ['job']
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    receiver: 'webhook'
+  receivers:
+  - name: 'webhook'
+    webhookConfigs:
+    - url: 'http://alerts.local/'
