@@ -6,7 +6,7 @@ metadata:
 spec:
   endpoints:
   - interval: 10s
-    port: "5000"
+    targetPort: 5000
   namespaceSelector:
     matchNames:
     - amd
