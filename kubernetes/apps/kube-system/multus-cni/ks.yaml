@@ -28,10 +28,11 @@ spec:
         - op: replace
           path: /spec/template/spec/initContainers/0/command
           value:
-            - cp
-            - -f
-            - /usr/src/multus-cni/bin/multus-shim
-            - /host/opt/cni/bin/multus-shim
+            - "/usr/src/multus-cni/bin/install_multus"
+            - "-d"
+            - "/host/opt/cni/bin"
+            - "-t"
+            - "thick"
         - op: add
           path: /spec/template/spec/initContainers/-
           value:

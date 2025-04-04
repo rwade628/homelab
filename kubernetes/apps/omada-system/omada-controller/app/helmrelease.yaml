@@ -1,0 +1,125 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app omada
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+    timeout: 20m
+  values:
+    controllers:
+      omada:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/mbentley/omada-controller
+              tag: 5.15@sha256:8a74991fa18b4a9f95701ae3fe3b061624df880653ffb0fc1045d4af7f5555e2
+            env:
+              MANAGE_HTTP_PORT: &manage-http "8088"
+              MANAGE_HTTPS_PORT: &manage-https "8043"
+              PORTAL_HTTP_PORT: &portal-http "8088"
+              PORTAL_HTTPS_PORT: &portal-https "8843"
+              PORT_APP_DISCOVERY: &app-discovery "27001"
+              PORT_DISCOVERY: &discovery "29810"
+              PORT_MANAGER_V1: &manager-v1 "29811"
+              PORT_ADOPT_V1: &adopt-v1 "29812"
+              PORT_UPGRADE_V1: &upgrade-v1 "29813"
+              PORT_MANAGER_V2: &manager-v2 "29814"
+              PORT_TRANSFER_V2: &transfer-v2 "29815"
+              PORT_RTTY: &rtty "29816"
+              TZ: America/New_York
+            # probes:
+            #   liveness: &probes
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       httpGet:
+            #         path: /ping
+            #         port: *port
+            #       initialDelaySeconds: 0
+            #       periodSeconds: 10
+            #       timeoutSeconds: 1
+            #       failureThreshold: 3
+            #   readiness: *probes
+            securityContext: {}
+              # allowPrivilegeEscalation: true
+              # readOnlyRootFilesystem: false
+              # capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 2Gi
+    defaultPodOptions:
+      securityContext: {}
+        # runAsNonRoot: false
+        # runAsUser: 508
+        # runAsGroup: 508
+        # fsGroup: 508
+        # fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: omada
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.0.10.244
+        ports:
+          http:
+            primary: true
+            port: *manage-https
+            protocol: HTTPS
+          app-discovery:
+            port: *app-discovery
+            protocol: UDP
+          discovery:
+            port: *discovery
+            protocol: UDP
+          manager-v1:
+            port: *manager-v1
+            protocol: TCP
+          adopt-v1:
+            port: *adopt-v1
+            protocol: TCP
+          upgrade-v1:
+            port: *upgrade-v1
+            protocol: TCP
+          manager-v2:
+            port: *manager-v2
+            protocol: TCP
+          transfer-v2:
+            port: *transfer-v2
+            protocol: TCP
+          rtty:
+            port: *rtty
+            protocol: TCP
+    ingress:
+      app:
+        className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+        hosts:
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      data:
+        existingClaim: omada
+        globalMounts:
+          - path: /opt/tplink/EAPController/data

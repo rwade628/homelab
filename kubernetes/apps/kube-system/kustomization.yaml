@@ -6,12 +6,10 @@ namespace: kube-system
 components:
   - ../../components/common
 resources:
-  # - ./namespace.yaml
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
   - ./metrics-server/ks.yaml
   - ./reloader/ks.yaml
-  - ./kubelet-csr-approver/ks.yaml
   - ./spegel/ks.yaml
   - ./multus-cni/ks.yaml
   - ./csi-driver-nfs/ks.yaml

@@ -3,60 +3,61 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: home-assistant
-  namespace: homeassistant
+  name: &app home-assistant
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.6.0
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
   values:
     controllers:
       home-assistant:
-        # initContainers:
-        #   filesync:
-        #     image:
-        #       repository: alpine
-        #       tag: latest
-        #     securityContext:
-        #       allowPrivilegeEscalation: true
-        #       runAsUser: 0
-        #     command:
-        #       - 'sh'
-        #       - '-c'
-        #       - |
-        #         apk add rsync
-        #         echo "Staring copy"
-        #         rsync -avPh /mnt/original/ /config/
-        #         echo "Finished copy"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          network:
+            image:
+              repository: nicolaka/netshoot
+              tag: v0.13
+              pullPolicy: IfNotPresent
+            env:
+            - name: DEV
+              value: eth0
+            command:
+            - '/bin/bash'
+            - '-c'
+            - |
+              POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+              ip route del default via $POD_IP
+              ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
+              ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
+              echo -e "\nip route after fix:" && ip route
+            securityContext:
+              runAsNonRoot: false
+              runAsUser: 0
+              runAsGroup: 0
+              allowPrivilegeEscalation: true
+              capabilities:
+                add:
+                - NET_ADMIN
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/home-assistant
-              tag: 2025.3.3@sha256:9e2a7177b4600653d6cb46dff01b1598189a5ae93be0b99242fbc039d32d79f1
+              repository: ghcr.io/home-operations/home-assistant
+              tag: 2025.4.0@sha256:1b6ee3846f0dec0b211701bf60e72955b78493a41f58aab1d584e9f563e8a41d
             env:
               TZ: America/New_York
               HASS_HTTP_TRUSTED_PROXY_1: 192.168.88.0/24
-              HASS_HTTP_TRUSTED_PROXY_2: 10.69.10.0/16
-              HASS_HTTP_TRUSTED_PROXY_3: 10.0.10.0/16
-              HASS_HTTP_TRUSTED_PROXY_4: 10.0.30.0/16
+              HASS_HTTP_TRUSTED_PROXY_2: 10.69.0.0/16
+              HASS_HTTP_TRUSTED_PROXY_3: 10.0.10.0/24
               HOME_ASSISTANT__HACS_INSTALL: true
-            # envFrom:
-            #   - secretRef:
-            #       name: home-assistant-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -87,17 +88,17 @@ spec:
         k8s.v1.cni.cncf.io/networks: default/home-macvlan
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: home-assistant
         ports:
           http:
             port: 8123
+            primary: true
           code-server:
             port: 12321
     ingress:
@@ -120,19 +121,19 @@ spec:
                   identifier: app
                   port: code-server
     persistence:
-      # original:
-      #   existingClaim: home-assistant
-      #   globalMounts:
-      #     - path: /mnt/original
       config:
-        existingClaim: hass-config
+        existingClaim: homeassistant
         globalMounts:
           - path: /config
-      logs:
+      config-cache:
+        existingClaim: home-assistant-cache
+        globalMounts:
+          - path: /config/.venv
+      config-logs:
         type: emptyDir
         globalMounts:
           - path: /config/logs
-      tts:
+      config-tts:
         type: emptyDir
         globalMounts:
           - path: /config/tts
@@ -140,4 +141,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
-

@@ -1,0 +1,67 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deviceconfig-metrics-exporter-custom
+  labels:
+    app.kubernetes.io/name: amd-operator
+    daemonset-name: deviceconfig
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: metrics-exporter
+    daemonset-name: deviceconfig
+  ports:
+    - name: metrics
+      port: 5000
+      targetPort: 5000
+      protocol: TCP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: deviceconfig-metrics-exporter
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: amd-operator
+      daemonset-name: deviceconfig
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 15s
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kmm-metrics-exporter-custom
+  labels:
+    app.kubernetes.io/name: amd-operator
+    control-plane: controller
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/component: kmm
+    app.kubernetes.io/instance: gpu-operator
+    app.kubernetes.io/name: kmm
+    app.kubernetes.io/part-of: kmm
+    control-plane: controller
+  ports:
+    - name: metrics
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kmm-metrics-exporter
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: amd-operator
+      control-plane: controller
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 15s

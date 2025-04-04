@@ -26,3 +26,5 @@ wiki
 /config.yaml
 # Backup
 db.backup
+# Secrets
+/cloudflare-tunnel.json

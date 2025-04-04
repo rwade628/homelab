@@ -87,21 +87,21 @@ spec:
         #   gnetId: 12340
         #   revision: 1
         #   datasource: Prometheus
-        # ceph-cluster:
-        #   # renovate: depName="Ceph Cluster"
-        #   gnetId: 2842
-        #   revision: 18
-        #   datasource: Prometheus
-        # ceph-osd:
-        #   # renovate: depName="Ceph - OSD (Single)"
-        #   gnetId: 5336
-        #   revision: 9
-        #   datasource: Prometheus
-        # ceph-pools:
-        #   # renovate: depName="Ceph - Pools"
-        #   gnetId: 5342
-        #   revision: 9
-        #   datasource: Prometheus
+        ceph-cluster:
+          # renovate: depName="Ceph Cluster"
+          gnetId: 2842
+          revision: 18
+          datasource: Prometheus
+        ceph-osd:
+          # renovate: depName="Ceph - OSD (Single)"
+          gnetId: 5336
+          revision: 9
+          datasource: Prometheus
+        ceph-pools:
+          # renovate: depName="Ceph - Pools"
+          gnetId: 5342
+          revision: 9
+          datasource: Prometheus
         cert-manager:
           # renovate: depName="Cert-manager-Kubernetes"
           gnetId: 20842
@@ -181,6 +181,22 @@ spec:
           gnetId: 19105
           revision: 7
           datasource: Prometheus
+        amdgpu:
+          url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_gpu.json
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        amdjob:
+          url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_job.json
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        amdnode:
+          url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_node.json
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        amdoverview:
+          url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_overview.json
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         # smartctl-exporter:
         #   # renovate: depName="SMARTctl Exporter Dashboard"
         #   gnetId: 22604
@@ -213,13 +229,13 @@ spec:
         #   revision: 1
         #   datasource:
         #     - { name: DS_PROMETHEUS, value: Prometheus }
-        # volsync:
-        #   # renovate: depName="VolSync Dashboard"
-        #   gnetId: 21356
-        #   revision: 3
-        #   datasource:
-        #     - { name: DS_PROMETHEUS, value: Prometheus }
-        #     - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
+        volsync:
+          # renovate: depName="VolSync Dashboard"
+          gnetId: 21356
+          revision: 3
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
         zfs:
           # renovate: depName="ZFS"
           gnetId: 7845

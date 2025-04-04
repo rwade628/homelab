@@ -1,0 +1,21 @@
+apiVersion: amd.com/v1alpha1
+kind: DeviceConfig
+metadata:
+  name: deviceconfig
+  namespace: amd
+spec:
+  driver:
+    # use talos amd drivers
+    enable: false
+  devicePlugin:
+    devicePluginImage: rocm/k8s-device-plugin:latest
+    nodeLabellerImage: rocm/k8s-device-plugin:labeller-latest
+  metricsExporter:
+    enable: true
+    config:
+      name: gpu-config
+    rbacConfig:
+      enable: false
+      disableHttps: true
+  selector:
+    feature.node.kubernetes.io/amd-gpu: "true"
