@@ -5,5 +5,6 @@ kind: Kustomization
 resources:
   - ./helmrepository.yaml
   - ./helmrelease.yaml
+  - ./configmap.yaml
   - ./deviceconfig.yaml
   - ./servicemonitor.yaml

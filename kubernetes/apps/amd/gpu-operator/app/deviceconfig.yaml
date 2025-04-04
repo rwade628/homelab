@@ -12,6 +12,8 @@ spec:
     nodeLabellerImage: rocm/k8s-device-plugin:labeller-latest
   metricsExporter:
     enable: true
+    config:
+      name: gpu-config
     rbacConfig:
       enable: false
       disableHttps: true
