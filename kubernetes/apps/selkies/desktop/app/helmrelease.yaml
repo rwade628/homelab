@@ -17,7 +17,7 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-    timeout: 5m
+    timeout: 20m
   values:
     controllers:
       desktop:
@@ -26,20 +26,17 @@ spec:
         initContainers:
           network:
             image:
-              repository: busybox
-              tag: stable@sha256:e246aa22ad2cbdfbd19e2a6ca2b275e26245a21920e2b2d0666324cee3f15549
+              repository: nicolaka/netshoot
+              tag: v0.13
+              pullPolicy: IfNotPresent
+            env:
+            - name: DEV
+              value: eth0
             command:
-            - '/bin/sh'
+            - '/bin/bash'
             - '-c'
             - |
-              apk add iproute2
-              MULTUS_NIC=$( ip link show | grep net1 | cut -d ' ' -f 2 )
-              echo $MULTUS_NIC
-              if [[ -z "$MULTUS_NIC" ]] then
-                echo "Multus is not up yet"
-                exit 1
-              fi
-              POD_IP=$( ip route | grep eth1 | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+              POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
               ip route del default via $POD_IP
               ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
               ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
@@ -55,8 +52,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/selkies-project/nvidia-egl-desktop
-              tag: 24.04@sha256:24e5bae8cb44627ea5f69e3cc58eed8344528cf581b548cc121ab755445f1379
+              repository: ghcr.io/selkies-project/nvidia-glx-desktop
+              tag: 24.04@sha256:478d11e8af99d9b7e7e498f1ce656a354011186bb2d498f98c12cb10b9479c5c
             env:
               TZ: America/New_York
               DISPLAY_SIZEW: "1920"
@@ -70,7 +67,6 @@ spec:
                  secretKeyRef:
                    name: selkies-auth-secret
                    key: password
-              # SELKIES_ENCODER: "vah264enc"
               SELKIES_ENCODER: "nvh264enc"
               SELKIES_ENABLE_RESIZE: "false"
               SELKIES_FRAMERATE: "120"
@@ -99,13 +95,10 @@ spec:
               requests:
                 cpu: 100m
                 memory: 100Mi
-                nvidia.com/gpu: 1
-                # amd.com/gpu: 1
               limits:
                 cpu: 8
                 memory: 8Gi
                 nvidia.com/gpu: 1
-                # amd.com/gpu: 1
     defaultPodOptions:
       runtimeClassName: nvidia
       annotations:
