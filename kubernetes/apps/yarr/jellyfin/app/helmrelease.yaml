@@ -30,8 +30,10 @@ spec:
             resources:
               requests:
                 cpu: 100m
+                amd.com/gpu: 1
               limits:
                 memory: 8Gi
+                amd.com/gpu: 1
             securityContext:
               capabilities:
                 add:
