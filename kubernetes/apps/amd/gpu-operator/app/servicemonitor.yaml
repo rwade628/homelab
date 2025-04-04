@@ -59,7 +59,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: metrics-exporter
+      app.kubernetes.io/name: amd-operator
       control-plane: controller
   endpoints:
     - port: metrics
