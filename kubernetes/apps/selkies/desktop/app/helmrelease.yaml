@@ -67,7 +67,7 @@ spec:
                  secretKeyRef:
                    name: selkies-auth-secret
                    key: password
-              SELKIES_ENCODER: "nvh264enc"
+              SELKIES_ENCODER: "vah264enc"
               SELKIES_ENABLE_RESIZE: "false"
               SELKIES_FRAMERATE: "120"
               SELKIES_ENABLE_BASIC_AUTH: "true"
@@ -95,10 +95,11 @@ spec:
               requests:
                 cpu: 100m
                 memory: 100Mi
+                amd.com/gpu: 1
               limits:
                 cpu: 8
                 memory: 8Gi
-                nvidia.com/gpu: 1
+                amd.com/gpu: 1
     defaultPodOptions:
       runtimeClassName: nvidia
       annotations:
