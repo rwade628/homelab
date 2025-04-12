@@ -101,7 +101,6 @@ spec:
                 memory: 8Gi
                 amd.com/gpu: 1
     defaultPodOptions:
-      runtimeClassName: nvidia
       annotations:
         k8s.v1.cni.cncf.io/networks: default/vpn-macvlan
       securityContext: {}
