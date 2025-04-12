@@ -88,15 +88,15 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                memory: 4Gi
+                memory: 2Gi
     defaultPodOptions:
       annotations:
         k8s.v1.cni.cncf.io/networks: default/vpn-macvlan
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
