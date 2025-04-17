@@ -14,7 +14,7 @@ spec:
       "hairpinMode": true,
       "ipam": {
         "type": "host-local",
-        "subnet": "10.0.10.0/24"
+        "subnet": "192.168.88.0/24"
       }
     }'
 ---
