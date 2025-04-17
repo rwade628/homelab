@@ -23,6 +23,34 @@ spec:
       omada:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          network:
+            image:
+              repository: alpine
+              tag: latest
+              pullPolicy: IfNotPresent
+            env:
+            - name: DEV
+              value: eth0
+            command:
+            - 'sh'
+            - '-c'
+            - |
+              apk update
+              apk add iproute2 -y
+              POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+              ip route del default via $POD_IP
+              ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
+              ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
+              echo -e "\nip route after fix:" && ip route
+            securityContext:
+              runAsNonRoot: false
+              runAsUser: 0
+              runAsGroup: 0
+              allowPrivilegeEscalation: true
+              capabilities:
+                add:
+                - NET_ADMIN
         containers:
           app:
             image:
@@ -66,6 +94,8 @@ spec:
               limits:
                 memory: 2Gi
     defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: default/home-macvlan
       securityContext: {}
         # runAsNonRoot: false
         # runAsUser: 508
@@ -75,41 +105,11 @@ spec:
     service:
       app:
         controller: omada
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 10.0.10.253
         ports:
           http:
             primary: true
             port: *manage-https
             protocol: HTTPS
-          app-discovery:
-            port: *app-discovery
-            protocol: UDP
-          olt:
-            port: *olt
-            protocol: UDP
-          discovery:
-            port: *discovery
-            protocol: UDP
-          manager-v1:
-            port: *manager-v1
-            protocol: TCP
-          adopt-v1:
-            port: *adopt-v1
-            protocol: TCP
-          upgrade-v1:
-            port: *upgrade-v1
-            protocol: TCP
-          manager-v2:
-            port: *manager-v2
-            protocol: TCP
-          transfer-v2:
-            port: *transfer-v2
-            protocol: TCP
-          rtty:
-            port: *rtty
-            protocol: TCP
     ingress:
       app:
         className: internal
