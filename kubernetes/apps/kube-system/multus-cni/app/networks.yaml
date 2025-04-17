@@ -8,6 +8,7 @@ spec:
       "cniVersion": "0.3.1",
       "type": "bridge",
       "bridge": "br0",
+      "ipMasq": true,
       "hairpinMode": true,
       "vlan": 99,
       "ipam": {
