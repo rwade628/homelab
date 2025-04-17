@@ -2,6 +2,26 @@
 apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
+  name: mgmt-bridge
+spec:
+  config: '{
+      "cniVersion": "0.3.0",
+      "type": "bridge",
+      "name": "mgmt",
+      "bridge": "br0",
+      "vlan": 99,
+      "isDefaultGateway": true,
+      "ipMasq": true,
+      "hairpinMode": true,
+      "ipam": {
+        "type": "host-local",
+        "subnet": "10.0.10.0/24",
+      }
+    }'
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
   name: home-macvlan
 spec:
   config: '{
