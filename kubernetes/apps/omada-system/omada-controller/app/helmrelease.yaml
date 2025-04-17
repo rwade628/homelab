@@ -76,7 +76,7 @@ spec:
         controller: omada
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 10.0.10.244
+          lbipam.cilium.io/ips: 10.0.10.253
         ports:
           http:
             primary: true
