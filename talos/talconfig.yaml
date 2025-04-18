@@ -39,38 +39,6 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.0.10.245"
-  - hostname: "pve-vm-nvidia"
-    ipAddress: "10.0.10.250"
-    installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/a31d81eceab05afdc2c59b0002701173e117a5fb81bdc1f64062d27655145848
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:bc:93:38"
-        dhcp: false
-        addresses:
-          - "10.0.10.250/24"
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "10.0.10.1"
-        mtu: 1500
-    patches:
-      - "@./patches/pve-vm-nvidia/nvidia.yaml"
-  - hostname: "pve-vm-2"
-    ipAddress: "10.0.10.251"
-    installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:0b:72:b3"
-        dhcp: false
-        addresses:
-          - "10.0.10.251/24"
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "10.0.10.1"
-        mtu: 1500
   - hostname: "ser8-1"
     ipAddress: "10.0.10.252"
     installDisk: "/dev/sda"
@@ -88,6 +56,66 @@ nodes:
           - network: 0.0.0.0/0
             gateway: "10.0.10.1"
         mtu: 1500
+      - interface: br0
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp6s18
+          vlan:
+            vlanFiltering: true
+        mtu: 1500
+  - hostname: "ser8b"
+    ipAddress: "10.0.10.251"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/aeec243e3a4c2a14f9ba74b1a8c7662f03eea658a7ea5f1c26fdd491280c88f8
+    nodeLabels:
+      feature.node.kubernetes.io/amd-gpu: "true"
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:b1:9e:54"
+        dhcp: false
+        addresses:
+          - "10.0.10.251/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.0.10.1"
+        mtu: 1500
+      - interface: br0
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp6s18
+          vlan:
+            vlanFiltering: true
+        mtu: 1500
+  - hostname: "ser8c"
+    ipAddress: "10.0.10.250"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/aeec243e3a4c2a14f9ba74b1a8c7662f03eea658a7ea5f1c26fdd491280c88f8
+    nodeLabels:
+      feature.node.kubernetes.io/amd-gpu: "true"
+    controlPlane: false
+    networkInterfaces:
+      - interface: br0
+        mtu: 1500
+        dhcp: false
+        addresses:
+          - "10.0.10.250/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.0.10.1"
+        bridge:
+          interfaces:
+           - enp6s18
+          stp:
+            enabled: false
+          vlan:
+            vlanFiltering: true
+
+
 
 patches:
   - "@./patches/global/machine-features.yaml"
@@ -96,6 +124,7 @@ patches:
   - "@./patches/global/machine-network.yaml"
   - "@./patches/global/machine-sysctls.yaml"
   - "@./patches/global/machine-time.yaml"
+  - "@./patches/global/machine-udev.yaml"
   - "@./patches/global/openebs-local.yaml"
 # Global patches
 # patches:

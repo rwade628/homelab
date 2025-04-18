@@ -3,3 +3,6 @@ talosconfig
 homelab-pve-vm-nvidia.yaml
 homelab-pve-vm-2.yaml
 homelab-ser8-1.yaml
+homelab-ser8a.yaml
+homelab-ser8b.yaml
+homelab-ser8c.yaml
