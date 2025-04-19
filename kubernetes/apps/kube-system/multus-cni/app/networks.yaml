@@ -7,7 +7,7 @@ spec:
   config: '{
       "type": "macvlan",
       "mode": "bridge",
-      "master": "br0.99",
+      "master": "enp6s18.99",
       "linkInContainer": false,
       "ipam": {
         "type": "host-local",
