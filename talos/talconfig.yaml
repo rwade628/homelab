@@ -39,7 +39,7 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.0.10.245"
-  - hostname: "ser8-1"
+  - hostname: "ser8a"
     ipAddress: "10.0.10.252"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/aeec243e3a4c2a14f9ba74b1a8c7662f03eea658a7ea5f1c26fdd491280c88f8
@@ -47,24 +47,16 @@ nodes:
       feature.node.kubernetes.io/amd-gpu: "true"
     controlPlane: false
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:75:6d:41"
+      - interface: enp6s18
+        mtu: 1500
         dhcp: false
         addresses:
           - "10.0.10.252/24"
         routes:
           - network: 0.0.0.0/0
             gateway: "10.0.10.1"
-        mtu: 1500
-      - interface: br0
-        bridge:
-          stp:
-            enabled: true
-          interfaces:
-            - enp6s18
-          vlan:
-            vlanFiltering: true
-        mtu: 1500
+        vlans:
+          - vlanId: 99
   - hostname: "ser8b"
     ipAddress: "10.0.10.251"
     installDisk: "/dev/sda"
@@ -73,24 +65,16 @@ nodes:
       feature.node.kubernetes.io/amd-gpu: "true"
     controlPlane: false
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:b1:9e:54"
+      - interface: enp6s18
+        mtu: 1500
         dhcp: false
         addresses:
           - "10.0.10.251/24"
         routes:
           - network: 0.0.0.0/0
             gateway: "10.0.10.1"
-        mtu: 1500
-      - interface: br0
-        bridge:
-          stp:
-            enabled: true
-          interfaces:
-            - enp6s18
-          vlan:
-            vlanFiltering: true
-        mtu: 1500
+        vlans:
+          - vlanId: 99
   - hostname: "ser8c"
     ipAddress: "10.0.10.250"
     installDisk: "/dev/sda"
@@ -99,7 +83,7 @@ nodes:
       feature.node.kubernetes.io/amd-gpu: "true"
     controlPlane: false
     networkInterfaces:
-      - interface: br0
+      - interface: enp6s18
         mtu: 1500
         dhcp: false
         addresses:
@@ -107,15 +91,8 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.0.10.1"
-        bridge:
-          interfaces:
-           - enp6s18
-          stp:
-            enabled: false
-          vlan:
-            vlanFiltering: true
-
-
+        vlans:
+          - vlanId: 99
 
 patches:
   - "@./patches/global/machine-features.yaml"
