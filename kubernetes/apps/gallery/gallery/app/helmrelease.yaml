@@ -62,7 +62,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      ui:
+      app:
         controller: gallery
         ports:
           http:
