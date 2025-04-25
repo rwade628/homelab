@@ -22,30 +22,13 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: "nas-vm"
-    ipAddress: "10.0.10.249"
-    installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
-    controlPlane: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "00:a0:98:20:7c:e9"
-        dhcp: false
-        addresses:
-          - "10.0.10.249/24"
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "10.0.10.1"
-        mtu: 1500
-        vip:
-          ip: "10.0.10.245"
   - hostname: "ser8a"
     ipAddress: "10.0.10.252"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/aeec243e3a4c2a14f9ba74b1a8c7662f03eea658a7ea5f1c26fdd491280c88f8
     nodeLabels:
       feature.node.kubernetes.io/amd-gpu: "true"
-    controlPlane: false
+    controlPlane: true
     networkInterfaces:
       - interface: enp6s18
         mtu: 1500
@@ -55,6 +38,8 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.0.10.1"
+        vip:
+          ip: "10.0.10.245"
         vlans:
           - vlanId: 99
   - hostname: "ser8b"
@@ -63,7 +48,7 @@ nodes:
     talosImageURL: factory.talos.dev/installer/aeec243e3a4c2a14f9ba74b1a8c7662f03eea658a7ea5f1c26fdd491280c88f8
     nodeLabels:
       feature.node.kubernetes.io/amd-gpu: "true"
-    controlPlane: false
+    controlPlane: true
     networkInterfaces:
       - interface: enp6s18
         mtu: 1500
@@ -73,6 +58,8 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.0.10.1"
+        vip:
+          ip: "10.0.10.245"
         vlans:
           - vlanId: 99
   - hostname: "ser8c"
@@ -81,7 +68,7 @@ nodes:
     talosImageURL: factory.talos.dev/installer/aeec243e3a4c2a14f9ba74b1a8c7662f03eea658a7ea5f1c26fdd491280c88f8
     nodeLabels:
       feature.node.kubernetes.io/amd-gpu: "true"
-    controlPlane: false
+    controlPlane: true
     networkInterfaces:
       - interface: enp6s18
         mtu: 1500
@@ -91,6 +78,8 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.0.10.1"
+        vip:
+          ip: "10.0.10.245"
         vlans:
           - vlanId: 99
 
