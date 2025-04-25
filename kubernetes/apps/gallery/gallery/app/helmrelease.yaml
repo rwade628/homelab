@@ -26,7 +26,7 @@ spec:
           ui:
             image:
               repository: ghcr.io/rwade628/gallery-ui
-              tag: latest
+              tag: v1
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
