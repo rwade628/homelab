@@ -90,6 +90,10 @@ spec:
     persistence:
       db:
         existingClaim: gallery
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /var/cache/nginx
       media:
         type: nfs
         server: 10.0.10.3
