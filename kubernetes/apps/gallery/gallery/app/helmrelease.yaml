@@ -77,15 +77,15 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: gallery
+                  identifier: app
                   port: http
               - path: /v1
                 service:
-                  identifier: gallery
+                  identifier: app
                   port: api
               - path: /v2
                 service:
-                  identifier: gallery
+                  identifier: app
                   port: api
     persistence:
       db:
