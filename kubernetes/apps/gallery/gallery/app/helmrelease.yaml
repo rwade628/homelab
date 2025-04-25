@@ -26,10 +26,10 @@ spec:
           ui:
             image:
               repository: ghcr.io/rwade628/gallery-ui
-              tag: latest
+              tag: v1
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -62,11 +62,11 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      ui:
+      app:
         controller: gallery
         ports:
           http:
-            port: 80
+            port: 8080
           api:
             port: 8081
     ingress:
@@ -77,15 +77,15 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: gallery
+                  identifier: app
                   port: http
               - path: /v1
                 service:
-                  identifier: gallery
+                  identifier: app
                   port: api
               - path: /v2
                 service:
-                  identifier: gallery
+                  identifier: app
                   port: api
     persistence:
       db:
