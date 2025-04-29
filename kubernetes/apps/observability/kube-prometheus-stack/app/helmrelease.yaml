@@ -12,7 +12,9 @@ spec:
   install:
     remediation:
       retries: 3
+    crds: CreateReplace
   upgrade:
+    crds: CreateReplace
     cleanupOnFail: true
     remediation:
       strategy: rollback
