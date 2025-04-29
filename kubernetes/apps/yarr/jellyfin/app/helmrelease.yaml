@@ -32,7 +32,7 @@ spec:
                 cpu: 100m
                 amd.com/gpu: 1
               limits:
-                memory: 4Gi
+                memory: 8Gi
                 amd.com/gpu: 1
             securityContext:
               capabilities:
