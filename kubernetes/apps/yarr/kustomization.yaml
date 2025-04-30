@@ -13,3 +13,4 @@ resources:
   - ./jellyfin/ks.yaml
   - ./recyclarr/ks.yaml
   - ./flaresolverr/ks.yaml
+  - ./bazarr/ks.yaml
