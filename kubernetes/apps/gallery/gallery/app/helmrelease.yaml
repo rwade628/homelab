@@ -66,27 +66,30 @@ spec:
         controller: gallery
         ports:
           http:
-            port: 8080
+            port: &port 8080
           api:
-            port: 8081
-    ingress:
+            port: &api-port 8081
+    route:
       app:
-        className: internal
-        hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-              - path: /v1
-                service:
-                  identifier: app
-                  port: api
-              - path: /v2
-                service:
-                  identifier: app
-                  port: api
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *api-port
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /v1
+              - path:
+                  type: PathPrefix
+                  value: /v2
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       db:
         existingClaim: gallery
