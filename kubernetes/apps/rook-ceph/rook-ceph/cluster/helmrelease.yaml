@@ -12,22 +12,15 @@ spec:
     name: rook-ceph-cluster
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
   values:
     monitoring:
       enabled: true
       createPrometheusRules: true
-    ingress:
-      dashboard:
-        ingressClassName: internal
-        host:
-          name: rook.${SECRET_DOMAIN}
-          path: /
     toolbox:
       enabled: true
     cephClusterSpec:
@@ -49,7 +42,6 @@ spec:
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       mgr:
         modules:
-          # TODO Fix sklearn issue
           # - name: diskprediction_local
           #   enabled: true
           - name: insights

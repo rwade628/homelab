@@ -112,16 +112,17 @@ spec:
             enabled: true
             port: *torrentPort
             protocol: TCP
-    ingress:
+    route:
       app:
-        className: internal
-        hosts:
-          - host: qb.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["qb.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       config:
         existingClaim: qbittorrent
