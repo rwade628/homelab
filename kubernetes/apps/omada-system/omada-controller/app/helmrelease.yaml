@@ -108,11 +108,9 @@ spec:
         ports:
           http:
             primary: true
-            port: *manage-https
-            protocol: HTTPS
+            port: *manage-http
     route:
       app:
-        kind: TLSRoute # Need TLS to backend
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
         parentRefs:
           - name: internal
@@ -121,7 +119,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *manage-https
+                port: *manage-http
     persistence:
       data:
         existingClaim: omada
