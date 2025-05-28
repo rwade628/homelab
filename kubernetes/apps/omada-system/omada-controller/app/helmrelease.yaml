@@ -108,7 +108,7 @@ spec:
         ports:
           http:
             primary: true
-            port: *manage-http
+            port: *manage-https
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
@@ -119,7 +119,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *manage-http
+                port: *manage-https
     persistence:
       data:
         existingClaim: omada
