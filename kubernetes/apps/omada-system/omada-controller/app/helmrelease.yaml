@@ -115,7 +115,7 @@ spec:
           https:
             port: *manage-https
             targetPort: *manage-https
-            protocol: HTTPS
+            protocol: TCP
     route:
       app:
         # kind: TLSRoute # Need TLS to backend
