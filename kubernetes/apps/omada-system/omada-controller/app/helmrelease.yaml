@@ -114,6 +114,7 @@ spec:
             port: *manage-http
           https:
             port: *manage-https
+            targetPort: *manage-https
             protocol: HTTPS
     route:
       app:
