@@ -106,7 +106,7 @@ spec:
       app:
         controller: omada
         ports:
-          https:
+          http:
             primary: true
             port: *manage-https
             protocol: HTTPS
