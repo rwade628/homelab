@@ -105,29 +105,23 @@ spec:
     service:
       app:
         controller: omada
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 10.0.10.100
         ports:
-          http:
-            primary: true
-            port: *manage-http
           https:
+            primary: true
             port: *manage-https
-            targetPort: *manage-https
-            protocol: TCP
-    route:
+            protocol: HTTPS
+    ingress:
       app:
-        # kind: TLSRoute # Need TLS to backend
-        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *manage-http
+        className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+        hosts:
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
     persistence:
       data:
         existingClaim: omada
