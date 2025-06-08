@@ -18,10 +18,10 @@ spec:
     spec:
       hostNetwork: true
       tolerations:
-        - operatore: Exists
-          effect: NoSchedule
-        - operator: Exists
-          effect: NoExecute
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
       initContainers:
         - name: kube-multus-dhcp-cleanup
           image: rancher/mirrored-library-busybox:1.36.1
