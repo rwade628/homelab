@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-multus-dhcp
+  labels:
+    tier: node
+    app: multus-dhcp
+    name: multus-dhcp
+spec:
+  selector:
+    matchLabels:
+      app: multus-dhcp
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  template:
+    spec:
+      hostNetwork: true
+      tolerations:
+        - operatore: Exists
+          effect: NoSchedule
+        - operator: Exists
+          effect: NoExecute
+      initContainers:
+        - name: kube-multus-dhcp-cleanup
+          image: rancher/mirrored-library-busybox:1.36.1
+          command: ["rm", "-f", "/run/cni/dhcp.sock"]
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: socketpath
+              mountPath: /host/run/cni
+      containers:
+        - name: kube-multus-dhcp
+          image: rancher/mirrored-library-busybox:1.36.1
+          command: ["/opt/cni/bin/dhcp", "daemon"]
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: binpath
+              mountPath: /opt/cni/bin
+            - name: socketpath
+              mountPath: /run/cni
+            - name: netnspath
+              mountPath: /run/netns
+              mountPropagation: HostToContainer
+      volumes:
+        - name: binpath
+          hostPath:
+            path: /opt/cni/bin
+        - name: socketpath
+          hostPath:
+            path: /var/run/cni
+        - name: netnspath
+          hostPath:
+            path: /var/run/netns
