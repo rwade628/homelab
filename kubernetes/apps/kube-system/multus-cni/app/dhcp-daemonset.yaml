@@ -24,7 +24,7 @@ spec:
           effect: NoExecute
       initContainers:
         - name: kube-multus-dhcp-cleanup
-          image: rancher/mirrored-library-busybox:1.36.1
+          image: rancher/mirrored-library-busybox:1.37.0
           command: ["rm", "-f", "/run/cni/dhcp.sock"]
           securityContext:
             privileged: true
@@ -33,7 +33,7 @@ spec:
               mountPath: /host/run/cni
       containers:
         - name: kube-multus-dhcp
-          image: rancher/mirrored-library-busybox:1.36.1
+          image: rancher/mirrored-library-busybox:1.37.0
           command: ["/opt/cni/bin/dhcp", "daemon"]
           securityContext:
             privileged: true
