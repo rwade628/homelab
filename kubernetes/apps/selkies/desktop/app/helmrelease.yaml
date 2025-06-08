@@ -30,17 +30,17 @@ spec:
               tag: v0.13
               pullPolicy: IfNotPresent
             env:
-            - name: DEV
-              value: eth0
+              - name: DEV
+                value: eth0
             command:
-            - '/bin/bash'
-            - '-c'
-            - |
-              POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
-              ip route del default via $POD_IP
-              ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
-              ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
-              echo -e "\nip route after fix:" && ip route
+              - "/bin/bash"
+              - "-c"
+              - |
+                POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+                ip route del default via $POD_IP
+                ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
+                ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
+                echo -e "\nip route after fix:" && ip route
             securityContext:
               runAsNonRoot: false
               runAsUser: 0
@@ -48,7 +48,7 @@ spec:
               allowPrivilegeEscalation: true
               capabilities:
                 add:
-                - NET_ADMIN
+                  - NET_ADMIN
         containers:
           app:
             image:
@@ -63,9 +63,9 @@ spec:
               DISPLAY_CDEPTH: "24"
               PASSWD:
                 valueFrom:
-                 secretKeyRef:
-                   name: selkies-auth-secret
-                   key: password
+                  secretKeyRef:
+                    name: selkies-auth-secret
+                    key: password
               SELKIES_ENCODER: "vah264enc"
               SELKIES_ENABLE_RESIZE: "false"
               SELKIES_FRAMERATE: "120"
@@ -75,16 +75,17 @@ spec:
               SELKIES_TURN_PORT: "3478"
               SELKIES_TURN_USERNAME:
                 valueFrom:
-                 secretKeyRef:
-                   name: stunner-auth-secret
-                   key: username
+                  secretKeyRef:
+                    name: stunner-auth-secret
+                    key: username
               SELKIES_TURN_PASSWORD:
                 valueFrom:
-                 secretKeyRef:
-                   name: stunner-auth-secret
-                   key: password
+                  secretKeyRef:
+                    name: stunner-auth-secret
+                    key: password
               SELKIES_TURN_PROTOCOL: "udp"
-            securityContext: {}
+            securityContext:
+              {}
               # allowPrivilegeEscalation: true
               # readOnlyRootFilesystem: false
               # capabilities: { drop: ["ALL"] }
@@ -101,8 +102,9 @@ spec:
                 amd.com/gpu: 1
     defaultPodOptions:
       annotations:
-        k8s.v1.cni.cncf.io/networks: default/vpn-macvlan
-      securityContext: {}
+        k8s.v1.cni.cncf.io/networks: kube-system/vpn-macvlan
+      securityContext:
+        {}
         # runAsNonRoot: false
         # runAsUser: 508
         # runAsGroup: 508
