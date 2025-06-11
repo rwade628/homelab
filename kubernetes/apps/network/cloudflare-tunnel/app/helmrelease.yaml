@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -31,8 +31,8 @@ spec:
               NO_AUTOUPDATE: true
               TUNNEL_METRICS: 0.0.0.0:8080
               TUNNEL_ORIGIN_ENABLE_HTTP2: true
-              TUNNEL_TRANSPORT_PROTOCOL: quic
               TUNNEL_POST_QUANTUM: true
+              TUNNEL_TRANSPORT_PROTOCOL: quic
             envFrom:
               - secretRef:
                   name: cloudflare-tunnel-secret
@@ -75,12 +75,8 @@ spec:
         serviceName: cloudflare-tunnel
         endpoints:
           - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
     persistence:
-      config:
+      config-file:
         type: configMap
         name: cloudflare-tunnel-configmap
         globalMounts:
