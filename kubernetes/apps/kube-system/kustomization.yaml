@@ -14,3 +14,4 @@ resources:
   - ./multus-cni/ks.yaml
   - ./csi-driver-nfs/ks.yaml
   - ./snapshot-controller/ks.yaml
+  - ./tailscale-operator/ks.yaml
