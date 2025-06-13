@@ -8,4 +8,4 @@ spec:
   chartRef:
     kind: OCIRepository
     name: tailscale-operator
-    namespace: kube-system
+    namespace: tailscale
