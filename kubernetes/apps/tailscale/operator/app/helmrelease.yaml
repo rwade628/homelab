@@ -1,0 +1,11 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tailscale-operator
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: tailscale-operator
+    namespace: tailscale
