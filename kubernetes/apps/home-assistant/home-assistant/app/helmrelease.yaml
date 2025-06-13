@@ -28,17 +28,17 @@ spec:
               tag: v0.13
               pullPolicy: IfNotPresent
             env:
-            - name: DEV
-              value: eth0
+              - name: DEV
+                value: eth0
             command:
-            - '/bin/bash'
-            - '-c'
-            - |
-              POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
-              ip route del default via $POD_IP
-              ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
-              ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
-              echo -e "\nip route after fix:" && ip route
+              - "/bin/bash"
+              - "-c"
+              - |
+                POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+                ip route del default via $POD_IP
+                ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
+                ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
+                echo -e "\nip route after fix:" && ip route
             securityContext:
               runAsNonRoot: false
               runAsUser: 0
@@ -46,7 +46,7 @@ spec:
               allowPrivilegeEscalation: true
               capabilities:
                 add:
-                - NET_ADMIN
+                  - NET_ADMIN
         containers:
           app:
             image:
@@ -71,13 +71,18 @@ spec:
             image:
               repository: ghcr.io/coder/code-server
               tag: 4.100.3@sha256:c5b7ec231b24f26ecee243e8d9f9df57af906d03c9c8238efd893217c9f1f725
-            args: [
-              "--auth", "none",
-              "--user-data-dir", "/config/.vscode",
-              "--extensions-dir", "/config/.vscode",
-              "--port", "12321",
-              "/config"
-            ]
+            args:
+              [
+                "--auth",
+                "none",
+                "--user-data-dir",
+                "/config/.vscode",
+                "--extensions-dir",
+                "/config/.vscode",
+                "--port",
+                "12321",
+                "/config",
+              ]
             resources:
               requests:
                 cpu: 10m
@@ -85,7 +90,7 @@ spec:
                 memory: 512Mi
     defaultPodOptions:
       annotations:
-        k8s.v1.cni.cncf.io/networks: default/home-macvlan
+        k8s.v1.cni.cncf.io/networks: kube-system/home-macvlan
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
