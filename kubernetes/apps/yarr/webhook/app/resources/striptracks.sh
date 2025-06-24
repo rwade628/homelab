@@ -902,7 +902,7 @@ function log_first_debug_messages {
 function check_eventtype {
     # Check for invalid _eventtypes and handle test event
 
-    if [[ "${!striptracks_eventtype}" =~ Grab|Rename|MovieAdded|MovieDelete|MovieFileDelete|SeriesAdd|SeriesDelete|EpisodeFileDelete|HealthIssue|ApplicationUpdate ]]; then
+    if [[ "${!striptracks_eventtype}" =~ Grab|Rename|MovieDelete|MovieFileDelete|SeriesAdd|SeriesDelete|EpisodeFileDelete|HealthIssue|ApplicationUpdate ]]; then
         local message="Error|${striptracks_type^} event ${!striptracks_eventtype} is not supported. Exiting."
         echo "$message" | log
         echo "$message" >&2
