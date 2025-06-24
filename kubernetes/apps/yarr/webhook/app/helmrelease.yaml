@@ -26,8 +26,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/webhook
-              tag: 2.8.2@sha256:22bcdc2e1bfa62901616008e97d5d3150a29d721c1e2907297aa1e70b93e1cb7
+              repository: ghcr.io/rwade628/custom-webhook
+              tag: v0.0.1
             env:
               WEBHOOK__PORT: &port 80
               RADARR__SERVER__PORT: 80
@@ -38,9 +38,9 @@ spec:
               - secretRef:
                   name: webhook-secret
             securityContext:
-              # allowPrivilegeEscalation: false
-              # readOnlyRootFilesystem: true
-              # capabilities: { drop: ["ALL"] }
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m
@@ -48,9 +48,9 @@ spec:
                 memory: 256Mi
     defaultPodOptions:
       securityContext:
-        # runAsNonRoot: true
-        # runAsUser: 1000
-        # runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
