@@ -1,6 +1,6 @@
 ---
 - id: radarr-striptracks
-  execute-command: /scripts/radarr-striptracks.sh
+  execute-command: /config/radarr-striptracks.sh
   command-working-directory: /config
   pass-arguments-to-command:
     - envname: RADARR_EVENT_TYPE
