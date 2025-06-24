@@ -3,7 +3,7 @@
   execute-command: /config/striptracks.sh
   command-working-directory: /config
   pass-arguments-to-command:
-    - envname: RADARR_EVENT_TYPE
+    - envname: radarr_eventtype
       source: payload
       name: eventType
     - envname: radarr_moviefile_path
