@@ -1,0 +1,26 @@
+---
+- id: radarr-striptracks
+  execute-command: /scripts/radarr-striptracks.sh
+  command-working-directory: /config
+  pass-arguments-to-command:
+    - envname: RADARR_EVENT_TYPE
+      source: payload
+      name: eventType
+    - envname: radarr_moviefile_path
+      source: payload
+      name: movieFile.path
+    - envname: radarr_movie_path
+      source: payload
+      name: movie.folderPath
+    - envname: radarr_moviefile_id
+      source: payload
+      name: movieFile.id
+    - envname: radarr_movie_id
+      source: payload
+      name: movie.id
+    - envname: radarr_movie_title
+      source: payload
+      name: movie.title
+    - envname: radarr_movie_year
+      source: payload
+      name: movie.year
