@@ -23,18 +23,13 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          striptrack:
-            image:
-              repository: docker.io/linuxserver/mods
-              tag: radarr-striptracks-2.16.1@sha256:2517a8a3df0ac735489051f93b1d69a155a68466ed4a392338d2cfdeb13cc4fe
-            env:
-              PUID: 1000
-              PGID: 1000
-              TZ: America/New_York
           app:
             image:
-              repository: ghcr.io/home-operations/radarr
-              tag: 5.27.0.10101@sha256:f1a47717f5792d82becbe278c9502d756b898d63b2c637da131172c4adf1ffc7
+              repository: docker.io/linuxserver/radarr
+              tag: 5.26.2@sha256:07a474b61394553e047ad43a1a78c1047fc99be0144c509dd91e3877f402ebcb
+            # image:
+            #   repository: ghcr.io/home-operations/radarr
+            #   tag: 5.27.0.10101@sha256:f1a47717f5792d82becbe278c9502d756b898d63b2c637da131172c4adf1ffc7
             env:
               RADARR__APP__INSTANCENAME: Radarr
               RADARR__APP__THEME: dark
@@ -42,12 +37,11 @@ spec:
               RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
               RADARR__LOG__DBENABLED: "False"
               RADARR__LOG__LEVEL: info
-              RADARR__SERVER__PORT: &port 80
+              RADARR__SERVER__PORT: &port 7878
               RADARR__UPDATE__BRANCH: develop
               TZ: America/New_York
-            # envFrom:
-            #   - secretRef:
-            #       name: radarr-secret
+              PUID: 1000
+              PGID: 1000
             probes:
               liveness: &probes
                 enabled: true
@@ -101,14 +95,6 @@ spec:
         existingClaim: radarr-cache
         globalMounts:
           - path: /config/MediaCover
-      # scripts:
-      #   type: configMap
-      #   name: radarr-configmap
-      #   defaultMode: 0775
-      #   globalMounts:
-      #     - path: /scripts/pushover-notifier.sh
-      #       subPath: pushover-notifier.sh
-      #       readOnly: true
       tmp:
         type: emptyDir
       media:
