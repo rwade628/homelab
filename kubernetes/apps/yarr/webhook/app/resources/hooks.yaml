@@ -2,7 +2,7 @@
 - id: radarr-striptracks
   execute-command: /config/striptracks.sh
   command-working-directory: /config
-  pass-arguments-to-command:
+  pass-environment-to-command:
     - envname: radarr_eventtype
       source: payload
       name: eventType
