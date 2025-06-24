@@ -72,3 +72,7 @@ spec:
         type: configMap
         name: webhook-configmap
         defaultMode: 0775
+        globalMounts:
+          - readOnly: true
+      tmp:
+        type: emptyDir

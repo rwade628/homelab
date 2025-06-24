@@ -2,6 +2,11 @@
 - id: radarr-striptracks
   execute-command: /config/striptracks.sh
   command-working-directory: /config
+  pass-arguments-to-command:
+    - source: string
+      name: "-l"
+    - source: string
+      name: "/tmp/striptracks.txt"
   pass-environment-to-command:
     - envname: radarr_eventtype
       source: payload
