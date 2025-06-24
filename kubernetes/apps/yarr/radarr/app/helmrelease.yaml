@@ -23,6 +23,14 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
+          striptrack:
+            image:
+              repository: docker.io/linuxserver/mods
+              tag: radarr-striptracks-2.16.1@sha256:2517a8a3df0ac735489051f93b1d69a155a68466ed4a392338d2cfdeb13cc4fe
+            env:
+              PUID: 1000
+              PGID: 1000
+              TZ: America/New_York
           app:
             image:
               repository: ghcr.io/home-operations/radarr
@@ -109,4 +117,3 @@ spec:
         path: /mnt/storage/k8s/media
         globalMounts:
           - path: /media
-
