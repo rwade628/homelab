@@ -8,6 +8,18 @@
     - source: string
       name: "/tmp/striptracks.txt"
   pass-environment-to-command:
+    - envname: RADARR__SERVER__URLBASE
+      source: string
+      name: '{{ getenv "RADARR__SERVER__URLBASE" }}'
+    - envname: RADARR__SERVER__PORT
+      source: string
+      name: '{{ getenv "RADARR__SERVER__PORT" }}'
+    - envname: RADARR__SERVER__BINDADDRESS
+      source: string
+      name: '{{ getenv "RADARR__SERVER__BINDADDRESS" }}'
+    - envname: RADARR__AUTH__APIKEY
+      source: string
+      name: '{{ getenv "RADARR__AUTH__APIKEY" }}'
     - envname: radarr_eventtype
       source: payload
       name: eventType
