@@ -53,10 +53,6 @@
 ### Global variables
 function initialize_variables {
     # Initialize variables
-    echo "****"
-    echo "$payload"
-    echo "****"
-
     export striptracks_script=$(basename "$0")
     export striptracks_ver="{{VERSION}}"
     export striptracks_pid=$$
