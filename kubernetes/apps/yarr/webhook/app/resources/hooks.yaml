@@ -29,3 +29,5 @@
     - envname: radarr_movie_year
       source: payload
       name: movie.year
+    - envname: payload
+      source: entire-payload
