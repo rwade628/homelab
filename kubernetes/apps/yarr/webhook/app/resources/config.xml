@@ -1,0 +1,11 @@
+<Config>
+  <BindAddress>*</BindAddress>
+  <Port>80</Port>
+  <EnableSsl>False</EnableSsl>
+  <LaunchBrowser>True</LaunchBrowser>
+  <ApiKey></ApiKey>
+  <SslCertPath></SslCertPath>
+  <SslCertPassword></SslCertPassword>
+  <UrlBase></UrlBase>
+  <UpdateMechanism>Docker</UpdateMechanism>
+</Config>
