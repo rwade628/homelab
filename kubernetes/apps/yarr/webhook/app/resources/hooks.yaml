@@ -7,6 +7,8 @@
       name: "-l"
     - source: string
       name: "/tmp/striptracks.txt"
+    - source: string
+      name: "-d"
   pass-environment-to-command:
     - envname: RADARR__SERVER__PORT
       source: string

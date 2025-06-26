@@ -976,6 +976,8 @@ function check_config {
         # Build URL to Radarr/Sonarr API (see issue #57)
         export striptracks_api_url="http://$bindaddress:$port${urlbase:+/$urlbase}/api/v3"
 
+        echo "bindaddress=$bindaddress, port=$port, urlbase=$urlbase striptracks_api_url=$striptracks_api_url" | log
+
         # Check Radarr/Sonarr version
         get_version
         local return=$?
