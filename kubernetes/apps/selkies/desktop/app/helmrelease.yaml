@@ -27,7 +27,7 @@ spec:
           network:
             image:
               repository: nicolaka/netshoot
-              tag: v0.13
+              tag: v0.14
               pullPolicy: IfNotPresent
             env:
               - name: DEV
