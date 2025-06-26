@@ -31,9 +31,9 @@ spec:
             env:
               WEBHOOK__PORT: &port 80
               RADARR__SERVER__PORT: 80
-              RADARR__SERVER__BINDADDRESS: http://radarr.yarr.svc.cluster.local
+              RADARR__SERVER__BINDADDRESS: radarr.yarr.svc.cluster.local
               SONARR__SERVER__PORT: 80
-              SONARR__SERVER__BINDADDRESS: http://sonarr.yarr.svc.cluster.local
+              SONARR__SERVER__BINDADDRESS: sonarr.yarr.svc.cluster.local
               TZ: America/New_York
             envFrom:
               - secretRef:
