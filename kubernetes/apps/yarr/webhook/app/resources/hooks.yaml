@@ -8,9 +8,6 @@
     - source: string
       name: "/tmp/striptracks.txt"
   pass-environment-to-command:
-    - envname: RADARR__SERVER__URLBASE
-      source: string
-      name: '{{ getenv "RADARR__SERVER__URLBASE" }}'
     - envname: RADARR__SERVER__PORT
       source: string
       name: '{{ getenv "RADARR__SERVER__PORT" }}'
@@ -41,3 +38,45 @@
     - envname: radarr_movie_year
       source: payload
       name: movie.year
+# - id: sonarr-striptracks
+#   execute-command: /config/striptracks.sh
+#   command-working-directory: /config
+#   pass-arguments-to-command:
+#     - source: string
+#       name: "-l"
+#     - source: string
+#       name: "/tmp/striptracks.txt"
+#   pass-environment-to-command:
+#     - envname: SONARR__SERVER__URLBASE
+#       source: string
+#       name: '{{ getenv "SONARR__SERVER__URLBASE" }}'
+#     - envname: SONARR__SERVER__PORT
+#       source: string
+#       name: '{{ getenv "SONARR__SERVER__PORT" }}'
+#     - envname: SONARR__SERVER__BINDADDRESS
+#       source: string
+#       name: '{{ getenv "SONARR__SERVER__BINDADDRESS" }}'
+#     - envname: SONARR__AUTH__APIKEY
+#       source: string
+#       name: '{{ getenv "SONARR__AUTH__APIKEY" }}'
+#     - envname: sonarr_eventtype
+#       source: payload
+#       name: eventType
+#     - envname: sonarr_episodefile_path
+#       source: payload
+#       name: episodeFile.path
+#     - envname: sonarr_series_path
+#       source: payload
+#       name: series.folderPath
+#     - envname: sonarr_episodefile_episodeids
+#       source: payload
+#       name: episodeFile.id
+#     - envname: sonarr_movie_id
+#       source: payload
+#       name: movie.id
+#     - envname: sonarr_movie_title
+#       source: payload
+#       name: movie.title
+#     - envname: sonarr_movie_year
+#       source: payload
+#       name: movie.year
