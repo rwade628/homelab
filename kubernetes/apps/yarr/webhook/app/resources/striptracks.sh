@@ -909,13 +909,13 @@ function check_eventtype {
     fi
 
     # Handle Test event
-    # if [[ "${!striptracks_eventtype}" = "Test" ]]; then
-    #     echo "Info|${striptracks_type^} event: ${!striptracks_eventtype}" | log
-    #     local message="Info|Script was test executed successfully."
-    #     echo "$message" | log
-    #     echo "$message"
-    #     end_script 0
-    # fi
+    if [[ "${!striptracks_eventtype}" = "Test" ]]; then
+        echo "Info|${striptracks_type^} event: ${!striptracks_eventtype}" | log
+        local message="Info|Script was test executed successfully."
+        echo "$message" | log
+        echo "$message"
+        end_script 0
+    fi
 }
 function check_wsl {
     # Check for WSL environment
@@ -977,6 +977,7 @@ function check_config {
         export striptracks_api_url="http://$bindaddress:$port${urlbase:+/$urlbase}/api/v3"
 
         echo "bindaddress=$bindaddress, port=$port, urlbase=$urlbase striptracks_api_url=$striptracks_api_url" | log
+        echo "bindaddress=$bindaddress, port=$port, urlbase=$urlbase striptracks_api_url=$striptracks_api_url" >&2
 
         # Check Radarr/Sonarr version
         get_version
