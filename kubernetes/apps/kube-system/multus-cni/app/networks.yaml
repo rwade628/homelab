@@ -28,13 +28,7 @@ spec:
     "type": "macvlan",
     "mode": "bridge",
     "ipam": {
-    "type": "host-local",
-    "subnet": "10.0.10.0/24",
-    "rangeStart": "10.0.10.200",
-    "rangeEnd": "10.0.10.239",
-    "routes": [
-    { "dst": "0.0.0.0/0" }
-    ],
+    "type": "dhcp",
     "gateway": "10.0.10.1"
     }
     }'
