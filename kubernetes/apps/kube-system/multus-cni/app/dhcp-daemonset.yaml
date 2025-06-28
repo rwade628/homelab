@@ -44,7 +44,7 @@ spec:
             - name: socketpath
               mountPath: /run/cni
             - name: netnspath
-              mountPath: /run/netns
+              mountPath: /var/run/netns
               mountPropagation: HostToContainer
       volumes:
         - name: binpath
