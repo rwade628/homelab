@@ -53,7 +53,7 @@ spec:
           app:
             image:
               repository: ghcr.io/selkies-project/nvidia-egl-desktop
-              tag: 24.04@sha256:24e5bae8cb44627ea5f69e3cc58eed8344528cf581b548cc121ab755445f1379
+              tag: 24.04@sha256:e2091365d57e3cdac63d497b51e41631d93834a42c6596f2f3a595bbd03fbf4f
             env:
               TZ: America/New_York
               DISPLAY_SIZEW: "1920"
