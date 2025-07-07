@@ -10,11 +10,8 @@ spec:
     "master": "ens19",
     "linkInContainer": false,
     "ipam": {
-    "type": "host-local",
-    "ranges": [[{
-    "subnet": "192.168.88.0/24"
-    }]],
-    "routes": [{ "dst": "0.0.0.0/0", "gw": "192.168.88.1" }]
+    "type": "dhcp",
+    "gateway": "192.168.88.1"
     }
     }'
 ---
@@ -27,6 +24,7 @@ spec:
     "cniVersion": "0.3.0",
     "type": "macvlan",
     "mode": "bridge",
+    "master": "ens18",
     "ipam": {
     "type": "dhcp",
     "gateway": "10.0.10.1"
@@ -45,11 +43,8 @@ spec:
     "master": "ens20",
     "linkInContainer": false,
     "ipam": {
-    "type": "host-local",
-    "ranges": [[{
-    "subnet": "10.0.40.0/24"
-    }]],
-    "routes": [{ "dst": "0.0.0.0/0", "gw": "10.0.40.1" }]
+    "type": "dhcp",
+    "gateway": "10.0.40.1"
     }
     }'
 ---
