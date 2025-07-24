@@ -25,7 +25,7 @@ spec:
         containers:
           app:
             image:
-              repository: docker.iolinuxserver/tvheadend
+              repository: docker.io/linuxserver/tvheadend
               tag: version-da9fa603@sha256:61476136be0308fc54ac9cce3345d5346a55cb8a923d4297e39d869a462dc508
             env:
               PUID: 1000
@@ -54,6 +54,7 @@ spec:
         ports:
           http:
             port: 9981
+            primary: true
           htsp:
             port: 9982
     route:
