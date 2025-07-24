@@ -31,10 +31,10 @@ spec:
               PUID: 1000
               PGID: 1000
               TZ: America/New_York
-            securityContext:
-              allowPrivilegeEscalation: false
-              # readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            # securityContext:
+            # allowPrivilegeEscalation: false
+            # readOnlyRootFilesystem: true
+            # capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m
