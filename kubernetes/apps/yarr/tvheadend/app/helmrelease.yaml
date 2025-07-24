@@ -42,7 +42,8 @@ spec:
               limits:
                 memory: 4Gi
                 # amd.com/gpu: 1
-    # defaultPodOptions:
+    defaultPodOptions:
+      hostNetwork: true
     #   annotations:
     #     k8s.v1.cni.cncf.io/networks: kube-system/home-macvlan
     # securityContext:
