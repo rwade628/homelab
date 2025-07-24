@@ -53,7 +53,9 @@ spec:
       app:
         ports:
           http:
-            port: *port
+            port: 9981
+          htsp:
+            port: 9982
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
