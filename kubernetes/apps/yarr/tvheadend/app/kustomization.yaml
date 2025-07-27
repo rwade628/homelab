@@ -5,6 +5,6 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: recyclarr-configmap
+  - name: tvheadend-scripts
     files:
       - tv_grab_epgshare=./resources/tv_grab_epgshare
