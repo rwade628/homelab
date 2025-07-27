@@ -56,7 +56,7 @@ if [ "$cflag" ]; then
   exit 0
 fi
 
-for TAG in ${TAGS//,/ }; do
+for TAG in $(echo "$TAGS" | sed "s/,/ /g"); do
   if [ -z "$TAG" ]; then
     continue
   fi
