@@ -9,6 +9,7 @@ if (($# < 1)); then
 fi
 
 OPTARG=""
+TAGS=$1
 
 for arg; do
   delim=""
