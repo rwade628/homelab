@@ -7,4 +7,4 @@ resources:
 configMapGenerator:
   - name: recyclarr-configmap
     files:
-      - tv_grab_epgshare=/usr/bin/tv_grab_epgshare
+      - tv_grab_epgshare=./resources/tv_grab_epgshare
