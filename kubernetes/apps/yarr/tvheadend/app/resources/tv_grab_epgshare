@@ -56,11 +56,8 @@ if [ "$cflag" ]; then
   exit 0
 fi
 
-for TAG in $(echo "$TAGS" | sed "s/,/ /g"); do
-  if [ -z "$TAG" ]; then
-    continue
-  fi
-
+IFS=,
+for TAG in $TAGS; do
   curl -O -sL "https://epgshare01.online/epgshare01/epg_ripper_${TAG}.xml.gz"
   gunzip "epg_ripper_${TAG}.xml.gz"
   cat "epg_ripper_${TAG}.xml"
