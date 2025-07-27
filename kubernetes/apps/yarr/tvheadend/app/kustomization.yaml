@@ -8,3 +8,5 @@ configMapGenerator:
   - name: tvheadend-scripts
     files:
       - tv_grab_epgshare=./resources/tv_grab_epgshare
+generatorOptions:
+  disableNameSuffixHash: true
