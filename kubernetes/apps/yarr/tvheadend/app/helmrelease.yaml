@@ -70,13 +70,6 @@ spec:
     persistence:
       config:
         existingClaim: tvheadend
-      scripts:
-        type: configMap
-        name: tvheadend-scripts
-        defaultMode: 0775
-        globalMounts:
-          - path: /usr/bin/tv_grab_epgshare
-            subPath: tv_grab_epgshare
       recordings:
         type: nfs
         server: 10.0.10.3

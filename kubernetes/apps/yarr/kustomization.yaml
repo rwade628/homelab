@@ -16,3 +16,4 @@ resources:
   - ./bazarr/ks.yaml
   - ./webhook/ks.yaml
   - ./tvheadend/ks.yaml
+  - ./epg/ks.yaml
