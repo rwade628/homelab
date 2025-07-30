@@ -179,6 +179,11 @@ spec:
           gnetId: 19105
           revision: 7
           datasource: Prometheus
+        mktxp:
+          # renovate: depName="MKTXP"
+          gnetId: 13679
+          revision: 22
+          datasource: Prometheus
         amdgpu:
           url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_gpu.json
           datasource:
