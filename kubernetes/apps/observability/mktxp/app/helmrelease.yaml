@@ -30,7 +30,7 @@ spec:
             args: ["--cfg-dir", "/mktxp_config", "export"]
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
