@@ -58,6 +58,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /mktxp_config
+            readOnly: false
       config-file:
         type: configMap
         name: mktxp-configmap
