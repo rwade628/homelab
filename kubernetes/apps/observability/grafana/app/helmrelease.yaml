@@ -183,7 +183,8 @@ spec:
           # renovate: depName="MKTXP"
           gnetId: 13679
           revision: 22
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         amdgpu:
           url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_gpu.json
           datasource:
