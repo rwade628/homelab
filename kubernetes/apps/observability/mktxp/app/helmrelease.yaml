@@ -66,13 +66,6 @@ spec:
         globalMounts:
           - path: /mktxp_config/mktxp.conf
             subPath: mktxp.conf
-      extra-config-file:
-        type: configMap
-        name: mktxp-configmap
-        defaultMode: 0777
-        globalMounts:
-          - path: /mktxp_config/_mktxp.conf
-            subPath: _mktxp.conf
       credentials-file:
         type: secret
         name: mktxp-credentials
