@@ -62,6 +62,7 @@ spec:
       config-file:
         type: configMap
         name: mktxp-configmap
+        defaultMode: 0664
         globalMounts:
           - path: /mktxp_config/mktxp.conf
             subPath: mktxp.conf
