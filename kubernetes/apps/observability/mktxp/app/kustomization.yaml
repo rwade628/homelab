@@ -9,5 +9,8 @@ configMapGenerator:
   - name: mktxp-configmap
     files:
       - mktxp.conf=./resources/mktxp.conf
+  - name: _mktxp-configmap
+    files:
+      - _mktxp.conf=./resources/_mktxp.conf
 generatorOptions:
   disableNameSuffixHash: true
