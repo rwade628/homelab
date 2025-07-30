@@ -28,22 +28,22 @@ spec:
               repository: ghcr.io/akpw/mktxp
               tag: 1.2.11@sha256:f6e64153cf686203f1e837c811b94acde3c17c606b59ca1bc969a3bd32971a91
             args: ["--cfg-dir", "/mktxp_config", "export"]
-            # securityContext:
-            #   allowPrivilegeEscalation: false
-            #   # readOnlyRootFilesystem: true
-            #   capabilities: { drop: ["ALL"] }
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 500m
               limits:
                 memory: 512Mi
-    # defaultPodOptions:
-    #   securityContext:
-    #     runAsNonRoot: true
-    #     runAsUser: 1000
-    #     runAsGroup: 1000
-    #     fsGroup: 1000
-    #     fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
@@ -54,29 +54,8 @@ spec:
         endpoints:
           - port: metrics
     persistence:
-      config:
-        type: emptyDir
-        globalMounts:
-          - path: /mktxp_config
-            readOnly: false
       config-file:
-        type: configMap
-        name: mktxp-configmap
-        defaultMode: 0777
-        globalMounts:
-          - path: /mktxp_config/mktxp.conf
-            subPath: mktxp.conf
-      app-config-file:
-        type: configMap
-        name: mktxp-app-configmap
-        defaultMode: 0777
-        globalMounts:
-          - path: /mktxp_config/_mktxp.conf
-            subPath: _mktxp.conf
-      credentials-file:
         type: secret
         name: mktxp-credentials
-        defaultMode: 0777
         globalMounts:
-          - path: /mktxp_config/credentials.yaml
-            subPath: credentials.yaml
+          - path: /mktxp_config

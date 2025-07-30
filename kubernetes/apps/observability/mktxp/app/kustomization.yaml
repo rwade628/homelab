@@ -5,12 +5,3 @@ kind: Kustomization
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: mktxp-configmap
-    files:
-      - mktxp.conf=./resources/mktxp.conf
-  - name: mktxp-app-configmap
-    files:
-      - _mktxp.conf=./resources/_mktxp.conf
-generatorOptions:
-  disableNameSuffixHash: true
