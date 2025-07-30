@@ -54,15 +54,15 @@ spec:
         endpoints:
           - port: metrics
     persistence:
-      config:
-        type: emptyDir
-        globalMounts:
-          - path: /mktxp_config
-            readOnly: false
+      # config:
+      #   type: emptyDir
+      #   globalMounts:
+      #     - path: /mktxp_config
+      #       readOnly: false
       config-file:
         type: configMap
         name: mktxp-configmap
-        defaultMode: 0775
+        defaultMode: 0666
         globalMounts:
           - path: /mktxp_config/mktxp.conf
             subPath: mktxp.conf
