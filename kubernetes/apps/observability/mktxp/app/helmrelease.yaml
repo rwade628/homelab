@@ -25,12 +25,9 @@ spec:
         containers:
           app:
             image:
-              repository: nginx
-              tag: latest
-            # image:
-            #   repository: ghcr.io/akpw/mktxp
-            #   tag: 1.2.11@sha256:f6e64153cf686203f1e837c811b94acde3c17c606b59ca1bc969a3bd32971a91
-            # args: ["--cfg-dir", "/mktxp_config", "export"]
+              repository: ghcr.io/akpw/mktxp
+              tag: 1.2.11@sha256:f6e64153cf686203f1e837c811b94acde3c17c606b59ca1bc969a3bd32971a91
+            args: ["--cfg-dir", "/mktxp_config", "export"]
             # securityContext:
             #   allowPrivilegeEscalation: false
             #   readOnlyRootFilesystem: true
