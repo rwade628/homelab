@@ -54,6 +54,11 @@ spec:
         endpoints:
           - port: metrics
     persistence:
+      config:
+        type: emptyDir
+        globalMounts:
+          - path: /mktxp_config
+            readOnly: false
       config-file:
         type: configMap
         name: mktxp-configmap
