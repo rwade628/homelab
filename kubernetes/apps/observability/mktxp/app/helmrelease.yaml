@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: ghcr.io/akpw/mktxp
-              tag: 4.0.15.2940@sha256:ca6c735014bdfb04ce043bf1323a068ab1d1228eea5bab8305ca0722df7baf78
+              tag: 1.2.11@sha256:f6e64153cf686203f1e837c811b94acde3c17c606b59ca1bc969a3bd32971a91
             args: ["--cfg-dir", "/mktxp_config", "export"]
             securityContext:
               allowPrivilegeEscalation: false
@@ -54,8 +54,6 @@ spec:
         endpoints:
           - port: metrics
     persistence:
-      config:
-        type: emptyDir
       config-file:
         type: configMap
         name: mktxp-configmap
