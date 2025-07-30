@@ -25,7 +25,7 @@ spec:
         containers:
           app:
             image:
-              repository: alpine
+              repository: nginx
               tag: latest
             # image:
             #   repository: ghcr.io/akpw/mktxp
