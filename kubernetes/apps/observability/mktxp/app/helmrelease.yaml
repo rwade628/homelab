@@ -68,7 +68,7 @@ spec:
             subPath: mktxp.conf
       app-config-file:
         type: configMap
-        name: _mktxp-configmap
+        name: mktxp-app-configmap
         defaultMode: 0777
         globalMounts:
           - path: /mktxp_config/_mktxp.conf
