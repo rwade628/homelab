@@ -28,7 +28,7 @@ spec:
               tag: 1.41.9.9961@sha256:6c86319bb3275135f5da5aec71b45e48305669ecbceee0f88d335bebf0d0f218
             env:
               TZ: America/New_York
-              PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}:443
+              PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}:443,http://plex:32400
               PLEX_NO_AUTH_NETWORKS: 10.0.10.0/24
             probes:
               liveness: &probes
@@ -70,8 +70,8 @@ spec:
       app:
         type: LoadBalancer
         loadBalancerClass: tailscale
-        # annotations:
-        #   lbipam.cilium.io/ips: 10.0.10.75
+        annotations:
+          tailscale.com/hostname: plex
         ports:
           http:
             port: *port
