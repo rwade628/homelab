@@ -67,11 +67,18 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [44]
     service:
-      app:
+      tailnet:
         type: LoadBalancer
         loadBalancerClass: tailscale
+        controller: app
         annotations:
           tailscale.com/hostname: "{{ .Release.Name }}"
+        ports:
+          http:
+            port: *port
+      app:
+        type: LoadBalancer
+        annotations:
           lbipam.cilium.io/ips: 10.0.10.75
         ports:
           http:
