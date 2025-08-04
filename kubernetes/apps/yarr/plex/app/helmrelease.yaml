@@ -70,7 +70,6 @@ spec:
       tailnet:
         type: LoadBalancer
         loadBalancerClass: tailscale
-        controller: app
         annotations:
           tailscale.com/hostname: "{{ .Release.Name }}"
         ports:
