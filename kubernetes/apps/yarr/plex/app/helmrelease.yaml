@@ -28,7 +28,7 @@ spec:
               tag: 1.41.9.9961@sha256:6c86319bb3275135f5da5aec71b45e48305669ecbceee0f88d335bebf0d0f218
             env:
               TZ: America/New_York
-              PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}:443,http://{{ .Release.Name}}.${TAILSCALE_DOMAIN}:32400
+              PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}:443,http://10.0.10.75:32400,http://{{ .Release.Name}}.${TAILSCALE_DOMAIN}:32400
               PLEX_NO_AUTH_NETWORKS: 10.0.10.0/24
             probes:
               liveness: &probes
@@ -67,11 +67,18 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [44]
     service:
-      app:
+      tailnet:
         type: LoadBalancer
         loadBalancerClass: tailscale
         annotations:
           tailscale.com/hostname: "{{ .Release.Name }}"
+        ports:
+          http:
+            port: *port
+      app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.0.10.75
         ports:
           http:
             port: *port
