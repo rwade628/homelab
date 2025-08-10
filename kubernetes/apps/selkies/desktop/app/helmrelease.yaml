@@ -66,8 +66,7 @@ spec:
                   secretKeyRef:
                     name: selkies-auth-secret
                     key: password
-              SELKIES_ENCODER: "vaav1enc"
-              GSTREAMER_VERSION: "main"
+              SELKIES_ENCODER: "vah264enc"
               SELKIES_ENABLE_RESIZE: "false"
               SELKIES_FRAMERATE: "120"
               SELKIES_ENABLE_BASIC_AUTH: "true"
