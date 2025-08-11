@@ -111,10 +111,10 @@ spec:
       #   type: emptyDir
       #   globalMounts:
       #     - path: /dev/shm
-      config:
+      home:
         existingClaim: desktop
-        # globalMounts:
-        #   - path: /home/ubuntu
+        globalMounts:
+          - path: /ubuntu
       media:
         type: nfs
         server: 10.0.10.3
