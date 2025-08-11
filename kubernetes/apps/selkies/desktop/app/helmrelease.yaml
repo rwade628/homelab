@@ -58,6 +58,13 @@ spec:
               TZ: America/New_York
               PUID: 1000
               PGID: 1000
+              DOCKER_MODS: linuxserver/mods:universal-package-install
+              INSTALL_PACKAGES: ffmpeg|ffmpegthumbs|vlc
+              PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: selkies-auth-secret
+                    key: password
             securityContext:
               {}
               # allowPrivilegeEscalation: true
