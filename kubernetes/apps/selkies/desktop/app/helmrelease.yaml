@@ -23,67 +23,41 @@ spec:
       desktop:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          network:
-            image:
-              repository: nicolaka/netshoot
-              tag: v0.14
-              pullPolicy: IfNotPresent
-            env:
-              - name: DEV
-                value: eth0
-            command:
-              - "/bin/bash"
-              - "-c"
-              - |
-                POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
-                ip route del default via $POD_IP
-                ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
-                ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
-                echo -e "\nip route after fix:" && ip route
-            securityContext:
-              runAsNonRoot: false
-              runAsUser: 0
-              runAsGroup: 0
-              allowPrivilegeEscalation: true
-              capabilities:
-                add:
-                  - NET_ADMIN
+        # initContainers:
+        #   network:
+        #     image:
+        #       repository: nicolaka/netshoot
+        #       tag: v0.14
+        #       pullPolicy: IfNotPresent
+        #     env:
+        #       - name: DEV
+        #         value: eth0
+        #     command:
+        #       - "/bin/bash"
+        #       - "-c"
+        #       - |
+        #         POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+        #         ip route del default via $POD_IP
+        #         ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
+        #         ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
+        #         echo -e "\nip route after fix:" && ip route
+        #     securityContext:
+        #       runAsNonRoot: false
+        #       runAsUser: 0
+        #       runAsGroup: 0
+        #       allowPrivilegeEscalation: true
+        #       capabilities:
+        #         add:
+        #           - NET_ADMIN
         containers:
           app:
             image:
-              repository: ghcr.io/selkies-project/nvidia-egl-desktop
-              tag: 24.04@sha256:e2091365d57e3cdac63d497b51e41631d93834a42c6596f2f3a595bbd03fbf4f
+              repository: docker.io/linuxserver/webtop
+              tag: amd64-ubuntu-kde@sha256:cad57d51bbbf7fe45cb167471756b455c7ddc6ae688a90dff4beeb43e7bb735b
             env:
               TZ: America/New_York
-              DISPLAY_SIZEW: "1920"
-              DISPLAY_SIZEH: "1080"
-              DISPLAY_REFRESH: "120"
-              DISPLAY_DPI: "144"
-              DISPLAY_CDEPTH: "24"
-              PASSWD:
-                valueFrom:
-                  secretKeyRef:
-                    name: selkies-auth-secret
-                    key: password
-              SELKIES_ENCODER: "vah264enc"
-              SELKIES_ENABLE_RESIZE: "false"
-              SELKIES_FRAMERATE: "120"
-              SELKIES_ENABLE_BASIC_AUTH: "true"
-              SELKIES_ENABLE_HTTPS_WEB: "false"
-              SELKIES_TURN_HOST: "10.0.10.254"
-              SELKIES_TURN_PORT: "3478"
-              SELKIES_TURN_USERNAME:
-                valueFrom:
-                  secretKeyRef:
-                    name: stunner-auth-secret
-                    key: username
-              SELKIES_TURN_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: stunner-auth-secret
-                    key: password
-              SELKIES_TURN_PROTOCOL: "udp"
+              PUID: 1000
+              PGID: 1000
             securityContext:
               {}
               # allowPrivilegeEscalation: true
@@ -101,8 +75,8 @@ spec:
                 memory: 8Gi
                 amd.com/gpu: 1
     defaultPodOptions:
-      annotations:
-        k8s.v1.cni.cncf.io/networks: kube-system/vpn-macvlan
+      # annotations:
+      #   k8s.v1.cni.cncf.io/networks: kube-system/vpn-macvlan
       securityContext:
         {}
         # runAsNonRoot: false
@@ -116,13 +90,7 @@ spec:
         ports:
           http:
             primary: true
-            port: &port 8080
-          upd-one:
-            port: 62001
-            protocol: UDP
-          udp-two:
-            port: 62002
-            protocol: UDP
+            port: &port 3000
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
@@ -135,18 +103,18 @@ spec:
               - identifier: app
                 port: *port
     persistence:
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /cache
-      dshm:
-        type: emptyDir
-        globalMounts:
-          - path: /dev/shm
-      home:
-        existingClaim: desktop
-        globalMounts:
-          - path: /home/ubuntu
+      # cache:
+      #   type: emptyDir
+      #   globalMounts:
+      #     - path: /cache
+      # dshm:
+      #   type: emptyDir
+      #   globalMounts:
+      #     - path: /dev/shm
+      # home:
+      #   existingClaim: desktop
+      #   globalMounts:
+      #     - path: /home/ubuntu
       media:
         type: nfs
         server: 10.0.10.3
