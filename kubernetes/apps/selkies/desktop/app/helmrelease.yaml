@@ -23,32 +23,32 @@ spec:
       desktop:
         annotations:
           reloader.stakater.com/auto: "true"
-        # initContainers:
-        #   network:
-        #     image:
-        #       repository: nicolaka/netshoot
-        #       tag: v0.14
-        #       pullPolicy: IfNotPresent
-        #     env:
-        #       - name: DEV
-        #         value: eth0
-        #     command:
-        #       - "/bin/bash"
-        #       - "-c"
-        #       - |
-        #         POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
-        #         ip route del default via $POD_IP
-        #         ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
-        #         ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
-        #         echo -e "\nip route after fix:" && ip route
-        #     securityContext:
-        #       runAsNonRoot: false
-        #       runAsUser: 0
-        #       runAsGroup: 0
-        #       allowPrivilegeEscalation: true
-        #       capabilities:
-        #         add:
-        #           - NET_ADMIN
+        initContainers:
+          network:
+            image:
+              repository: nicolaka/netshoot
+              tag: v0.14
+              pullPolicy: IfNotPresent
+            env:
+              - name: DEV
+                value: eth0
+            command:
+              - "/bin/bash"
+              - "-c"
+              - |
+                POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+                ip route del default via $POD_IP
+                ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
+                ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
+                echo -e "\nip route after fix:" && ip route
+            securityContext:
+              runAsNonRoot: false
+              runAsUser: 0
+              runAsGroup: 0
+              allowPrivilegeEscalation: true
+              capabilities:
+                add:
+                  - NET_ADMIN
         containers:
           app:
             image:
@@ -75,8 +75,8 @@ spec:
                 memory: 8Gi
                 amd.com/gpu: 1
     defaultPodOptions:
-      # annotations:
-      #   k8s.v1.cni.cncf.io/networks: kube-system/vpn-macvlan
+      annotations:
+        k8s.v1.cni.cncf.io/networks: kube-system/vpn-macvlan
       securityContext:
         {}
         # runAsNonRoot: false
@@ -111,10 +111,10 @@ spec:
       #   type: emptyDir
       #   globalMounts:
       #     - path: /dev/shm
-      # home:
-      #   existingClaim: desktop
-      #   globalMounts:
-      #     - path: /home/ubuntu
+      config:
+        existingClaim: desktop
+        # globalMounts:
+        #   - path: /home/ubuntu
       media:
         type: nfs
         server: 10.0.10.3
