@@ -31,9 +31,9 @@ spec:
               STASH_PORT: &port 9999
             resources:
               requests:
-                cpu: 100m
+                cpu: 500m
               limits:
-                memory: 500Mi
+                memory: 5Gi
     service:
       app:
         ports:
