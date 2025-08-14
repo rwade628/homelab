@@ -47,19 +47,10 @@ spec:
             namespace: kube-system
             sectionName: https
     persistence:
-      metadata:
+      root:
         existingClaim: stash
-      tmpfs:
-        type: emptyDir
         globalMounts:
           - path: /root/.stash
-            subPath: config
-          - path: /blobs
-            subPath: blobs
-          - path: /generated
-            subPath: generated
-          - path: /cache
-            subPath: cache
       media:
         type: nfs
         server: 10.0.10.3
