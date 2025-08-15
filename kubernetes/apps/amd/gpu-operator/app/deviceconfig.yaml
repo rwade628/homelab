@@ -12,7 +12,7 @@ spec:
     nodeLabellerImage: rocm/k8s-device-plugin:labeller-latest
   metricsExporter:
     enable: true
-    image: rocm/device-metrics-exporter:v1.3.0
+    image: rocm/device-metrics-exporter:v1.3.1
     config:
       name: gpu-config
     rbacConfig:
