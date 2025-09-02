@@ -14,8 +14,6 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: gateway
-      namespace: stunner
   interval: 1h
   path: ./kubernetes/apps/selkies/desktop/app
   postBuild:
