@@ -46,12 +46,6 @@ spec:
                 cpu: 100m
               limits:
                 memory: 1Gi
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
