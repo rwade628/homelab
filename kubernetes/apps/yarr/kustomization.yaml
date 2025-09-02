@@ -19,3 +19,4 @@ resources:
   - ./tvheadend/ks.yaml
   - ./epg/ks.yaml
   - ./stash/ks.yaml
+  - ./dispatcharr/ks.yaml
