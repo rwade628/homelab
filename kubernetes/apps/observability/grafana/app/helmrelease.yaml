@@ -272,14 +272,10 @@ spec:
     serviceMonitor:
       enabled: true
     service:
-      tailnet:
-        type: LoadBalancer
-        loadBalancerClass: tailscale
-        annotations:
-          tailscale.com/hostname: "{{ .Release.Name }}"
-        ports:
-          http:
-            port: 3000
+      type: LoadBalancer
+      loadBalancerClass: tailscale
+      annotations:
+        tailscale.com/hostname: "{{ .Release.Name }}"
     route:
       main:
         enabled: true
