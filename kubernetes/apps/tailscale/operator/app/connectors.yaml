@@ -1,0 +1,9 @@
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: home-vlan-subnet
+spec:
+  hostname: home-vlan-subnet
+  subnetRouter:
+    advertiseRoutes:
+      - "10.0.10.0/24"
