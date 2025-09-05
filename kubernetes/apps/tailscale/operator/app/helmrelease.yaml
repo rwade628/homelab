@@ -27,3 +27,6 @@ spec:
     kind: OCIRepository
     name: tailscale-operator
     namespace: tailscale
+values:
+  apiServerProxyConfig:
+    allowImpersonation: true
