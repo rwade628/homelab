@@ -27,6 +27,6 @@ spec:
     kind: OCIRepository
     name: tailscale-operator
     namespace: tailscale
-values:
-  apiServerProxyConfig:
-    mode: noauth
+# values:
+#   apiServerProxyConfig:
+#     mode: noauth
