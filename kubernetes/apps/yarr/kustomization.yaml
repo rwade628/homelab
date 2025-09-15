@@ -16,7 +16,5 @@ resources:
   - ./flaresolverr/ks.yaml
   - ./bazarr/ks.yaml
   - ./webhook/ks.yaml
-  - ./tvheadend/ks.yaml
-  - ./epg/ks.yaml
   - ./stash/ks.yaml
   - ./dispatcharr/ks.yaml

@@ -54,7 +54,7 @@ spec:
       cache:
         existingClaim: stash-cache
         globalMounts:
-          - path: /root/.stash/generated
+          - path: /generated
       media:
         type: nfs
         server: 10.0.10.3
