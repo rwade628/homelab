@@ -54,6 +54,6 @@ spec:
             port: 5580
     persistence:
       config:
-        existingClaim: homeassistant
+        existingClaim: matter
         globalMounts:
-          - path: /config
+          - path: /data
