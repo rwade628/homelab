@@ -98,17 +98,27 @@ spec:
           http:
             primary: true
             port: &port 3000
-    route:
+    ingress:
       app:
-        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
+        className: internal
+        hosts:
+          - host: "${{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: *port
+    # route:
+    #   app:
+    #     hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+    #     parentRefs:
+    #       - name: internal
+    #         namespace: kube-system
+    #         sectionName: https
+    #     rules:
+    #       - backendRefs:
+    #           - identifier: app
+    #             port: *port
     persistence:
       # cache:
       #   type: emptyDir
