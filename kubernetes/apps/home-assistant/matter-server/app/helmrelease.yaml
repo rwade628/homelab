@@ -38,6 +38,7 @@ spec:
               limits:
                 memory: 2Gi
     defaultPodOptions:
+      dnsPolicy: ClusterFirstWithHostNet
       hostNetwork: true
       securityContext:
         runAsNonRoot: true
@@ -47,6 +48,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
+        controller: matter
         ports:
           http:
             port: 5580
