@@ -6,3 +6,4 @@ components:
   - ../../components/common
 resources:
   - ./home-assistant/ks.yaml
+  - ./matter-server/ks.yaml
