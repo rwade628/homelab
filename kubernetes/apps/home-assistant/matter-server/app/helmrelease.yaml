@@ -39,7 +39,13 @@ spec:
                 memory: 2Gi
     defaultPodOptions:
       annotations:
-        k8s.v1.cni.cncf.io/networks: kube-system/home-macvlan
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "home-macvlan",
+            "namespace": "kube-system",
+            "ips": ["10.0.10.61/24"],
+            "mac": "f2:4c:e7:b6:6a:cd"
+          }]
       # securityContext:
       #   runAsNonRoot: true
       #   runAsUser: 1000
