@@ -38,8 +38,8 @@ spec:
               limits:
                 memory: 2Gi
     defaultPodOptions:
-      dnsPolicy: ClusterFirstWithHostNet
-      hostNetwork: true
+      annotations:
+        k8s.v1.cni.cncf.io/networks: kube-system/home-macvlan
       # securityContext:
       #   runAsNonRoot: true
       #   runAsUser: 1000
