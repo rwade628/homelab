@@ -46,10 +46,10 @@ spec:
             "ips": ["10.0.10.61/24"],
             "mac": "f2:4c:e7:b6:6a:cd"
           }]
-      # securityContext:
-      #   sysctls:
-      #     - name: net.ipv6.conf.eth0.accept_ra
-      #       value: "2"
+      securityContext:
+        sysctls:
+          - name: net.ipv6.conf.eth0.accept_ra
+            value: "2"
       #     - name: net.ipv6.conf.eth0.accept_ra_rt_info_max_plen
       #       value: "64"
       #     - name: net.ipv6.conf.eth0.forwarding
