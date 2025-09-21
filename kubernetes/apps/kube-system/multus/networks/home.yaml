@@ -2,17 +2,26 @@
 apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
-  name: home-macvlan
+  name: home-dhcp
 spec:
   config: |-
     {
-      "type": "macvlan",
-      "master": "ens18",
-      "mode": "bridge",
-      "ipam": {
-        "type": "dhcp",
-        "gateway": "10.0.10.1"
-      }
+      "cniVersion": "0.3.1",
+      "name": "home-dhcp",
+      "plugins": [
+        {
+          "type": "macvlan",
+          "master": "ens18",
+          "mode": "bridge",
+          "ipam": {
+            "type": "dhcp",
+            "gateway": "10.0.10.1"
+          }
+        },
+        {
+          "type": "sbr"
+        }
+      ]
     }
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/k8s.cni.cncf.io/networkattachmentdefinition_v1.json
