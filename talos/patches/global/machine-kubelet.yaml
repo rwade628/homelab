@@ -3,6 +3,7 @@ machine:
     extraConfig:
       serializeImagePulls: false
       imageMaximumGCAge: 60m
+      # allowedUnsafeSysctls: "net.ipv6.*"
     nodeIP:
       validSubnets:
         - 10.0.10.0/24
