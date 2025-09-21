@@ -92,7 +92,7 @@ spec:
       annotations:
         k8s.v1.cni.cncf.io/networks: |-
           [{
-            "name": "home-static",
+            "name": "home-macvlan",
             "namespace": "kube-system",
             "ips": ["10.0.10.60/24"],
             "mac": "76:61:b0:81:85:c5"
