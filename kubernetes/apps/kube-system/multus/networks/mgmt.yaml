@@ -15,11 +15,8 @@ spec:
           "mode": "bridge",
           "ipam": {
             "type": "dhcp",
-            "gateway": "10.0.10.1"
+            "gateway": "192.168.88.1"
           }
-        },
-        {
-          "type": "sbr"
         }
       ]
     }

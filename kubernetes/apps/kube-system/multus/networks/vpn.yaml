@@ -17,9 +17,6 @@ spec:
             "type": "dhcp",
             "gateway": "10.0.40.1"
           }
-        },
-        {
-          "type": "sbr"
         }
       ]
     }
