@@ -11,6 +11,6 @@ resources:
   - ./metrics-server/ks.yaml
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml
-  - ./multus-cni/ks.yaml
+  - ./multus/ks.yaml
   - ./csi-driver-nfs/ks.yaml
   - ./snapshot-controller/ks.yaml
