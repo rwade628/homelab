@@ -46,20 +46,20 @@ spec:
             "ips": ["10.0.10.61/24"],
             "mac": "f2:4c:e7:b6:6a:cd"
           }]
-      securityContext:
-        sysctls:
-          - name: net.ipv6.conf.eth0.accept_ra
-            value: "2"
-          - name: net.ipv6.conf.eth0.accept_ra_rt_info_max_plen
-            value: "64"
-          - name: net.ipv6.conf.eth0.forwarding
-            value: "1"
-          - name: net.ipv6.conf.net1.accept_ra
-            value: "2"
-          - name: net.ipv6.conf.net1.accept_ra_rt_info_max_plen
-            value: "64"
-          - name: net.ipv6.conf.net1.forwarding
-            value: "1"
+      # securityContext:
+      #   sysctls:
+      #     - name: net.ipv6.conf.eth0.accept_ra
+      #       value: "2"
+      #     - name: net.ipv6.conf.eth0.accept_ra_rt_info_max_plen
+      #       value: "64"
+      #     - name: net.ipv6.conf.eth0.forwarding
+      #       value: "1"
+      #     - name: net.ipv6.conf.net1.accept_ra
+      #       value: "2"
+      #     - name: net.ipv6.conf.net1.accept_ra_rt_info_max_plen
+      #       value: "64"
+      #     - name: net.ipv6.conf.net1.forwarding
+      #       value: "1"
       #   runAsNonRoot: true
       #   runAsUser: 1000
       #   runAsGroup: 1000
