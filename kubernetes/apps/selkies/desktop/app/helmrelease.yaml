@@ -83,7 +83,13 @@ spec:
                 amd.com/gpu: 1
     defaultPodOptions:
       annotations:
-        k8s.v1.cni.cncf.io/networks: kube-system/vpn-macvlan
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "vpn",
+            "namespace": "kube-system",
+            "ips": ["10.0.40.10/24"],
+            "mac": "42:5c:70:f0:53:45"
+          }]
       securityContext:
         {}
         # runAsNonRoot: false
