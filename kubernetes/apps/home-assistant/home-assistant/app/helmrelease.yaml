@@ -86,27 +86,25 @@ spec:
             primary: true
           code-server:
             port: &code-server 12321
-    route:
+    ingress:
       app:
-        hostnames: ["hass.${SECRET_DOMAIN}"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
+        className: internal
+        hosts:
+          - host: hass.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
       code-server:
-        hostnames: ["hass-code.${SECRET_DOMAIN}"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *code-server
+        className: internal
+        hosts:
+          - host: hass-code.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: code-server
     persistence:
       config:
         existingClaim: homeassistant
