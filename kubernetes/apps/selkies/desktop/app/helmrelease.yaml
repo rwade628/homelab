@@ -59,7 +59,7 @@ spec:
       annotations:
         k8s.v1.cni.cncf.io/networks: |-
           [{
-            "name": "home-static",
+            "name": "vpn",
             "namespace": "kube-system",
             "ips": ["10.0.40.10/24"],
             "mac": "42:5c:70:f0:53:45",
