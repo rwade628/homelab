@@ -62,8 +62,7 @@ spec:
             "name": "vpn",
             "namespace": "kube-system",
             "ips": ["10.0.40.10/24"],
-            "mac": "42:5c:70:f0:53:45",
-            "default-route": ["10.0.40.1"]
+            "mac": "42:5c:70:f0:53:45"
           }]
       securityContext:
         {}
