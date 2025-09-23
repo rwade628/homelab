@@ -14,7 +14,7 @@ spec:
           "master": "ens20",
           "mode": "bridge",
           "ipam": {
-            "type": "static",
+            "type": "static"
           }
         }
       ]
