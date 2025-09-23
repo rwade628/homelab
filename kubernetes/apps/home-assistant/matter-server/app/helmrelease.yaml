@@ -21,6 +21,34 @@ spec:
       matter:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          network:
+            image:
+              repository: alpine
+              tag: latest
+              pullPolicy: IfNotPresent
+            env:
+              - name: DEV
+                value: eth0
+            command:
+              - "sh"
+              - "-c"
+              - |
+                apk update
+                apk add iproute2 -y
+                POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+                ip route del default via $POD_IP
+                ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
+                ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
+                echo -e "\nip route after fix:" && ip route
+            securityContext:
+              runAsNonRoot: false
+              runAsUser: 0
+              runAsGroup: 0
+              allowPrivilegeEscalation: true
+              capabilities:
+                add:
+                  - NET_ADMIN
         containers:
           app:
             image:
