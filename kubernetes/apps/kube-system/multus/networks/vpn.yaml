@@ -14,7 +14,10 @@ spec:
           "master": "ens20",
           "mode": "bridge",
           "ipam": {
-            "type": "static"
+            "type": "static",
+            "routes": [
+              {"dst": "0.0.0.0/0", "gw": "10.0.10.1"}
+            ]
           }
         },
         { "type": "sbr" }
