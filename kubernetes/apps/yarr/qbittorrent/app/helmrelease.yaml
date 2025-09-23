@@ -30,16 +30,18 @@ spec:
         initContainers:
           network:
             image:
-              repository: nicolaka/netshoot
-              tag: v0.14
+              repository: alpine
+              tag: latest
               pullPolicy: IfNotPresent
             env:
               - name: DEV
                 value: eth0
             command:
-              - "/bin/bash"
+              - "sh"
               - "-c"
               - |
+                apk update
+                apk add iproute2 -y
                 POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
                 ip route del default via $POD_IP
                 ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
@@ -91,7 +93,13 @@ spec:
                 memory: 8Gi
     defaultPodOptions:
       annotations:
-        k8s.v1.cni.cncf.io/networks: kube-system/vpn-macvlan
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "vpn",
+            "namespace": "kube-system",
+            "ips": ["10.0.40.5/24"],
+            "mac": "8a:dc:1e:21:d0:90"
+          }]
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
