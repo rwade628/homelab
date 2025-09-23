@@ -73,7 +73,13 @@ spec:
                 memory: 1Gi
     defaultPodOptions:
       annotations:
-        k8s.v1.cni.cncf.io/networks: kube-system/vpn-macvlan
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "vpn",
+            "namespace": "kube-system",
+            "ips": ["10.0.40.6/24"],
+            "mac": "0e:fa:2a:21:11:b1"
+          }]
     service:
       app:
         ports:
