@@ -17,6 +17,8 @@ spec:
             "type": "static"
           }
         },
-        { "type": "sbr" }
+        {
+          "type": "sbr"
+        }
       ]
     }
