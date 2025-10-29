@@ -33,7 +33,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
+                    path: /
                     port: &port 8089
                   initialDelaySeconds: 0
                   periodSeconds: 10
