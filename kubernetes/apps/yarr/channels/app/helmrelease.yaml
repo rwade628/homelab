@@ -87,6 +87,7 @@ spec:
       media:
         type: nfs
         server: 10.0.10.3
-        path: /mnt/storage/k8s/media/recordings
+        path: /mnt/storage/k8s/media
         globalMounts:
-          - path: /shares/DVR
+          - path: /recordings
+            subPath: recordings
