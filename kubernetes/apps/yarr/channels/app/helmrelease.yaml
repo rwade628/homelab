@@ -66,19 +66,13 @@ spec:
         supplementalGroups: [44]
     service:
       app:
+        type: LoadBalancer
+        loadBalancerClass: tailscale
+        annotations:
+          tailscale.com/hostname: "{{ .Release.Name }}"
         ports:
           http:
             port: *port
-    ingress:
-      app:
-        className: internal
-        hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
     persistence:
       config:
         existingClaim: channels
