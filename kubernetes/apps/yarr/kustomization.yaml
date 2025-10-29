@@ -18,3 +18,4 @@ resources:
   - ./webhook/ks.yaml
   - ./stash/ks.yaml
   - ./dispatcharr/ks.yaml
+  - ./channels/ks.yaml
