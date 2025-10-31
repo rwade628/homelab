@@ -16,5 +16,5 @@ spec:
   appConnector: {}
   replicas: 2
   tags:
-    - hbo-connector
-    - netflix-connector
+    - "tag:hbo-connector"
+    - "tag:netflix-connector"
