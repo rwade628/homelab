@@ -11,6 +11,10 @@ spec:
 apiVersion: tailscale.com/v1alpha1
 kind: Connector
 metadata:
-  name: app-connector
+  name: streaming
 spec:
   appConnector: {}
+  replicas: 2
+  tags:
+    - hbo-connector
+    - netflix-connector
