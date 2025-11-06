@@ -11,29 +11,32 @@ spec:
     name: cilium
   values:
     autoDirectNodeRoutes: true
-    bandwithManager:
-      enabled: true
-      bbr: true
     bpf:
-      datapathMode: netkit
       masquerade: true
-      preallocateMaps: true
-      tproxy: true
-    bpfClockProbe: true
+      # Ref: https://github.com/siderolabs/talos/issues/10002
+      hostLegacyRouting: true
+    cni:
+      # Required for pairing with Multus CNI
+      exclusive: false
     cgroup:
       automount:
         enabled: false
       hostRoot: /sys/fs/cgroup
-    cni:
-      # Required for pairing with Multus CNI
-      exclusive: false
+    # cluster:
+    #   id: 1
+    #   name: "homelab"
+    # NOTE: devices might need to be set if you have more than one active NIC on your hosts
+    # devices: enp+ ens+ br0
     dashboards:
       enabled: true
-    # devices: enp+ ens+ br0
-    enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
     envoy:
+      rollOutPods: true
+      prometheus:
+        serviceMonitor:
+          enabled: true
+    gatewayAPI:
       enabled: false
     hubble:
       enabled: false
@@ -48,7 +51,7 @@ spec:
       enabled: true
     loadBalancer:
       algorithm: maglev
-      mode: dsr
+      mode: "dsr"
     localRedirectPolicy: true
     operator:
       dashboards:
@@ -57,10 +60,8 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-      replicas: 2
+      replicas: 1
       rollOutPods: true
-    pmtuDiscovery:
-      enabled: true
     prometheus:
       enabled: true
       serviceMonitor:
@@ -88,3 +89,5 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
+    socketLB:
+      hostNamespaceOnly: true
