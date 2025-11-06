@@ -6,4 +6,4 @@ resources:
   - ./secret.sops.yaml
   - ./grafanadashboard.yaml
   - ./helmrelease.yaml
-  - ./ocirepository.yam
+  - ./ocirepository.yaml
