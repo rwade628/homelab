@@ -30,19 +30,19 @@ spec:
               tag: latest
               pullPolicy: IfNotPresent
             env:
-            - name: DEV
-              value: eth0
+              - name: DEV
+                value: eth0
             command:
-            - 'sh'
-            - '-c'
-            - |
-              apk update
-              apk add iproute2 -y
-              POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
-              ip route del default via $POD_IP
-              ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
-              ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
-              echo -e "\nip route after fix:" && ip route
+              - "sh"
+              - "-c"
+              - |
+                apk update
+                apk add iproute2 -y
+                POD_IP=$( ip route | grep $DEV | grep default | tr -s ' ' | cut -d ' ' -f 3) && \
+                ip route del default via $POD_IP
+                ip route add 10.69.0.0/16 via $POD_IP dev $DEV && \
+                ip route add 10.96.0.0/16 via $POD_IP dev $DEV && \
+                echo -e "\nip route after fix:" && ip route
             securityContext:
               runAsNonRoot: false
               runAsUser: 0
@@ -50,26 +50,27 @@ spec:
               allowPrivilegeEscalation: true
               capabilities:
                 add:
-                - NET_ADMIN
+                  - NET_ADMIN
         containers:
           app:
             image:
               repository: docker.io/mbentley/omada-controller
               tag: 6.0@sha256:58c78835ecf6ab4cd0ea630e49984ebcd7b4bd51f6ca4541ce140944daedf249
             env:
-              MANAGE_HTTP_PORT: &manage-http "8088"
+              MANAGE_HTTP_PORT: "8088"
               MANAGE_HTTPS_PORT: &manage-https "8043"
-              PORTAL_HTTP_PORT: &portal-http "8088"
-              PORTAL_HTTPS_PORT: &portal-https "8843"
-              PORT_APP_DISCOVERY: &app-discovery "27001"
-              PORT_OLT: &old "19810"
-              PORT_DISCOVERY: &discovery "29810"
-              PORT_MANAGER_V1: &manager-v1 "29811"
-              PORT_ADOPT_V1: &adopt-v1 "29812"
-              PORT_UPGRADE_V1: &upgrade-v1 "29813"
-              PORT_MANAGER_V2: &manager-v2 "29814"
-              PORT_TRANSFER_V2: &transfer-v2 "29815"
-              PORT_RTTY: &rtty "29816"
+              PORTAL_HTTP_PORT: "8088"
+              PORTAL_HTTPS_PORT: "8843"
+              PORT_APP_DISCOVERY: "27001"
+              PORT_OLT: "19810"
+              PORT_DISCOVERY: "29810"
+              PORT_MANAGER_V1: "29811"
+              PORT_ADOPT_V1: "29812"
+              PORT_UPGRADE_V1: "29813"
+              PORT_MANAGER_V2: "29814"
+              PORT_TRANSFER_V2: "29815"
+              PORT_RTTY: "29816"
+              PORT_DEVICE_MONITOR: "29817"
               TZ: America/New_York
             # probes:
             #   liveness: &probes
@@ -84,7 +85,8 @@ spec:
             #       timeoutSeconds: 1
             #       failureThreshold: 3
             #   readiness: *probes
-            securityContext: {}
+            securityContext:
+              {}
               # allowPrivilegeEscalation: true
               # readOnlyRootFilesystem: false
               # capabilities: { drop: ["ALL"] }
@@ -96,7 +98,8 @@ spec:
     defaultPodOptions:
       annotations:
         k8s.v1.cni.cncf.io/networks: kube-system/mgmt-bridge
-      securityContext: {}
+      securityContext:
+        {}
         # runAsNonRoot: false
         # runAsUser: 508
         # runAsGroup: 508
