@@ -66,7 +66,7 @@ spec:
   service:
     metadata:
       annotations:
-        tailscale.com/hostname: "{{ .Release.Name }}"
+        tailscale.com/hostname: grafana
     spec:
       type: LoadBalancer
       loadBalancerClass: tailscale
