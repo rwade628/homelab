@@ -8,3 +8,4 @@ resources:
   - ./configmap.yaml
   - ./deviceconfig.yaml
   - ./servicemonitor.yaml
+  - ./grafanadashboard.yaml
