@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
-  - ./ocirepsitory.yaml
+  - ./ocirepository.yaml
   - ./prometheusrule.yaml
