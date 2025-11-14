@@ -11,14 +11,10 @@ spec:
     name: cilium
   values:
     autoDirectNodeRoutes: true
-    bandwidthManager:
-      enabled: true
-      bbr: true
     bpf:
-      datapathMode: netkit
       masquerade: true
-      preallocateMaps: true
-      tproxy: true
+      # Ref: https://github.com/siderolabs/talos/issues/10002
+      hostLegacyRouting: true
     cni:
       # Required for pairing with Multus CNI
       exclusive: false
@@ -33,11 +29,15 @@ spec:
     # devices: enp+ ens+ br0
     dashboards:
       enabled: true
-    enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
     envoy:
-      enabled: false
+      rollOutPods: true
+      prometheus:
+        serviceMonitor:
+          enabled: true
+    gatewayAPI:
+      enabled: true
     hubble:
       enabled: false
     ipam:
