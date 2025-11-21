@@ -55,7 +55,7 @@ spec:
           app:
             image:
               repository: docker.io/linuxserver/webtop
-              tag: amd64-ubuntu-kde@sha256:9d467e0250bb7ece6854322b856d5310eef3f288c70c0c07d7af6909e4317d60
+              tag: amd64-ubuntu-kde@sha256:218a8d4c07e43e438b7d4fbf46d1db588d0ab6048b318442a031b222fbadc85f
             env:
               TZ: America/New_York
               PUID: 1000
