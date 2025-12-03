@@ -74,6 +74,14 @@ spec:
         ports:
           http:
             port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
     persistence:
       config:
         existingClaim: channels
