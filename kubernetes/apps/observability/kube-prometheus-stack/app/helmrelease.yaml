@@ -81,17 +81,6 @@ spec:
       fullnameOverride: node-exporter
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
-      releaseLabel: true
-      prometheus:
-        monitor:
-          enabled: true
-          interval: "60s"
-          honorLabels: true
-          relabelings:
-            - sourceLabels: [__address__]
-              regex: "(.*)"
-              targetLabel: cluster
-              replacement: "homelab"
     grafana:
       enabled: false
       forceDeployDashboards: true
