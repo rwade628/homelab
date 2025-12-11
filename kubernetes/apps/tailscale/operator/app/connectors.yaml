@@ -11,6 +11,14 @@ spec:
 apiVersion: tailscale.com/v1alpha1
 kind: Connector
 metadata:
+  name: exit-node
+spec:
+  hostname: rwade-exit-node
+  exitNode: true
+---
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
   name: streaming
 spec:
   appConnector: {}
