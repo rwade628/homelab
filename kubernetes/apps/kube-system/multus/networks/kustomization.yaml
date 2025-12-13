@@ -6,3 +6,4 @@ resources:
   - mgmt.yaml
   - home.yaml
   - vpn.yaml
+  - iot.yaml
