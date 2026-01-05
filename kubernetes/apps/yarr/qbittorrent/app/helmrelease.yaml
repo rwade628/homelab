@@ -120,16 +120,13 @@ spec:
             enabled: true
             port: *torrentPort
             protocol: TCP
-    ingress:
+    route:
       app:
-        className: internal
-        hosts:
-          - host: "qb.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames:
+          - "qb.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
     # route:
     #   app:
     #     hostnames: ["qb.${SECRET_DOMAIN}"]
