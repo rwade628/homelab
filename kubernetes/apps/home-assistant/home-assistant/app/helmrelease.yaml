@@ -53,7 +53,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.12.5@sha256:6be0843b06ad82233639e56f261b2377f78df140e3d16d2d08b2c29c8889b697
+              tag: 2026.1.0@sha256:69c42ff4f1bde909140f139838c2e81f3f93db1b8957fbe4425f4e9075b959c7
             env:
               TZ: America/New_York
               HASS_HTTP_TRUSTED_PROXY_1: 192.168.88.0/24
@@ -119,25 +119,27 @@ spec:
             primary: true
           code-server:
             port: &code-server 12321
-    ingress:
+    route:
       app:
-        className: internal
-        hosts:
-          - host: hass.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-      code-server:
-        className: internal
-        hosts:
-          - host: hass-code.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: code-server
+        hostnames:
+          - hass.${SECRET_DOMAIN}
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+      code:
+        hostnames:
+          - hass-code.${SECRET_DOMAIN}
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *code-server
     persistence:
       config:
         existingClaim: homeassistant
