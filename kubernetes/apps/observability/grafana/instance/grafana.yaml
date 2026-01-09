@@ -70,20 +70,17 @@ spec:
     spec:
       type: LoadBalancer
       loadBalancerClass: tailscale
-  ingress:
+  httpRoute:
     spec:
-      ingressClassName: internal
+      hostnames:
+        - "grafana.${SECRET_DOMAIN}"
+      parentRefs:
+        - name: envoy-internal
+          namespace: network
       rules:
-        - host: "grafana.${SECRET_DOMAIN}"
-          http:
-            paths:
-              - backend:
-                  service:
-                    name: grafana-service
-                    port:
-                      number: 3000
-                path: /
-                pathType: Prefix
+        - backendRefs:
+            - name: grafana-service
+              port: 3000
   persistentVolumeClaim:
     spec:
       accessModes:
