@@ -107,10 +107,10 @@ spec:
       app:
         ports:
           http:
-            port: *manage-https
+            port: 8088
     route:
       app:
-        kind: TLSRoute
+        # kind: TLSRoute
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
