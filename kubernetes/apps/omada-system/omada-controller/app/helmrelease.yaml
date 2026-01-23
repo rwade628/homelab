@@ -122,13 +122,8 @@ spec:
               - group: gateway.envoyproxy.io
                 kind: Backend
                 name: tls-backend
-            matches:
-              - path:
-                  type: PathPrefix
-                  value: /
-
-persistence:
-  data:
-    existingClaim: omada
-    globalMounts:
-      - path: /opt/tplink/EAPController/data
+    persistence:
+      data:
+        existingClaim: omada
+        globalMounts:
+          - path: /opt/tplink/EAPController/data
