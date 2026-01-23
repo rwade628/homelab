@@ -1,13 +1,18 @@
 ---
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: Backend
+apiVersion: gateway.networking.k8s.io/v1alpha3
+kind: BackendTLSPolicy
 metadata:
-  name: tls-backend
+  name: enable-backend-tls
   namespace: default
 spec:
-  endpoints:
-    - fqdn:
-        hostname: omada.omada.svc.cluster.local
-        port: 443
-  tls:
-    insecureSkipVerify: true
+  targetRefs:
+    - group: ""
+      kind: Service
+      name: omada
+      sectionName: https
+  validation:
+    caCertificateRefs:
+      - name: casadewade-com-production-tls
+        namespace: network
+        kind: Secret
+    hostname: "omada.${SECRET_DOMAIN}"

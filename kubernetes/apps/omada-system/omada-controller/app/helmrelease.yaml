@@ -127,3 +127,6 @@ spec:
         existingClaim: omada
         globalMounts:
           - path: /opt/tplink/EAPController/data
+      certs:
+        type: secret
+        name: network/casadewade-com-production-tls
