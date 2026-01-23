@@ -108,17 +108,17 @@ spec:
         ports:
           http:
             port: *manage-https
-    route:
-      app:
-        hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *manage-https
+    # route:
+    #   app:
+    #     hostnames:
+    #       - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+    #     parentRefs:
+    #       - name: envoy-internal
+    #         namespace: network
+    #     rules:
+    #       - backendRefs:
+    #           - identifier: app
+    #             port: *manage-https
     persistence:
       data:
         existingClaim: omada
