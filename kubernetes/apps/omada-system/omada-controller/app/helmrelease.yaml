@@ -117,11 +117,16 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
+        rules:
+          - backendRefs:
+              - group: gateway.envoyproxy.io
+                kind: Backend
+                name: tls-backend
     persistence:
       data:
         existingClaim: omada
         globalMounts:
           - path: /opt/tplink/EAPController/data
-      certs:
-        type: secret
-        name: network/casadewade-com-production-tls
+      # certs:
+      #   type: secret
+      #   name: network/casadewade-com-production-tls
