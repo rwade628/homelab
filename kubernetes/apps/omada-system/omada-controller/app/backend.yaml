@@ -8,6 +8,6 @@ spec:
   endpoints:
     - fqdn:
         hostname: omada.omada.svc.cluster.local
-        port: 8043
+        port: 443
   tls:
     insecureSkipVerify: true

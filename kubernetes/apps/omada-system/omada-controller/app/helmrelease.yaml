@@ -106,8 +106,10 @@ spec:
     service:
       app:
         ports:
-          http:
-            port: *manage-https
+          https:
+            port: 443
+            protocol: HTTPS
+            targetPort: *manage-https
     route:
       app:
         hostnames:
