@@ -85,8 +85,7 @@ spec:
             #       timeoutSeconds: 1
             #       failureThreshold: 3
             #   readiness: *probes
-            securityContext:
-              {}
+            securityContext: {}
               # allowPrivilegeEscalation: true
               # readOnlyRootFilesystem: false
               # capabilities: { drop: ["ALL"] }
@@ -98,8 +97,7 @@ spec:
     defaultPodOptions:
       annotations:
         k8s.v1.cni.cncf.io/networks: kube-system/mgmt-bridge
-      securityContext:
-        {}
+      securityContext: {}
         # runAsNonRoot: false
         # runAsUser: 508
         # runAsGroup: 508
@@ -113,18 +111,16 @@ spec:
             primary: true
             port: *manage-https
             protocol: HTTPS
-    ingress:
+    route:
       app:
-        className: internal
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-        hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+        rules:
+          - backendRefs:
+              - name: app
+                port: *manage-https
     persistence:
       data:
         existingClaim: omada
