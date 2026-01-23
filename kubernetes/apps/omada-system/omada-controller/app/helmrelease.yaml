@@ -115,10 +115,10 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *manage-https
+        # rules:
+        #   - backendRefs:
+        #       - identifier: app
+        #         port: *manage-https
     persistence:
       data:
         existingClaim: omada
