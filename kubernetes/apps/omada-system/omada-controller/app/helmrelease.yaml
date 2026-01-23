@@ -120,10 +120,15 @@ spec:
         rules:
           - backendRefs:
               - group: gateway.envoyproxy.io
-                kind: backend
+                kind: Backend
                 name: tls-backend
-    persistence:
-      data:
-        existingClaim: omada
-        globalMounts:
-          - path: /opt/tplink/EAPController/data
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+
+persistence:
+  data:
+    existingClaim: omada
+    globalMounts:
+      - path: /opt/tplink/EAPController/data
