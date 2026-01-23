@@ -13,5 +13,6 @@ spec:
   validation:
     caCertificateRefs:
       - name: network/casadewade-com-production-tls
+        group: ""
         kind: Secret
     hostname: "omada.${SECRET_DOMAIN}"
