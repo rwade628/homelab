@@ -120,7 +120,7 @@ spec:
             namespace: network
         rules:
           - backendRefs:
-              - name: app
+              - identifier: app
                 port: *manage-https
     persistence:
       data:
