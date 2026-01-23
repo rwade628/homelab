@@ -105,12 +105,9 @@ spec:
         # fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: omada
         ports:
           http:
-            primary: true
             port: *manage-https
-            protocol: HTTPS
     route:
       app:
         hostnames:
