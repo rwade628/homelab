@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
 ---
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.11.3
+talosVersion: v1.12.2
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.35.0
 
@@ -47,6 +47,9 @@ nodes:
       - deviceSelector:
           hardwareAddr: bc:24:11:8d:8a:4f
         ignore: true
+      - deviceSelector:
+          hardwareAddr: bc:24:11:ac:6a:b4
+        ignore: true
   - hostname: "ser8b"
     ipAddress: "10.0.10.251"
     installDisk: "/dev/sda"
@@ -71,6 +74,9 @@ nodes:
         ignore: true
       - deviceSelector:
           hardwareAddr: bc:24:11:14:07:59
+        ignore: true
+      - deviceSelector:
+          hardwareAddr: bc:24:11:e2:73:c4
         ignore: true
   - hostname: "ser8c"
     ipAddress: "10.0.10.250"
@@ -97,7 +103,11 @@ nodes:
       - deviceSelector:
           hardwareAddr: bc:24:11:9a:d4:bf
         ignore: true
+      - deviceSelector:
+          hardwareAddr: bc:24:11:da:12:2d
+        ignore: true
 
+# Global patches
 patches:
   - "@./patches/global/machine-features.yaml"
   - "@./patches/global/machine-files.yaml"
@@ -107,29 +117,10 @@ patches:
   - "@./patches/global/machine-time.yaml"
   - "@./patches/global/machine-udev.yaml"
   - "@./patches/global/openebs-local.yaml"
-# Global patches
-# patches:
-#   - "@./patches/global/cluster-discovery.yaml"
-#   - "@./patches/global/containerd.yaml"
-#   - "@./patches/global/disable-search-domain.yaml"
-#   - "@./patches/global/hostdns.yaml"
-#   - "@./patches/global/kubelet.yaml"
-#   - "@./patches/global/openebs-local.yaml"
-#   - "@./patches/global/csi-local.yaml"
-#   - "@./patches/global/sysctl.yaml"
 
 # Controller patches
 controlPlane:
   patches:
-    - "@./patches/controller/admission-controller-patch.yaml"
+    # - "@./patches/controller/admission-controller-patch.yaml"
     - "@./patches/controller/cluster.yaml"
     - "@./patches/controller/api-access.yaml"
-# Controller patches
-# controlPlane:
-#   patches:
-#     - "@./patches/controller/api-access.yaml"
-#     - "@./patches/controller/cluster.yaml"
-#     - "@./patches/controller/admission-controller-patch.yaml"
-#     - "@./patches/controller/etcd.yaml"
-#     - "@./patches/controller/mayastor-patch-cp.yaml"
-#
