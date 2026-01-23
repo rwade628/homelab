@@ -72,8 +72,7 @@ spec:
       loadBalancerClass: tailscale
   httpRoute:
     spec:
-      hostnames:
-        - "grafana.${SECRET_DOMAIN}"
+      hostnames: ["grafana.${SECRET_DOMAIN}"]
       parentRefs:
         - name: envoy-internal
           namespace: network
