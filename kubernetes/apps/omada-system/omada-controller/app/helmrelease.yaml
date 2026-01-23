@@ -107,19 +107,19 @@ spec:
       app:
         ports:
           http:
-            port: 8088
+            port: *manage-https
     route:
       app:
-        # kind: TLSRoute
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network
-        # rules:
-        #   - backendRefs:
-        #       - identifier: app
-        #         port: *manage-https
+        rules:
+          - backendRefs:
+              - group: gateway.envoyproxy.io
+                kind: backend
+                name: tls-backend
     persistence:
       data:
         existingClaim: omada

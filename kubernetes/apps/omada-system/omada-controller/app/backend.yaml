@@ -1,0 +1,13 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: tls-backend
+  namespace: default
+spec:
+  endpoints:
+    - fqdn:
+        hostname: omada.omada.svc.cluster.local
+        port: 8043
+  tls:
+    insecureSkipVerify: true
