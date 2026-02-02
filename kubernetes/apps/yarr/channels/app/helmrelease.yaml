@@ -25,8 +25,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/fancybits/channels-dvr
-              tag: latest@sha256:284fed6f4ee5150d41d9a7f247a63e190f6f1c3a4e4bc740f029df6d36955d29
+              repository: ghcr.io/rwade628/channels-dvr
+              tag: amd@sha256:59167dd24b3c9a2f536b78d91cde4af5e688d1a60e2b11b4ad15c2ea58c10f86
             probes:
               liveness: &probes
                 enabled: true
