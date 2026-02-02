@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: ghcr.io/rwade628/channels-dvr
-              tag: amd@sha256:912e7c366d9f4e0928d69ab35ac41c6138d0753dc1a13451320cc612993c68d2
+              tag: amd@sha256:f9918c8bb5d776db759a483054a47dd692ea83f6de71ef82f9b9d4de27fb3282
             probes:
               liveness: &probes
                 enabled: true
