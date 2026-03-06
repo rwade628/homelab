@@ -96,7 +96,18 @@ spec:
                 memory: 4Gi
     defaultPodOptions:
       annotations:
-        k8s.v1.cni.cncf.io/networks: kube-system/mgmt-bridge
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "home",
+            "namespace": "kube-system",
+            "ips": ["10.0.10.44/24"],
+            "mac": "7a:f1:d5:a4:99:e1"
+          },{
+            "name": "mgmt",
+            "namespace": "kube-system",
+            "ips": ["192.168.88.154/24"],
+            "mac": "76:61:b0:81:85:c5"
+          }]
       securityContext: {}
         # runAsNonRoot: false
         # runAsUser: 508
