@@ -68,6 +68,10 @@ spec:
         supplementalGroups: [44]
     service:
       app:
+        type: LoadBalancer
+        loadBalancerClass: tailscale
+        annotations:
+          tailscale.com/hostname: "{{ .Release.Name }}"
         ports:
           http:
             port: *port
