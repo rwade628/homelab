@@ -3,16 +3,12 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: "node-exporter"
+  name: node-exporter
 spec:
   staticConfigs:
     - targets:
-        - localhost:9100
-  metricRelabelings:
-    - action: keep
-      regex: (node|process)_.*
-      sourceLabels:
-        - __name__
+        - truenas.local:9100
+  metricsPath: /metrics
   relabelings:
     - action: replace
       targetLabel: job
