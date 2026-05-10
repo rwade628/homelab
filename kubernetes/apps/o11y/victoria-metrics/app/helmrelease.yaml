@@ -187,13 +187,13 @@ spec:
           promscrape.maxScrapeSize: 50MiB
           promscrape.streamParse: "true"
         inlineRelabelConfig:
-          - action: drop
+          - action: labeldrop
             regex: feature_node_kubernetes_io_.+
-          - action: drop
+          - action: labeldrop
             regex: beta_amd_com_gpu_.+
-          - action: drop
+          - action: labeldrop
             regex: beta_kubernetes_io_.+
-          - action: drop
+          - action: labeldrop
             regex: extensions_talos_dev_.+
     vmalert:
       spec:
