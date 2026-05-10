@@ -5,18 +5,10 @@ kind: HelmRelease
 metadata:
   name: rook-ceph-cluster
 spec:
-  interval: 1h
-  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: rook-ceph-cluster
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
+  interval: 1h
   values:
     cephClusterSpec:
       cleanupPolicy:
@@ -46,20 +38,20 @@ spec:
         devicePathFilter: sdb
         useAllDevices: false
         useAllNodes: true
-      monitoring:
-        enabled: true
-        createPrometheusRules: true
-      toolbox:
-        enabled: true
-      route:
-        dashboard:
-          host:
-            name: rook.${SECRET_DOMAIN}
-            path: /
-            pathType: PathPrefix
-          parentRefs:
-            - name: envoy-internal
-              namespace: network
+    monitoring:
+      enabled: true
+      createPrometheusRules: true
+    toolbox:
+      enabled: true
+    route:
+      dashboard:
+        host:
+          name: rook.${SECRET_DOMAIN}
+          path: /
+          pathType: PathPrefix
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
     cephBlockPools:
       - name: ceph-blockpool
         spec:
@@ -71,10 +63,11 @@ spec:
           name: ceph-block
           allowVolumeExpansion: true
           isDefault: true
-          mountOptions: ["discard"]
+          mountOptions:
+            - discard
           parameters:
-            # compression_mode: aggressive
             # compression_algorithm: zstd
+            # compression_mode: passive
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
             # csi.storage.k8s.io/controller-publish-secret-name: rook-csi-rbd-provisioner
@@ -83,17 +76,14 @@ spec:
             csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
-            csi.storage.k8s.io/fstype: ext4
-            imageFeatures: deep-flatten.layering,fast-diff,object-map,,exclusive-lock
+            imageFeatures: deep-flatten,exclusive-lock,fast-diff,layering,object-map
             imageFormat: "2"
           reclaimPolicy: Delete
           volumeBindingMode: Immediate
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       name: csi-ceph-blockpool
-      isDefault: false
       deletionPolicy: Delete
-    # NOTE: After disabling the filesystem, the filesystem can be removed with the following commands:
-    # ceph fs fail ceph-filesystem && ceph fs rm ceph-filesystem --yes-i-really-mean-it
+      isDefault: false
     cephFileSystems: []
     cephObjectStores: []
