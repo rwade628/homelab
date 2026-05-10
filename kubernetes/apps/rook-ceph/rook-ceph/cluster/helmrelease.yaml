@@ -78,6 +78,7 @@ spec:
             csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
             imageFeatures: deep-flatten,exclusive-lock,fast-diff,layering,object-map
             imageFormat: "2"
+            csi.storage.k8s.io/fstype: ext4
           reclaimPolicy: Delete
           volumeBindingMode: Immediate
     cephBlockPoolsVolumeSnapshotClass:
