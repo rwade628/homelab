@@ -30,8 +30,9 @@ spec:
     - port: metrics
       path: /metrics
       interval: 15s
-    - action: labeldrop
-      regex: 'feature_*' # Drop high-cardinality noise
+      metricRelabelings:
+      - action: labeldrop
+        regex: 'feature_*' # Drop high-cardinality noise
 ---
 apiVersion: v1
 kind: Service
