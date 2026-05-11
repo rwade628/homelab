@@ -28,6 +28,7 @@ nodes:
     talosImageURL: factory.talos.dev/installer/aeec243e3a4c2a14f9ba74b1a8c7662f03eea658a7ea5f1c26fdd491280c88f8
     nodeLabels:
       feature.node.kubernetes.io/amd-gpu: "true"
+      topology.kubernetes.io/zone: m
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -56,6 +57,7 @@ nodes:
     talosImageURL: factory.talos.dev/installer/aeec243e3a4c2a14f9ba74b1a8c7662f03eea658a7ea5f1c26fdd491280c88f8
     nodeLabels:
       feature.node.kubernetes.io/amd-gpu: "true"
+      topology.kubernetes.io/zone: m
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -84,6 +86,7 @@ nodes:
     talosImageURL: factory.talos.dev/installer/aeec243e3a4c2a14f9ba74b1a8c7662f03eea658a7ea5f1c26fdd491280c88f8
     nodeLabels:
       feature.node.kubernetes.io/amd-gpu: "true"
+      topology.kubernetes.io/zone: m
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -112,6 +115,7 @@ patches:
   - "@./patches/global/machine-features.yaml"
   - "@./patches/global/machine-files.yaml"
   - "@./patches/global/machine-kubelet.yaml"
+  - "@./patches/global/machine-labels.yaml"
   - "@./patches/global/machine-network.yaml"
   - "@./patches/global/machine-sysctls.yaml"
   - "@./patches/global/machine-time.yaml"

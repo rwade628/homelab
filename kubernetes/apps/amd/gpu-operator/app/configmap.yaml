@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: gpu-config
-  namespace: mynamespace
+  namespace: amd
 data:
   config.json: |
     {
@@ -10,7 +10,14 @@ data:
       "CommonConfig": {
           "MetricsFieldPrefix": "amd_",
           "HealthService": {
-             "Enable" : true
+             "Enable" : true,
+             "PollingRate": "30s"
+          },
+          "Logging": {
+            "Level": "info",
+            "MaxFileSizeMB": 10,
+            "MaxBackups": 3,
+            "MaxAgeDays": 7
           }
       },
       "GPUConfig": {
@@ -38,7 +45,7 @@ data:
           "PCIE_RECOVERY_COUNT",
           "PCIE_REPLAY_ROLLOVER_COUNT",
           "PCIE_NACK_SENT_COUNT",
-          "PCIE_NAC_RECEIVED_COUNT",
+          "PCIE_NACK_RECEIVED_COUNT",
           "GPU_CLOCK",
           "GPU_POWER_USAGE",
           "GPU_TOTAL_VRAM",
@@ -171,7 +178,22 @@ data:
           "PCIE_RX",
           "PCIE_TX",
           "PCIE_BIDIRECTIONAL_BANDWIDTH",
-          "GPU_AFID_ERRORS"
+          "GPU_AFID_ERRORS",
+          "GPU_MIN_CLOCK",
+          "GPU_MAX_CLOCK",
+          "GPU_VIOLATION_PROCESSOR_HOT_RESIDENCY_PERCENTAGE",
+          "GPU_VIOLATION_PPT_RESIDENCY_PERCENTAGE",
+          "GPU_VIOLATION_SOCKET_THERMAL_RESIDENCY_PERCENTAGE",
+          "GPU_VIOLATION_VR_THERMAL_RESIDENCY_PERCENTAGE",
+          "GPU_VIOLATION_HBM_THERMAL_RESIDENCY_PERCENTAGE",
+          "GPU_VIOLATION_GFX_CLOCK_BELOW_HOST_LIMIT_POWER_ACCUMULATED",
+          "GPU_VIOLATION_GFX_CLOCK_BELOW_HOST_LIMIT_THERMAL_ACCUMULATED",
+          "GPU_VIOLATION_GFX_CLOCK_LOW_UTILIZATION_ACCUMULATED",
+          "GPU_VIOLATION_GFX_CLOCK_BELOW_HOST_LIMIT_TOTAL_ACCUMULATED",
+          "GPU_VIOLATION_GFX_CLOCK_BELOW_HOST_LIMIT_POWER_PERCENTAGE",
+          "GPU_VIOLATION_GFX_CLOCK_BELOW_HOST_LIMIT_THERMAL_PERCENTAGE",
+          "GPU_VIOLATION_GFX_CLOCK_LOW_UTILIZATION_PERCENTAGE",
+          "GPU_VIOLATION_GFX_CLOCK_BELOW_HOST_LIMIT_TOTAL_PERCENTAGE"
         ],
         "Labels": [
           "GPU_UUID",
@@ -227,6 +249,10 @@ data:
         "ProfilerMetrics" : {
             "all"       : false,
             "hostname1" : false
+        },
+        "ProfilerConfig": {
+            "SamplingInterval": 1000,
+            "PtlDelay"        : 0
         }
       },
       "NICConfig": {
@@ -279,6 +305,7 @@ data:
           "NIC_PORT_STATS_OCTETS_TX_OK",
           "NIC_PORT_STATS_OCTETS_TX_ALL",
           "NIC_PORT_STATS_RSFEC_CORRECTABLE_WORD",
+          "NIC_PORT_STATS_RSFEC_UNCORRECTABLE_WORD",
           "NIC_PORT_STATS_RSFEC_CH_SYMBOL_ERR_CNT",
           "NIC_LIF_STATS_RX_UNICAST_PACKETS",
           "NIC_LIF_STATS_RX_UNICAST_DROP_PACKETS",
@@ -370,6 +397,8 @@ data:
           "ETH_FRAMES_TX_MULTICAST",
           "ETH_FRAMES_RX_PAUSE",
           "ETH_FRAMES_TX_PAUSE",
+          "ETH_FRAMES_RX_PRIPAUSE",
+          "ETH_FRAMES_TX_PRIPAUSE",
           "ETH_FRAMES_RX_64B",
           "ETH_FRAMES_RX_65B_127B",
           "ETH_FRAMES_RX_128B_255B",
@@ -380,22 +409,22 @@ data:
           "ETH_FRAMES_RX_2048B_4095B",
           "ETH_FRAMES_RX_4096B_8191B",
           "ETH_FRAMES_RX_BAD_FCS",
-          "ETH_FRAMES_RX_PRI0",
-          "ETH_FRAMES_RX_PRI1",
-          "ETH_FRAMES_RX_PRI2",
-          "ETH_FRAMES_RX_PRI3",
-          "ETH_FRAMES_RX_PRI4",
-          "ETH_FRAMES_RX_PRI5",
-          "ETH_FRAMES_RX_PRI6",
-          "ETH_FRAMES_RX_PRI7",
-          "ETH_FRAMES_TX_PRI0",
-          "ETH_FRAMES_TX_PRI1",
-          "ETH_FRAMES_TX_PRI2",
-          "ETH_FRAMES_TX_PRI3",
-          "ETH_FRAMES_TX_PRI4",
-          "ETH_FRAMES_TX_PRI5",
-          "ETH_FRAMES_TX_PRI6",
-          "ETH_FRAMES_TX_PRI7",
+          "ETH_FRAMES_RX_PRI_0",
+          "ETH_FRAMES_RX_PRI_1",
+          "ETH_FRAMES_RX_PRI_2",
+          "ETH_FRAMES_RX_PRI_3",
+          "ETH_FRAMES_RX_PRI_4",
+          "ETH_FRAMES_RX_PRI_5",
+          "ETH_FRAMES_RX_PRI_6",
+          "ETH_FRAMES_RX_PRI_7",
+          "ETH_FRAMES_TX_PRI_0",
+          "ETH_FRAMES_TX_PRI_1",
+          "ETH_FRAMES_TX_PRI_2",
+          "ETH_FRAMES_TX_PRI_3",
+          "ETH_FRAMES_TX_PRI_4",
+          "ETH_FRAMES_TX_PRI_5",
+          "ETH_FRAMES_TX_PRI_6",
+          "ETH_FRAMES_TX_PRI_7",
           "ETH_FRAMES_RX_DROPPED",
           "ETH_FRAMES_RX_ALL",
           "ETH_FRAMES_RX_BAD_ALL",
@@ -456,6 +485,43 @@ data:
         },
         "HealthCheckConfig": {
           "InterfaceAdminDownAsUnhealthy": false
+        }
+      },
+      "IFOEConfig" : {
+        "Labels": [
+          "GPU_UUID",
+          "HOSTNAME"
+        ],
+        "Fields": [
+          "IFOE_TOTAL_DEVICES",
+          "IFOE_TOTAL_STATIONS",
+          "IFOE_TOTAL_PORTS",
+          "IFOE_NUMBER_FAILEDOVER_STREAMS",
+          "IFOE_NUMBER_PAUSED_STREAMS",
+          "IFOE_BIT_ERROR_RATE",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS0",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS1",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS2",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS3",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS4",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS5",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS6",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS7",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS8",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS9",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS10",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS11",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS12",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS13",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS14",
+          "IFOE_FEC_CODEWORD_SYMBOL_ERRORS15"
+        ],
+        "CustomLabels": {
+          "CLUSTER_NAME": "amdifoe-k8s-metrics-exporter"
+        },
+        "ExtraPodLabels": {
+          "WORKLOAD_ID": "amd-workload-id",
+          "USERGROUP_ID": "amd-usergroup-id"
         }
       }
     }
