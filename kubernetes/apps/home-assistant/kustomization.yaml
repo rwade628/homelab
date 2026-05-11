@@ -3,7 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: homeassistant
 components:
-  - ../../components/common
+  - ../../components/sops
 resources:
   - ./home-assistant/ks.yaml
   - ./matter-server/ks.yaml
