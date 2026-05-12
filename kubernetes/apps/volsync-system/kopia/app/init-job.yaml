@@ -33,7 +33,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: kopia-config
+            name: kopia
         - name: repository
           nfs:
             server: 10.0.10.3
