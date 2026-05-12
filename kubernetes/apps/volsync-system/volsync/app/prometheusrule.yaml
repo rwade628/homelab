@@ -9,7 +9,7 @@ spec:
     - name: volsync.rules
       rules:
         - alert: VolSyncComponentAbsent
-          expr: |
+          expr: |-
             absent(up{job="volsync-metrics"})
           annotations:
             summary: >-
@@ -17,12 +17,14 @@ spec:
           for: 5m
           labels:
             severity: critical
+
         - alert: VolSyncVolumeOutOfSync
-          expr: |
+          expr: |-
             volsync_volume_out_of_sync == 1
           annotations:
             summary: >-
-              {{ $labels.obj_namespace }}/{{ $labels.obj_name }} volume is out of sync
+              {{ $labels.obj_namespace }}/{{ $labels.obj_name }} volume is out
+              of sync
           for: 5m
           labels:
             severity: critical
