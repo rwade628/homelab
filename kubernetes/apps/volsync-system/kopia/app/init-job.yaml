@@ -1,0 +1,40 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kopia-init
+  namespace: volsync-system
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-delete-policy: before-hook-creation
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: init
+          image: ghcr.io/home-operations/kopia:0.23.0@sha256:76865b421548b1d7bb26a8268f0f0bc828be4eec3f8d8b9c8ece991c99878f94
+          command:
+            - kopia
+            - repository
+            - create
+            - filesystem
+            - --config-file=/config/repository.config
+            - --path=/repository
+          envFrom:
+            - secretRef:
+                name: kopia-secret
+          volumeMounts:
+            - name: config
+              mountPath: /config
+              readOnly: true
+            - name: repository
+              mountPath: /repository
+      volumes:
+        - name: config
+          configMap:
+            name: kopia-config
+        - name: repository
+          nfs:
+            server: 10.0.10.3
+            path: /mnt/storage/k8s/kopia
