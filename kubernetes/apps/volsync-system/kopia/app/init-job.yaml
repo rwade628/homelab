@@ -4,9 +4,6 @@ kind: Job
 metadata:
   name: kopia-init
   namespace: volsync-system
-  annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-delete-policy: before-hook-creation
 spec:
   template:
     spec:
