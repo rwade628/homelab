@@ -29,8 +29,8 @@ spec:
       - mountPath: repository
         volumeSource:
           nfs:
-            path: /mnt/ceres/Kopia
-            server: expanse.internal
+            path: /mnt/storage/k8s/kopia
+            server: 10.0.10.3
     repository: ${APP}-volsync-secret
     sourceIdentity:
       sourceName: ${APP}
