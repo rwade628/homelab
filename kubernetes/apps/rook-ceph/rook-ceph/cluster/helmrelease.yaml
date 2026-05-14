@@ -40,8 +40,7 @@ spec:
         # useAllNodes: true
         nodes:
           - name: "ser8a"
-            devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S7LANJ0Y110369E"
+            deviceFilter: nvme0n1
           - name: "ser8b"
             deviceFilter: sdb
           - name: "ser8c"
