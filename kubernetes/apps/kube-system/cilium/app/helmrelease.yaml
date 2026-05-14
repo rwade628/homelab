@@ -36,7 +36,7 @@ spec:
       enabled: true
     endpointRoutes:
       enabled: true
-    enableIPv4BIGTCP: true
+    # enableIPv4BIGTCP: true
     gatewayAPI:
       enabled: true
     hubble:
