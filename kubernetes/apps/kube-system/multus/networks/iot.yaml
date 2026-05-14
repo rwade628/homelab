@@ -28,7 +28,7 @@ spec:
 apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
-  name: iot-net0
+  name: iot-bond0
 spec:
   config: |-
     {
