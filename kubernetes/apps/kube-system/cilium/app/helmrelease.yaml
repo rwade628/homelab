@@ -15,10 +15,9 @@ spec:
       enabled: true
       bbr: true
     bpf:
+      datapathMode: netkit
       masquerade: true
       preallocateMaps: true
-      # Ref: https://github.com/siderolabs/talos/issues/10002
-      hostLegacyRouting: true
     bpfClockProbe: true
     cni:
       # Required for pairing with Multus CNI
@@ -36,7 +35,7 @@ spec:
       enabled: true
     endpointRoutes:
       enabled: true
-    # enableIPv4BIGTCP: true
+    enableIPv4BIGTCP: true
     gatewayAPI:
       enabled: true
     hubble:
