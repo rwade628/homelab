@@ -35,13 +35,16 @@ spec:
           limits:
             memory: 8Gi # Required for bootstrap
       storage:
-        devicePathFilter: sdb
+        # devicePathFilter: sdb
         useAllDevices: false
         useAllNodes: true
         nodes:
           - name: "ser8a"
-            devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S7LANJ0Y110369"
+            deviceFilter: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S7LANJ0Y110369.*"
+          - name: "ser8b"
+            deviceFilter: sdb
+          - name: "ser8c"
+            deviceFilter: sdb
     monitoring:
       enabled: true
       createPrometheusRules: true
