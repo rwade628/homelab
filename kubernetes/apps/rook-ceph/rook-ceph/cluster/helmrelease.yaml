@@ -37,7 +37,7 @@ spec:
       storage:
         # devicePathFilter: sdb
         useAllDevices: false
-        useAllNodes: true
+        # useAllNodes: true
         nodes:
           - name: "ser8a"
             deviceFilter: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S7LANJ0Y110369.*"
