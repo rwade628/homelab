@@ -37,7 +37,7 @@ spec:
       storage:
         # devicePathFilter: sdb
         useAllDevices: false
-        # useAllNodes: true
+        useAllNodes: false
         nodes:
           - name: "ser8a"
             devices:
