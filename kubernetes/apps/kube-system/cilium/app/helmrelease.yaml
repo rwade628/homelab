@@ -11,10 +11,15 @@ spec:
     name: cilium
   values:
     autoDirectNodeRoutes: true
+    bandwidthManager:
+      enabled: true
+      bbr: true
     bpf:
       masquerade: true
+      preallocateMaps: true
       # Ref: https://github.com/siderolabs/talos/issues/10002
       hostLegacyRouting: true
+    bpfClockProbe: true
     cni:
       # Required for pairing with Multus CNI
       exclusive: false
@@ -31,11 +36,7 @@ spec:
       enabled: true
     endpointRoutes:
       enabled: true
-    envoy:
-      rollOutPods: true
-      prometheus:
-        serviceMonitor:
-          enabled: true
+    enableIPv4BIGTCP: true
     gatewayAPI:
       enabled: true
     hubble:
@@ -90,4 +91,5 @@ spec:
           - SYS_ADMIN
           - SYS_RESOURCE
     socketLB:
+      enabled: true
       hostNamespaceOnly: true
