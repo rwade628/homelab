@@ -11,7 +11,7 @@ spec:
       "plugins": [
         {
           "type": "macvlan",
-          "master": "ens19",
+          "master": "bond0.99",
           "mode": "bridge",
           "ipam": {
             "type": "static",
