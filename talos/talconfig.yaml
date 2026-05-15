@@ -36,21 +36,21 @@ nodes:
           deviceSelectors:
             - hardwareAddr: 70:70:fc:07:d0:7b
           mode: active-backup
-        mtu: 1500
+        mtu: 9000
         dhcp: true
         vip:
           ip: "10.0.10.245"
         vlans:
           - vlanId: 30
-            mtu: 1500
+            mtu: 9000
             addresses:
               - 10.0.30.252/32
           - vlanId: 50
-            mtu: 1500
+            mtu: 9000
             addresses:
               - 10.0.40.252/32
           - vlanId: 99
-            mtu: 1500
+            mtu: 9000
             addresses:
               - 192.168.88.252/32
     controlPlane: true
@@ -68,21 +68,21 @@ nodes:
           deviceSelectors:
             - hardwareAddr: 70:70:fc:07:d2:21
           mode: active-backup
-        mtu: 1500
+        mtu: 9000
         dhcp: true
         vip:
           ip: "10.0.10.245"
         vlans:
           - vlanId: 30
-            mtu: 1500
+            mtu: 9000
             addresses:
               - 10.0.30.250/32
           - vlanId: 50
-            mtu: 1500
+            mtu: 9000
             addresses:
               - 10.0.40.250/32
           - vlanId: 99
-            mtu: 1500
+            mtu: 9000
             addresses:
               - 192.168.88.250/32
     controlPlane: true
@@ -100,21 +100,21 @@ nodes:
           deviceSelectors:
             - hardwareAddr: 70:70:fc:07:d0:d4
           mode: active-backup
-        mtu: 1500
+        mtu: 9000
         dhcp: true
         vip:
           ip: "10.0.10.245"
         vlans:
           - vlanId: 30
-            mtu: 1500
+            mtu: 9000
             addresses:
               - 10.0.30.250/32
           - vlanId: 50
-            mtu: 1500
+            mtu: 9000
             addresses:
               - 10.0.40.250/32
           - vlanId: 99
-            mtu: 1500
+            mtu: 9000
             addresses:
               - 192.168.88.250/32
     controlPlane: true
