@@ -43,16 +43,10 @@ nodes:
         vlans:
           - vlanId: 30
             mtu: 9000
-            addresses:
-              - 10.0.30.252/32
           - vlanId: 50
             mtu: 9000
-            addresses:
-              - 10.0.40.252/32
           - vlanId: 99
             mtu: 9000
-            addresses:
-              - 192.168.88.252/32
     controlPlane: true
   - hostname: "ser8b"
     ipAddress: "10.0.10.88"
@@ -75,16 +69,10 @@ nodes:
         vlans:
           - vlanId: 30
             mtu: 9000
-            addresses:
-              - 10.0.30.250/32
           - vlanId: 50
             mtu: 9000
-            addresses:
-              - 10.0.40.250/32
           - vlanId: 99
             mtu: 9000
-            addresses:
-              - 192.168.88.250/32
     controlPlane: true
   - hostname: "ser8c"
     ipAddress: "10.0.10.87"
@@ -107,16 +95,10 @@ nodes:
         vlans:
           - vlanId: 30
             mtu: 9000
-            addresses:
-              - 10.0.30.250/32
           - vlanId: 50
             mtu: 9000
-            addresses:
-              - 10.0.40.250/32
           - vlanId: 99
             mtu: 9000
-            addresses:
-              - 192.168.88.250/32
     controlPlane: true
 
 # Global patches
