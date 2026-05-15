@@ -31,8 +31,8 @@ spec:
     enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
-    envoy:
-      enabled: false
+    gatewayAPI:
+      enabled: true
     hubble:
       enabled: false
     ipam:
@@ -43,7 +43,7 @@ spec:
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
-      enabled: false
+      enabled: true
     loadBalancer:
       algorithm: maglev
       mode: dsr
@@ -58,8 +58,6 @@ spec:
           enabled: true
       replicas: 2
       rollOutPods: true
-    pmtuDiscovery:
-      enabled: true
     prometheus:
       enabled: true
       serviceMonitor:
