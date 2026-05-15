@@ -5,41 +5,34 @@ kind: HelmRelease
 metadata:
   name: cilium
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: cilium
+  interval: 1h
   values:
     autoDirectNodeRoutes: true
     bandwidthManager:
       enabled: true
       bbr: true
-      bbrHostNamespaceOnly: true
     bpf:
+      datapathMode: netkit
       masquerade: true
       preallocateMaps: true
-      # Ref: https://github.com/siderolabs/talos/issues/10002
-      hostLegacyRouting: true
     bpfClockProbe: true
-    cni:
-      # Required for pairing with Multus CNI
-      exclusive: false
     cgroup:
       automount:
         enabled: false
       hostRoot: /sys/fs/cgroup
-    # cluster:
-    #   id: 1
-    #   name: "homelab"
-    # NOTE: devices might need to be set if you have more than one active NIC on your hosts
-    # devices: enp+ ens+ br0
+    cni:
+      exclusive: false
     dashboards:
       enabled: true
+    devices: bond+
+    enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
-    # enableIPv4BIGTCP: true
-    gatewayAPI:
-      enabled: true
+    envoy:
+      enabled: false
     hubble:
       enabled: false
     ipam:
@@ -50,11 +43,12 @@ spec:
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
-      enabled: true
+      enabled: false
     loadBalancer:
       algorithm: maglev
-      mode: "dsr"
-    localRedirectPolicy: true
+      mode: dsr
+    localRedirectPolicies:
+      enabled: true
     operator:
       dashboards:
         enabled: true
@@ -62,8 +56,10 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-      replicas: 1
+      replicas: 2
       rollOutPods: true
+    pmtuDiscovery:
+      enabled: true
     prometheus:
       enabled: true
       serviceMonitor:
