@@ -46,7 +46,7 @@ spec:
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
-                capabilities: {drop: ["ALL"]}
+                capabilities: { drop: ["ALL"] }
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -57,6 +57,13 @@ spec:
             - name: grafana-data
               persistentVolumeClaim:
                 claimName: grafana-pvc
+  service:
+    metadata:
+      annotations:
+        tailscale.com/hostname: "{{ .Release.Name }}"
+    spec:
+      type: LoadBalancer
+      loadBalancerClass: tailscale
   httpRoute:
     spec:
       hostnames: ["grafana.${SECRET_DOMAIN}"]
