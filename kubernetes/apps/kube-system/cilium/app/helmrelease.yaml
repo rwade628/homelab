@@ -53,15 +53,15 @@ spec:
       dashboards:
         enabled: true
       prometheus:
-        enabled: true
+        enabled: false
         serviceMonitor:
-          enabled: true
+          enabled: false
       replicas: 2
       rollOutPods: true
     prometheus:
-      enabled: true
+      enabled: false
       serviceMonitor:
-        enabled: true
+        enabled: false
         trustCRDsExist: true
     rollOutCiliumPods: true
     routingMode: native
