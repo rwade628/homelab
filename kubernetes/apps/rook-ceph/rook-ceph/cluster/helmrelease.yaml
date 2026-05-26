@@ -49,8 +49,8 @@ spec:
             devices:
               - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S7LANJ0Y210609R"
     monitoring:
-      enabled: false
-      createPrometheusRules: false
+      enabled: true
+      createPrometheusRules: true
     toolbox:
       enabled: true
     route:
