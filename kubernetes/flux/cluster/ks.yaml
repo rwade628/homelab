@@ -13,6 +13,14 @@ spec:
   interval: 1h
   path: ./kubernetes/apps
   prune: true
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+        optional: false
+      - name: cluster-settings
+        kind: ConfigMap
+        optional: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -30,6 +38,14 @@ spec:
             provider: sops
             secretRef:
               name: sops-age
+          postBuild:
+            substituteFrom:
+              - name: cluster-secrets
+                kind: Secret
+                optional: false
+              - name: cluster-settings
+                kind: ConfigMap
+                optional: true
           deletionPolicy: WaitForTermination
           patches:
             - patch: |-
