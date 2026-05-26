@@ -1,5 +1,5 @@
 ---
-apiVersion: cilium.io/v2alpha1
+apiVersion: cilium.io/v2
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: pool
@@ -9,7 +9,7 @@ spec:
     - cidr: "10.0.10.0/24"
 ---
 # https://docs.cilium.io/en/latest/network/l2-announcements
-apiVersion: cilium.io/v2alpha1
+apiVersion: cilium.io/v2
 kind: CiliumL2AnnouncementPolicy
 metadata:
   name: l2-policy
