@@ -37,7 +37,7 @@ spec:
   targets:
     staticConfig:
       static:
-        - truenas.local:2049
+        - truenas.internal:2049
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter-lan
