@@ -19,6 +19,8 @@ spec:
       masquerade: true
       preallocateMaps: true
     bpfClockProbe: true
+    bgpControlPlane:
+      enabled: true
     cgroup:
       automount:
         enabled: false
