@@ -89,7 +89,7 @@ spec:
           - path: /channels-dvr
       media:
         type: nfs
-        server: 10.0.10.3
+        server: truenas.internal
         path: /mnt/storage/k8s/media
         globalMounts:
           - path: /recordings
