@@ -18,4 +18,4 @@ resources:
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
   - ./victoria-logs/ks.yaml
-  - ./mktxp/ks.yaml
+  # - ./mktxp/ks.yaml
