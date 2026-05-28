@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: homeassistant
 components:
   - ../../components/sops
+  - ../../components/alerts
 resources:
   - ./home-assistant/ks.yaml
   - ./matter-server/ks.yaml

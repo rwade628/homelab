@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: yarr
 components:
   - ../../components/sops
+  - ../../components/alerts
 resources:
   - ./qbittorrent/ks.yaml
   - ./radarr/ks.yaml
