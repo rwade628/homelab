@@ -33,3 +33,7 @@ spec:
             namespace: network
       serviceMonitor:
         enabled: true
+      syslog:
+        tcp:
+          - name: syslog-tcp
+            value: :514
