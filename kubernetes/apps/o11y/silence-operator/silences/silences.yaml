@@ -20,7 +20,7 @@ spec:
     - name: alertname
       value: CephNodeDiskspaceWarning
     - name: device
-      value: /dev/sd.*
+      value: /dev/nvme1*
       matchType: "=~"
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/observability.giantswarm.io/silence_v1alpha2.json
@@ -42,3 +42,13 @@ spec:
   matchers:
     - name: alertname
       value: KubeHpaMaxedOut
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/observability.giantswarm.io/silence_v1alpha2.json
+apiVersion: observability.giantswarm.io/v1alpha2
+kind: Silence
+metadata:
+  name: flux-instance-artifact-failed
+spec:
+  matchers:
+    - name: alertname
+      value: FluxFluxInstanceArtifactFailed
