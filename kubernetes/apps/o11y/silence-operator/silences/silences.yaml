@@ -51,4 +51,4 @@ metadata:
 spec:
   matchers:
     - name: alertname
-      value: FluxFluxInstanceArtifactFailed
+      value: FluxFluxInstanceArtifactfailed
