@@ -39,18 +39,3 @@ spec:
             powerLimitThreshold: 250
           inference:
             enabled: true
-    # Metrics configuration
-    metrics:
-      enabled: true
-      service:
-        type: ClusterIP
-        port: 8443
-    # RBAC
-    rbac:
-      create: true
-    serviceAccount:
-      create: true
-      annotations: {}
-    # Network isolation for the controller pod
-    networkPolicies:
-      enabled: true
