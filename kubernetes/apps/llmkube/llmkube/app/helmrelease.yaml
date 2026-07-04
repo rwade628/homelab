@@ -16,7 +16,7 @@ spec:
   interval: 1h
   values:
     namespace: llmkube
-    networkPolicy:
+    networkPolicies:
       enabled: false
     # Enable full Prometheus integration
     prometheus:
