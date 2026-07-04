@@ -16,6 +16,9 @@ spec:
   interval: 1h
   values:
     namespace: llmkube
+    controllerManager:
+      leaderElection:
+        enabled: false
     # Enable full Prometheus integration
     prometheus:
       serviceMonitor:
