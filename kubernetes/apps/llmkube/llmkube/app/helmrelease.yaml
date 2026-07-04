@@ -15,7 +15,7 @@ spec:
         namespace: llmkube
   interval: 1h
   values:
-    namespace: llmkube-system
+    namespace: llmkube
     # Enable full Prometheus integration
     prometheus:
       serviceMonitor:
@@ -26,7 +26,7 @@ spec:
           prometheus: kube-prometheus-stack-prometheus
       prometheusRule:
         enabled: true
-        namespace: monitoring # Deploy alerts to monitoring namespace
+        namespace: o11y
         additionalLabels:
           prometheus: kube-prometheus-stack-prometheus
           role: alert-rules
