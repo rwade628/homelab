@@ -20,7 +20,7 @@ spec:
       image:
         repository: ghcr.io/defilantech/llmkube-controller
         # Use a specific version tag
-        tag: "0.4.0"
+        tag: "0.8.27"
         # For maximum security, use digest instead of tag (get from: crane digest <image>:<tag>)
         # digest: "sha256:..."
         pullPolicy: IfNotPresent
