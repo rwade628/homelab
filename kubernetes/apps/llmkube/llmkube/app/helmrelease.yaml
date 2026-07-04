@@ -16,33 +16,6 @@ spec:
   interval: 1h
   values:
     namespace: llmkube-system
-    controllerManager:
-      image:
-        repository: ghcr.io/defilantech/llmkube-controller
-        # Use a specific version tag
-        tag: "0.4.0"
-        # For maximum security, use digest instead of tag (get from: crane digest <image>:<tag>)
-        # digest: "sha256:..."
-        pullPolicy: IfNotPresent
-      replicaCount: 1
-      resources:
-        limits:
-          cpu: 1
-          memory: 4Gi
-        requests:
-          cpu: 100m
-          memory: 1Gi
-      # Multi-architecture support
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: kubernetes.io/arch
-                    operator: In
-                    values:
-                      - amd64
-                      - arm64
     # Enable full Prometheus integration
     prometheus:
       serviceMonitor:
