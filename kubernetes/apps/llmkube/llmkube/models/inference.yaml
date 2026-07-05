@@ -7,19 +7,16 @@ metadata:
 spec:
   modelRef: llama-3b-amd-vulkan
   replicas: 1
-  # Bring-your-own Vulkan-enabled llama.cpp image. The default
-  # ghcr.io/defilantech/llmkube-llama.cpp image is CUDA-only; swap it for
-  # a build with -DGGML_VULKAN=ON (or ROCm) when targeting AMD hardware.
-  image: ghcr.io/ggml-org/llama.cpp:server-rocm
+  image: ghcr.io/ggml-org/llama.cpp:server-vulkan
   resources:
     gpu: 1
     cpu: "2"
     memory: "4Gi"
-
+    hostMemory: "32Gi"
+    gpuMemory: "8Gi"
   endpoint:
     port: 8080
     type: ClusterIP
-
 ---
 # Optional: apply, then verify the pod scheduled onto the AMD APU node.
 #
