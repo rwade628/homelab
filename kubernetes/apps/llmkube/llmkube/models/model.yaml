@@ -19,4 +19,4 @@ spec:
       vendor: amd
   resources:
     cpu: "4"
-    memory: "32Gi"
+    memory: "8Gi"
