@@ -5,7 +5,7 @@ metadata:
 spec:
   modelRef: qwen-agentworld-35b
   replicas: 1
-  image: ghcr.io/ggml-org/llama.cpp:server-vulkan
+  image: ghcr.io/ggml-org/llama.cpp:server-rocm
   # Native PodAffinity targeting the controller
   affinity:
     podAffinity:
@@ -18,7 +18,6 @@ spec:
                   - llmkube
           topologyKey: "kubernetes.io/hostname"
   args:
-    - "--fit"
     - "-c"
     - "131072"
     - "-fa"
