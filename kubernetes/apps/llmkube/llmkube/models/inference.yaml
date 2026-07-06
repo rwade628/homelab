@@ -5,7 +5,7 @@ metadata:
 spec:
   modelRef: qwen-agentworld-35b
   replicas: 1
-  image: ghcr.io/ggml-org/llama.cpp:server-rocm
+  image: ghcr.io/ggml-org/llama.cpp:server-vulkan
   # Native PodAffinity targeting the controller
   affinity:
     podAffinity:
@@ -28,7 +28,7 @@ spec:
     cpu: "2"
     memory: "4Gi"
     hostMemory: "40Gi"
-    gpuMemory: "8Gi"
+    gpuMemory: "24Gi"
   endpoint:
     port: 8080
     type: ClusterIP
