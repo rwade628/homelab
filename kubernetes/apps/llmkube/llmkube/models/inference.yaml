@@ -3,7 +3,7 @@ kind: InferenceService
 metadata:
   name: qwen-service
 spec:
-  modelRef: qwen-27B-mtp
+  modelRef: qwen-27b-mtp
   replicas: 1
   image: ghcr.io/ggml-org/llama.cpp:server-vulkan
   # Native PodAffinity targeting the controller
