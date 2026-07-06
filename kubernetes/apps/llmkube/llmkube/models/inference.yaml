@@ -6,20 +6,33 @@ spec:
   modelRef: qwen-agentworld-35b
   replicas: 1
   image: ghcr.io/ggml-org/llama.cpp:server-vulkan
+  # Native PodAffinity targeting the controller
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - llmkube-controller-manager
+          # Tell the scheduler to look in the controller's namespace
+          namespaces:
+            - llmkube
+          topologyKey: "kubernetes.io/hostname"
   args:
     - "-fit"
     - "off"
-    # 2. Context Window: 8192 tokens.
-    # You have the RAM for it, and this provides a massive memory for complex prompts.
     - "-c"
-    - "8192"
+    - "131072"
+    - "-fa"
     - "-t"
     - "8"
   resources:
     gpu: 1
     cpu: "8"
     memory: "8Gi"
-    hostMemory: "64Gi"
+    hostMemory: "60Gi"
     gpuMemory: "8Gi"
   endpoint:
     port: 8080
