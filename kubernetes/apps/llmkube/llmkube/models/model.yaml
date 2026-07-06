@@ -3,7 +3,7 @@ kind: Model
 metadata:
   name: qwen-agentworld-35b
 spec:
-  source: https://huggingface.co/unsloth/Qwen3.6-27B-MTP-GGUF/resolve/main/Qwen3.6-27B-UD-Q4_K_XL.gguf?download=true
+  source: https://huggingface.co/unsloth/Qwen3.6-27B-MTP-GGUF/resolve/main/Qwen3.6-27B-UD-Q4_K_XL.gguf
   format: gguf
   quantization: Q4_K_XL
 
