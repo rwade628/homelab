@@ -1,22 +1,15 @@
----
 apiVersion: inference.llmkube.dev/v1alpha1
 kind: Model
 metadata:
-  name: llama-3b-amd-vulkan
-  namespace: default
+  name: qwen-agentworld-35b
 spec:
-  # Source: a small GGUF quantized for Vulkan/ROCm-friendly inference.
-  source: https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf
+  source: https://huggingface.co/unsloth/Qwen-AgentWorld-35B-A3B-GGUF/resolve/main/Qwen-AgentWorld-35B-A3B-Q4_K_M.gguf
   format: gguf
   quantization: Q4_K_M
 
   hardware:
-    # The runtime backend is selected by spec.runtime on the InferenceService;
-    # the Model only declares what GPU resource the device plugin advertises.
     gpu:
       enabled: true
       count: 1
       vendor: amd
-  resources:
-    cpu: "4"
-    memory: "8Gi"
+      layers: -1
