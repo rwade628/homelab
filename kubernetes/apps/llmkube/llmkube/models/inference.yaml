@@ -15,10 +15,7 @@ spec:
               - key: app.kubernetes.io/name
                 operator: In
                 values:
-                  - llmkube-controller-manager
-          # Tell the scheduler to look in the controller's namespace
-          namespaces:
-            - llmkube
+                  - llmkube
           topologyKey: "kubernetes.io/hostname"
   args:
     - "-fit"
