@@ -18,6 +18,8 @@ spec:
                   - llmkube
           topologyKey: "kubernetes.io/hostname"
   args:
+    - "-fit"
+    - "off"
     - "-c"
     - "131072"
     - "-fa"
