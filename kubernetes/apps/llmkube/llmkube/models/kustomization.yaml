@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./model.yaml
   - ./inference.yaml
+  - ./httproute.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
