@@ -30,9 +30,9 @@ spec:
     - "8"
   resources:
     gpu: 1
-    cpu: "8"
-    memory: "8Gi"
-    hostMemory: "60Gi"
+    cpu: "2"
+    memory: "4Gi"
+    hostMemory: "40Gi"
     gpuMemory: "8Gi"
   endpoint:
     port: 8080
