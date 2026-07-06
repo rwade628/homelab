@@ -12,3 +12,4 @@ spec:
       enabled: true
       count: 1
       vendor: amd
+      layers: -1
