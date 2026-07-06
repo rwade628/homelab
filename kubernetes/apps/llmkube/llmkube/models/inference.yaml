@@ -5,7 +5,7 @@ metadata:
 spec:
   modelRef: qwen-agentworld-35b
   replicas: 1
-  image: ghcr.io/ggml-org/llama.cpp:server-rocm
+  image: ghcr.io/ggml-org/llama.cpp:server-vulkan
   # Native PodAffinity targeting the controller
   affinity:
     podAffinity:
