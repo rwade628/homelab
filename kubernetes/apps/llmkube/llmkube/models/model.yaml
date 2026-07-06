@@ -3,9 +3,9 @@ kind: Model
 metadata:
   name: qwen-agentworld-35b
 spec:
-  source: https://huggingface.co/unsloth/Qwen-AgentWorld-35B-A3B-GGUF/resolve/main/Qwen-AgentWorld-35B-A3B-UD-Q4_K_M.gguf
+  source: https://huggingface.co/unsloth/Qwen3.6-27B-MTP-GGUF/resolve/main/Qwen3.6-27B-UD-Q4_K_XL.gguf?download=true
   format: gguf
-  quantization: Q4_K_M
+  quantization: Q4_K_XL
 
   hardware:
     gpu:

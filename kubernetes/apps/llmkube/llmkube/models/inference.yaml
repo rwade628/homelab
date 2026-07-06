@@ -20,10 +20,13 @@ spec:
   args:
     - "--fit"
     - "-c"
-    - "131072"
+    - "8192"
     - "-fa"
-    - "-t"
-    - "16"
+    - "on"
+    - "--spec-type"
+    - "draft-mtp"
+    - "--spect-draft-n-max"
+    - "2"
   resources:
     gpu: 1
     cpu: "2"
