@@ -21,9 +21,6 @@ spec:
   flashAttention: true
   cacheTypeK: q8_0
   cacheTypeV: q8_0
-  speculativeDecoding:
-    nDraftMax: 2
-    type: mtp
   args:
     - "-fit"
     - "on"
@@ -38,6 +35,10 @@ spec:
     - "-ctvd"
     - "q8_0"
     - "--mlock"
+    - "--spec-type"
+    - "draft-mpt"
+    - "--spec-draft-n-max"
+    - "2"
     - "--chat-template-kwargs"
     - '''{"preserve_thinking": true}'''
     - "--temp"
