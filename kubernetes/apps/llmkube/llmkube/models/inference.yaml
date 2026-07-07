@@ -3,7 +3,7 @@ kind: InferenceService
 metadata:
   name: qwen-service
 spec:
-  modelRef: qwen-27b-mtp
+  modelRef: qwen-35b-a3b-mtp
   replicas: 1
   image: ghcr.io/ggml-org/llama.cpp:server-vulkan
   # Native PodAffinity targeting the controller
@@ -17,20 +17,50 @@ spec:
                 values:
                   - llmkube
           topologyKey: "kubernetes.io/hostname"
+  contextSize: 32768
+  flashAttention: true
+  cacheTypeK: q8_0
+  cacheTypeV: q8_0
+  speculativeDecoding:
+    nDraftMax: 2
+    type: mtp
   args:
-    - "-c"
-    - "8192"
-    - "-fa"
+    - "-fit"
     - "on"
-    - "--spec-type"
-    - "draft-mtp"
-    - "--spect-draft-n-max"
-    - "2"
+    - "-fitt"
+    - "1536"
+    - "-n"
+    - "32768"
+    - "-np"
+    - "1"
+    - "-ctkd"
+    - "q8_0"
+    - "-ctvd"
+    - "q8_0"
+    - "--mlock"
+    - "--chat-template-kwargs"
+    - '''{"preserve_thinking": true}'''
+    - "--temp"
+    - "0.6"
+    - "--top-p"
+    - "0.95"
+    - "--top-k"
+    - "20"
+    - "--min-p"
+    - "0"
+    - "--presence-penalty"
+    - "0.0"
+    - "--ctx-checkpoints"
+    - "0"
+    - "-cram"
+    - "0"
+    - "--repeat-penalty"
+    - "1.0"
   resources:
     gpu: 1
     cpu: "2"
     memory: "4Gi"
-    hostMemory: "50Gi"
+    hostMemory: "32Gi"
     gpuMemory: "8Gi"
   endpoint:
     port: 8080
