@@ -1,0 +1,14 @@
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: Model
+metadata:
+  name: qwen-35b-a3b-mtp
+spec:
+  source: https://huggingface.co/unsloth/Qwen3.6-35B-A3B-MTP-GGUF/resolve/main/Qwen3.6-35B-A3B-UD-Q3_K_XL.gguf
+  format: gguf
+  quantization: Q3_K_XL
+
+  hardware:
+    gpu:
+      enabled: true
+      count: 1
+      vendor: amd

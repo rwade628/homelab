@@ -1,0 +1,68 @@
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: InferenceService
+metadata:
+  name: qwen-service
+spec:
+  modelRef: qwen-35b-a3b-mtp
+  replicas: 1
+  image: ghcr.io/ggml-org/llama.cpp:server-vulkan
+  # Native PodAffinity targeting the controller
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - llmkube
+          topologyKey: "kubernetes.io/hostname"
+  contextSize: 32768
+  flashAttention: true
+  cacheTypeK: q8_0
+  cacheTypeV: q8_0
+  args:
+    - "-fit"
+    - "on"
+    - "-fitt"
+    - "1536"
+    - "-n"
+    - "32768"
+    - "-np"
+    - "1"
+    - "-ctkd"
+    - "q8_0"
+    - "-ctvd"
+    - "q8_0"
+    - "--mlock"
+    - "--spec-type"
+    - "draft-mpt"
+    - "--spec-draft-n-max"
+    - "2"
+    - "--chat-template-kwargs"
+    - '''{"preserve_thinking": true}'''
+    - "--temp"
+    - "0.6"
+    - "--top-p"
+    - "0.95"
+    - "--top-k"
+    - "20"
+    - "--min-p"
+    - "0"
+    - "--presence-penalty"
+    - "0.0"
+    - "--ctx-checkpoints"
+    - "0"
+    - "-cram"
+    - "0"
+    - "--repeat-penalty"
+    - "1.0"
+  resources:
+    gpu: 1
+    cpu: "2"
+    memory: "4Gi"
+    hostMemory: "32Gi"
+    gpuMemory: "8Gi"
+  endpoint:
+    port: 8080
+    type: ClusterIP

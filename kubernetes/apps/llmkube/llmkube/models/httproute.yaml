@@ -1,0 +1,19 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: qwen-route
+spec:
+  parentRefs:
+    - name: envoy-internal
+      namespace: network
+  hostnames: ["qwen.${SECRET_DOMAIN}"]
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /v1
+      backendRefs:
+        - name: qwen-service
+          port: 8080
+      timeouts:
+        request: 0s
