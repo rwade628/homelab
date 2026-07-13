@@ -35,8 +35,7 @@ spec:
     - "draft-mtp"
     - "--spec-draft-n-max"
     - "2"
-    - "--chat-template-kwargs"
-    - '''{"preserve_thinking": true}'''
+    - "--reasoning-preserve"
     - "--temp"
     - "0.6"
     - "--top-p"
