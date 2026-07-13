@@ -5,7 +5,7 @@ metadata:
 spec:
   modelRef: qwen-35b-a3b-mtp
   replicas: 1
-  image: ghcr.io/ggml-org/llama.cpp:server-vulkan
+  image: ghcr.io/rwade628/llama-cpp:amd
   # Native PodAffinity targeting the controller
   affinity:
     podAffinity:
@@ -61,8 +61,8 @@ spec:
     gpu: 1
     cpu: "2"
     memory: "4Gi"
-    hostMemory: "32Gi"
-    gpuMemory: "8Gi"
+    hostMemory: "24Gi"
+    gpuMemory: "16Gi"
   endpoint:
     port: 8080
     type: ClusterIP
