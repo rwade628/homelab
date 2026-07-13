@@ -22,10 +22,6 @@ spec:
   cacheTypeK: q8_0
   cacheTypeV: q8_0
   args:
-    - "-fit"
-    - "on"
-    - "-fitt"
-    - "1536"
     - "-n"
     - "32768"
     - "-np"
@@ -36,7 +32,7 @@ spec:
     - "q8_0"
     - "--mlock"
     - "--spec-type"
-    - "draft-mpt"
+    - "draft-mtp"
     - "--spec-draft-n-max"
     - "2"
     - "--chat-template-kwargs"

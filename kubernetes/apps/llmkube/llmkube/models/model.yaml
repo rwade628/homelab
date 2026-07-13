@@ -8,6 +8,7 @@ spec:
   quantization: Q3_K_XL
 
   hardware:
+    accelerator: amd
     gpu:
       enabled: true
       count: 1
