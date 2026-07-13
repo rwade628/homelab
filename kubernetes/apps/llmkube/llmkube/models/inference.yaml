@@ -30,7 +30,6 @@ spec:
     - "q8_0"
     - "-ctvd"
     - "q8_0"
-    - "--mlock"
     - "--spec-type"
     - "draft-mtp"
     - "--spec-draft-n-max"
@@ -48,15 +47,13 @@ spec:
     - "0.0"
     - "--ctx-checkpoints"
     - "0"
-    - "-cram"
-    - "0"
     - "--repeat-penalty"
     - "1.0"
   resources:
     gpu: 1
     cpu: "2"
     memory: "4Gi"
-    hostMemory: "24Gi"
+    hostMemory: "16Gi"
     gpuMemory: "16Gi"
   endpoint:
     port: 8080
