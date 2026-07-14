@@ -22,6 +22,7 @@ spec:
   cacheTypeK: q8_0
   cacheTypeV: q8_0
   args:
+    - "--no-mmap"
     - "-n"
     - "32768"
     - "-np"
