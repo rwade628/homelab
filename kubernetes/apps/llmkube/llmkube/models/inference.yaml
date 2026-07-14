@@ -53,8 +53,6 @@ spec:
     gpu: 1
     cpu: "2"
     memory: "4Gi"
-    hostMemory: "16Gi"
-    gpuMemory: "16Gi"
   endpoint:
     port: 8080
     type: ClusterIP
