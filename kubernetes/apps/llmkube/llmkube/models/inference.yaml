@@ -17,15 +17,16 @@ spec:
                 values:
                   - llmkube
           topologyKey: "kubernetes.io/hostname"
-  contextSize: 32768
+  contextSize: 262144
   flashAttention: false
   cacheTypeK: q8_0
   cacheTypeV: q8_0
+  batchSize: 4096
   args:
     - "-fit"
     - "on"
     - "-n"
-    - "32768"
+    - "262144"
     - "-np"
     - "1"
     - "--ubatch-size"
@@ -38,7 +39,8 @@ spec:
     - "draft-mtp"
     - "--spec-draft-n-max"
     - "2"
-    - "--reasoning-preserve"
+    - "--chat-template-kwargs"
+    - '{"preserve_thinking":true}'
     - "--temp"
     - "0.6"
     - "--top-p"
