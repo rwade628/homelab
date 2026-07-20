@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: docker.io/mbentley/omada-controller
-              tag: 6.2@sha256:03f19ddfddcb8415cca85dbc9a2506fd534c9127c94be2b19ba3a16b12899366
+              tag: 6.2@sha256:f2d3e1ed41e68b6cf81225f27bf6f7f2f4ca8c512b9ac7727aeef51358bf5db9
             env:
               MANAGE_HTTP_PORT: "8088"
               MANAGE_HTTPS_PORT: &manage-https "8043"
