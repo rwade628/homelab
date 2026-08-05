@@ -6,12 +6,12 @@ metadata:
   name: home-assistant-mcp
 spec:
   components:
-    - ../../../components/volsync
+    - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/home-assistant/mcp
+  path: ./kubernetes/apps/home-assistant/mcp/app
   postBuild:
     substitute:
       APP: home-assistant-mcp
