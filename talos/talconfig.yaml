@@ -26,7 +26,7 @@ nodes:
     ipAddress: "10.0.10.86"
     installDiskSelector:
       model: "CT1000P3PSSD8"
-    talosImageURL: factory.talos.dev/installer/9c1d1b442d73f96dcd04e81463eb20000ab014062d22e1b083e1773336bc1dd5
+    talosImageURL: factory.talos.dev/installer/4b82055dec8c9571600a4ceeebddbe33b8ca9ec9a9aaefa64853b2bab3b76993
     nodeLabels:
       feature.node.kubernetes.io/amd-gpu: "true"
       topology.kubernetes.io/zone: m
@@ -52,7 +52,7 @@ nodes:
     ipAddress: "10.0.10.88"
     installDiskSelector:
       model: "CT1000P3PSSD8"
-    talosImageURL: factory.talos.dev/installer/9c1d1b442d73f96dcd04e81463eb20000ab014062d22e1b083e1773336bc1dd5
+    talosImageURL: factory.talos.dev/installer/4b82055dec8c9571600a4ceeebddbe33b8ca9ec9a9aaefa64853b2bab3b76993
     nodeLabels:
       feature.node.kubernetes.io/amd-gpu: "true"
       topology.kubernetes.io/zone: m
@@ -78,7 +78,7 @@ nodes:
     ipAddress: "10.0.10.87"
     installDiskSelector:
       model: "CT1000P3PSSD8"
-    talosImageURL: factory.talos.dev/installer/9c1d1b442d73f96dcd04e81463eb20000ab014062d22e1b083e1773336bc1dd5
+    talosImageURL: factory.talos.dev/installer/4b82055dec8c9571600a4ceeebddbe33b8ca9ec9a9aaefa64853b2bab3b76993
     nodeLabels:
       feature.node.kubernetes.io/amd-gpu: "true"
       topology.kubernetes.io/zone: m
