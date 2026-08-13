@@ -52,11 +52,11 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                amd.com/gpu: 1
+                devic.es/dri-render: 1
               limits:
                 cpu: 4
                 memory: 16Gi
-                amd.com/gpu: 1
+                devic.es/dri-render: 1
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
