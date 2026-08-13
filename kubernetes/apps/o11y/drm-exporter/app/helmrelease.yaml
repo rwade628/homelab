@@ -21,14 +21,23 @@ spec:
     fullnameOverride: drm-exporter
     hostAccess:
       devDri: /dev/dri
-    # Talos ships no msr kernel module; SYS_RAWIO is Intel-only (iGPU package
-    # power via /dev/cpu/*/msr) and unused on AMD, so it's dropped here.
+    # PERFMON (Intel perf PMU engine utilization) and SYS_RAWIO (Intel MSR
+    # package power/temperature) are both Intel-only and unused on AMD, which
+    # reads everything through sysfs/hwmon — per the chart README, AMD-only
+    # nodes can drop the capabilities and run non-root. supplementalGroups
+    # matches talos/patches/global/machine-udev.yaml's GROUP="44" on
+    # /dev/dri/{card*,renderD*}, the same group jellyfin/channels already run
+    # in for the same device.
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 568
+      runAsGroup: 568
+      supplementalGroups:
+        - 44
     securityContext:
       capabilities:
         drop:
           - ALL
-        add:
-          - PERFMON
     nodeSelector:
       feature.node.kubernetes.io/amd-gpu: "true"
     monitoring:
