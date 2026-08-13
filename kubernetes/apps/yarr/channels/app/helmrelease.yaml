@@ -58,6 +58,8 @@ spec:
                 memory: 16Gi
                 devic.es/dri-render: 1
     defaultPodOptions:
+      imagePullSecrets:
+        - name: ghcr
       securityContext:
         runAsNonRoot: true
         runAsUser: 568

@@ -15,3 +15,4 @@ _Avoid_: notification entity, trigger sensor (too generic — this is specifical
 ## Related vocabulary (owned by sibling repos)
 
 - **Trusted Zone / Restricted Zone / Pinhole** — network segmentation vocabulary for VLANs, defined in the `mikrotik` repo's `CONTEXT.md`. Referenced but not redefined here; see [ADR-0002](./docs/adr/0002-macvlan-dual-homing-for-cross-vlan-device-discovery.md) for how this cluster's workloads interact with those zones.
+- **AMF / Bundled ffmpeg / Terminal pin** — vocabulary for what actually consumes a GPU Share inside the Channels DVR container, defined in the `packages` repo's `CONTEXT.md`. Relevant here because [ADR-0003](./docs/adr/0003-reject-amd-gpu-operator-for-integrated-graphics.md)'s `/dev/kfd` finding is a constraint on that image, and because Channels' hardware encoding is AMF-only — VA-API is structurally unavailable to it, so a working Jellyfin VA-API path implies nothing about Channels.
