@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A GitOps-managed homelab Kubernetes cluster: **Talos Linux** nodes + **Flux** (via `flux-operator`/`FluxInstance`, not `flux bootstrap`) syncing this repo. This is a live, running cluster (`rwade628/homelab`, domain `casadewade.com`) — it started from [onedr0p/cluster-template](https://github.com/onedr0p/cluster-template) but has diverged; treat the `bootstrap/` tooling (makejinja/helmfile) as legacy/one-time and the actual `kubernetes/` and `talos/` trees as the source of truth for how things currently work.
 
-**Toolchain**: `task` (go-task) as the command runner, `.mise.toml` pins every CLI version (talhelper, cilium-cli, flux2, sops, kubectl, kustomize, helm, talosctl, kubeconform, yq, jq, age, helmfile, cue). Run `mise install` if a tool is missing.
+**Toolchain**: `task` (go-task) as the command runner. CLI tools are provided by the workstation's global Nix environment (managed outside this repo) — there is no per-repo tool manifest.
 
 ## Commonly Used Commands
 
