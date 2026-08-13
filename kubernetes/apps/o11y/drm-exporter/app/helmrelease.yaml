@@ -21,23 +21,17 @@ spec:
     fullnameOverride: drm-exporter
     hostAccess:
       devDri: /dev/dri
-    # PERFMON (Intel perf PMU engine utilization) and SYS_RAWIO (Intel MSR
-    # package power/temperature) are both Intel-only and unused on AMD, which
-    # reads everything through sysfs/hwmon — per the chart README, AMD-only
-    # nodes can drop the capabilities and run non-root. supplementalGroups
-    # matches talos/patches/global/machine-udev.yaml's GROUP="44" on
-    # /dev/dri/{card*,renderD*}, the same group jellyfin/channels already run
-    # in for the same device.
-    podSecurityContext:
-      runAsNonRoot: true
-      runAsUser: 568
-      runAsGroup: 568
-      supplementalGroups:
-        - 44
+    # The chart README says AMD-only nodes can run unprivileged (drop
+    # capabilities, non-root podSecurityContext) — that doesn't hold on
+    # Talos. Talos's containerd sets device_ownership_from_security_context
+    # = true, which disables the legacy implicit cgroup-allow that most
+    # distros grant a hostPath-mounted device node; without it, a
+    # non-privileged container can bind-mount /dev/dri and still get EPERM
+    # opening it, regardless of DAC/group permissions. Confirmed against the
+    # AMD GPU operator's own metrics-exporter pod, which hostPath-mounts
+    # /dev identically and only works because it runs privileged.
     securityContext:
-      capabilities:
-        drop:
-          - ALL
+      privileged: true
     nodeSelector:
       feature.node.kubernetes.io/amd-gpu: "true"
     monitoring:
