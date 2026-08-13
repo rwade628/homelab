@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: drm-exporter-rules
+spec:
+  groups:
+    - name: drm-exporter.rules
+      rules:
+        - alert: DrmExporterDown
+          expr: |-
+            up{job="drm-exporter"} == 0
+          for: 15m
+          annotations:
+            summary: 'drm-exporter target {{ $labels.instance }} is down'
+          labels:
+            severity: warning

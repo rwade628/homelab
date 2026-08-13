@@ -1,0 +1,26 @@
+---
+status: accepted
+---
+
+# Reject the AMD GPU operator for integrated graphics; expose the iGPU as oversubscribed DRM render shares
+
+All three cluster nodes are Beelink SER8 mini PCs with a Radeon 780M iGPU (`GC_11_0_1`, PCI `1002:1900`). The AMD GPU operator (`gpu-operator-charts`) was deployed to expose them, but almost none of it applies to integrated graphics: `driver.enable` was already `false` because Talos ships the `amdgpu` extension, and AMD's `device-metrics-exporter` — configured for ~195 metric fields — emitted exactly five on this hardware (`total_vram`, `used_vram`, `free_vram`, `total_gtt`, `used_gtt`). No power, no temperature, no clock, no engine activity; `driver_version="N/A"`, `serial_number=""`, and every ECC counter permanently zero. The remainder of the operator's value — driver lifecycle via KMM, ECC health, XGMI, compute partitioning, health-based node draining — is a no-op on an iGPU. We removed it and replaced its two useful behaviours with single-purpose DaemonSets: `home-operations/drm-exporter` for metrics (sysfs/hwmon via DRM, explicit integrated-AMD support) and `squat/generic-device-plugin` for device exposure.
+
+The device plugin was the only load-bearing part of the operator: nothing hostPath-mounts `/dev/dri`, so `amd.com/gpu: 1` was what injected `card0` and `renderD128` into the Jellyfin and Channels DVR containers. Its replacement advertises `devic.es/dri-render` with `count: 2` per node — deliberately *oversubscribed*, where `amd.com/gpu: 1` was exclusive. Exclusivity is correct for a discrete compute GPU with dedicated VRAM; on an iGPU that time-slices its engines and shares system RAM it is mostly fiction, and it capped the cluster at one GPU pod per node with zero headroom for a node being drained during a Talos upgrade.
+
+This decision is scoped to *integrated* graphics. If a discrete AMD card is ever added, the operator's driver and health machinery becomes relevant again and this should be revisited rather than treated as settled policy.
+
+## Considered options
+
+- **Keep the operator, swap only the metrics exporter** (set `metricsExporter.enable: false`, run drm-exporter alongside). Rejected: it leaves ~12 pods — KMM controller, KMM webhook, workflow controller, and a 5-pod NFD stack — plus 8 CRDs, all to deliver one device plugin that a 3 MB Go binary replaces. The broken exporter was the symptom, not the disease.
+- **Plain hostPath `/dev/dri` with no device plugin at all.** Genuinely viable: `talos/patches/global/machine-udev.yaml` already sets `GROUP="44"` on `card*`/`renderD*`, and both GPU consumers already set `supplementalGroups: [44]`. Rejected because it provides no scheduling signal whatsoever — no gate keeping GPU workloads on GPU nodes, and no way to express or bound concurrency.
+- **Reuse the `amd.com/gpu` resource name** to avoid editing consumer HelmReleases. Rejected: during the overlap window both device plugins would register the same extended resource with the kubelet and the later registration would displace the earlier, flapping node allocatable. A distinct name makes the cutover a deliberate edit instead of a race.
+- **Dynamic Resource Allocation (DRA).** `resource.k8s.io/v1` is GA and the cluster runs Kubernetes v1.36, but there is no DRA driver for AMD DRM devices; drm-exporter's DRA support targets `gpu.intel.com`. Not currently available for this hardware.
+
+## Consequences
+
+- **Neither exporter reports iGPU power.** drm-exporter's README is explicit that integrated AMD GPUs lack power metrics entirely, so the bundled dashboard's "Power draw" and "Fan speed" panels are permanently empty. Whole-SoC power, if ever needed, would have to come from RAPL via node-exporter — a different measurement (CPU and iGPU combined), not a substitute.
+- **Oversubscription is a scheduling construct, not isolation.** Two pods can hold a `devic.es/dri-render` claim on the same node and nothing arbitrates between them; the kernel time-slices the DRM engines. A sustained compute workload can degrade a concurrent transcode. Accepted as the right trade for bursty homelab media workloads.
+- **`feature.node.kubernetes.io/amd-gpu: "true"` is now load-bearing.** It is hand-set in `talos/talconfig.yaml` `nodeLabels` (it is *not* NFD-derived — NFD's equivalent was `pci-0300_1002.present`) and is the `nodeSelector` for both new DaemonSets. It sits under NFD's reserved prefix, which is squatting; this is safe precisely because NFD is gone and can no longer garbage-collect it. Deleting it as a leftover would silently unschedule both DaemonSets.
+- **Teardown has a manual tail that GitOps cannot express.** The `amd` namespace carries `kustomize.toolkit.fluxcd.io/prune: disabled`, and Helm does not reap CRDs, so removing the directory leaves the namespace plus 8 CRDs (`deviceconfigs.amd.com`, `remediationworkflowstatuses.amd.com`, 3× `kmm.sigs.x-k8s.io`, 3× `nfd.k8s-sigs.io`) requiring manual deletion.
+- **Hardware transcode fails silently.** Repointing consumers at the new resource name must be verified by forcing a real transcode and checking the ffmpeg log for VAAPI on `renderD128` — a populated `/dev/dri` proves device injection, not acceleration.

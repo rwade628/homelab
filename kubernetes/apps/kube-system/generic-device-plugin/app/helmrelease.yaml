@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: generic-device-plugin
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      generic-device-plugin:
+        type: daemonset
+        pod:
+          priorityClassName: system-node-critical
+          nodeSelector:
+            feature.node.kubernetes.io/amd-gpu: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/squat/generic-device-plugin
+              tag: 0.2.0@sha256:66c8d5c270eb2b721f1064c549b9b7898152a6d2f0163380a5d37dc7636c20ff
+            # devic.es/dri-render is a share of a node's DRM render node, not
+            # an exclusive GPU claim — count: 2 lets two pods claim it at
+            # once and rely on the kernel to time-slice between them. See
+            # docs/adr/0003-reject-amd-gpu-operator-for-integrated-graphics.md
+            args:
+              - --domain
+              - devic.es
+              - --device
+              - |
+                name: dri-render
+                groups:
+                  - count: 2
+                    paths:
+                      - path: /dev/dri/renderD128
+            securityContext:
+              privileged: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10Mi
+              limits:
+                memory: 20Mi
+    persistence:
+      device-plugins:
+        type: hostPath
+        hostPath: /var/lib/kubelet/device-plugins
+        globalMounts:
+          - path: /var/lib/kubelet/device-plugins
+      dev:
+        type: hostPath
+        hostPath: /dev
+        globalMounts:
+          - path: /dev

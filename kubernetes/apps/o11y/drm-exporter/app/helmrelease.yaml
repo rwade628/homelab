@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: drm-exporter
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: drm-exporter
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    fullnameOverride: drm-exporter
+    hostAccess:
+      devDri: /dev/dri
+    # Talos ships no msr kernel module; SYS_RAWIO is Intel-only (iGPU package
+    # power via /dev/cpu/*/msr) and unused on AMD, so it's dropped here.
+    securityContext:
+      capabilities:
+        drop:
+          - ALL
+        add:
+          - PERFMON
+    nodeSelector:
+      feature.node.kubernetes.io/amd-gpu: "true"
+    monitoring:
+      serviceMonitor:
+        enabled: true
+      dashboards:
+        enabled: true
+        grafanaOperator:
+          enabled: true
+          matchLabels:
+            dashboards: grafana
