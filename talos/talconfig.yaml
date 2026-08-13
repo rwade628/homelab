@@ -28,6 +28,9 @@ nodes:
       model: "CT1000P3PSSD8"
     talosImageURL: factory.talos.dev/installer/4b82055dec8c9571600a4ceeebddbe33b8ca9ec9a9aaefa64853b2bab3b76993
     nodeLabels:
+      # Load-bearing nodeSelector for drm-exporter and generic-device-plugin
+      # (kubernetes/apps/o11y/drm-exporter, kubernetes/apps/kube-system/generic-device-plugin) —
+      # not NFD-derived, don't remove as a leftover. See ADR-0003.
       feature.node.kubernetes.io/amd-gpu: "true"
       topology.kubernetes.io/zone: m
     networkInterfaces:
@@ -54,6 +57,9 @@ nodes:
       model: "CT1000P3PSSD8"
     talosImageURL: factory.talos.dev/installer/4b82055dec8c9571600a4ceeebddbe33b8ca9ec9a9aaefa64853b2bab3b76993
     nodeLabels:
+      # Load-bearing nodeSelector for drm-exporter and generic-device-plugin
+      # (kubernetes/apps/o11y/drm-exporter, kubernetes/apps/kube-system/generic-device-plugin) —
+      # not NFD-derived, don't remove as a leftover. See ADR-0003.
       feature.node.kubernetes.io/amd-gpu: "true"
       topology.kubernetes.io/zone: m
     networkInterfaces:
@@ -80,6 +86,9 @@ nodes:
       model: "CT1000P3PSSD8"
     talosImageURL: factory.talos.dev/installer/4b82055dec8c9571600a4ceeebddbe33b8ca9ec9a9aaefa64853b2bab3b76993
     nodeLabels:
+      # Load-bearing nodeSelector for drm-exporter and generic-device-plugin
+      # (kubernetes/apps/o11y/drm-exporter, kubernetes/apps/kube-system/generic-device-plugin) —
+      # not NFD-derived, don't remove as a leftover. See ADR-0003.
       feature.node.kubernetes.io/amd-gpu: "true"
       topology.kubernetes.io/zone: m
     networkInterfaces:
