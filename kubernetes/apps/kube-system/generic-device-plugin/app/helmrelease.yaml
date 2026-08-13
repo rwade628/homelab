@@ -34,6 +34,16 @@ spec:
             # an exclusive GPU claim — count: 2 lets two pods claim it at
             # once and rely on the kernel to time-slice between them. See
             # docs/adr/0003-reject-amd-gpu-operator-for-integrated-graphics.md
+            #
+            # card0 and kfd ride along with renderD128 in the same group:
+            # AMF-based encode (Channels DVR) needs /dev/kfd, not just the
+            # render node — confirmed by CreateComponent failing until it
+            # was granted. This matches every device the old amd.com/gpu
+            # resource always bundled into one allocation (see
+            # ROCm/k8s-device-plugin's Allocate(), which unconditionally
+            # attaches /dev/kfd plus card+renderD for every claim). VAAPI
+            # (jellyfin) only ever needed renderD128; it just gets the rest
+            # for free as part of the same bundle.
             args:
               - --domain
               - devic.es
@@ -44,6 +54,8 @@ spec:
                   - count: 2
                     paths:
                       - path: /dev/dri/renderD128
+                      - path: /dev/dri/card0
+                      - path: /dev/kfd
             securityContext:
               privileged: true
             resources:
