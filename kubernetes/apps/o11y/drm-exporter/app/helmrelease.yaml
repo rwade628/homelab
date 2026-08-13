@@ -32,6 +32,8 @@ spec:
     # /dev identically and only works because it runs privileged.
     securityContext:
       privileged: true
+      allowPrivilegeEscalation: true
+      capabilities: null
     nodeSelector:
       feature.node.kubernetes.io/amd-gpu: "true"
     monitoring:
