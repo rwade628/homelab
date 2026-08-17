@@ -61,6 +61,7 @@ spec:
     metadata:
       annotations:
         tailscale.com/hostname: grafana
+        tailscale.com/proxy-group: ingress-proxies
     spec:
       type: LoadBalancer
       loadBalancerClass: tailscale
