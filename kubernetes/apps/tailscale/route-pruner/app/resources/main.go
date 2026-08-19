@@ -127,6 +127,29 @@ func buildRouteHistory(events []auditEvent, deviceID string) routeHistory {
 	return h
 }
 
+// rankOldestFirst orders enabled routes for the pruning cap: routes with no
+// precise age data (predates the 90-day audit window, or has no matching
+// event at all) are treated as the oldest tier and sort first, since there's
+// no positive evidence they're recent; routes with a real first-seen
+// timestamp follow, oldest timestamp first. Both tiers break ties on the CIDR
+// string for a stable, reproducible order run to run.
+func rankOldestFirst(routes []string, h routeHistory) []string {
+	ranked := append([]string(nil), routes...)
+	sort.Slice(ranked, func(i, j int) bool {
+		a, b := ranked[i], ranked[j]
+		aTime, aKnown := h.firstSeen[a]
+		bTime, bKnown := h.firstSeen[b]
+		if aKnown != bKnown {
+			return !aKnown // unknown age (predates window / no data) sorts first
+		}
+		if aKnown && !aTime.Equal(bTime) {
+			return aTime.Before(bTime)
+		}
+		return a < b
+	})
+	return ranked
+}
+
 func main() {
 	dryRun := flag.Bool("dry-run", false, "compute and log the intended change without disabling any routes")
 	flag.Parse()
@@ -181,16 +204,14 @@ func pruneDevice(token string, d device, auditEvents []auditEvent, dryRun bool) 
 		return fmt.Errorf("getting current routes: %w", err)
 	}
 
-	enabled := append([]string(nil), routes.EnabledRoutes...)
-	sort.Strings(enabled)
+	history := buildRouteHistory(auditEvents, d.NodeID)
+	enabled := rankOldestFirst(routes.EnabledRoutes, history)
 
 	disableCount := len(enabled) / 2
 	toDisable := enabled[:disableCount]
 	toKeep := enabled[disableCount:]
 
-	history := buildRouteHistory(auditEvents, d.NodeID)
-
-	log.Printf("device %s (%s): %d routes enabled, disabling %d (capped at 50%%)", d.Name, d.ID, len(enabled), disableCount)
+	log.Printf("device %s (%s): %d routes enabled, disabling %d oldest-first (capped at 50%%)", d.Name, d.ID, len(enabled), disableCount)
 	for _, r := range toDisable {
 		switch {
 		case history.predatesWindow[r]:
