@@ -39,6 +39,7 @@ spec:
             env:
               GOCACHE: /tmp/go-cache
               GOTMPDIR: /tmp
+              GOMAXPROCS: "1"
             command: ["go"]
             args: ["run", "/app/main.go"]
             securityContext:
@@ -47,9 +48,10 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 10m
+                cpu: 100m
+                memory: 512Mi
               limits:
-                memory: 256Mi
+                memory: 1Gi
         pod:
           restartPolicy: Never
     defaultPodOptions:
