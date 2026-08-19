@@ -57,14 +57,27 @@ type auditLogResponse struct {
 	Logs []auditEvent `json:"logs"`
 }
 
+// Old/New are deliberately json.RawMessage: the audit log mixes many event
+// types (LOGIN, APPROVE, CREATE, ...) whose old/new payloads aren't route
+// lists at all (e.g. objects, not arrays) — decoding straight into []string
+// fails the whole batch on the first mismatch. Only AUTO_APPROVED_ROUTES
+// events get decoded further, in buildRouteHistory.
 type auditEvent struct {
 	EventTime time.Time `json:"eventTime"`
 	Target    struct {
 		ID       string `json:"id"`
 		Property string `json:"property"`
 	} `json:"target"`
-	Old []string `json:"old"`
-	New []string `json:"new"`
+	Old json.RawMessage `json:"old"`
+	New json.RawMessage `json:"new"`
+}
+
+func routeList(raw json.RawMessage) []string {
+	var routes []string
+	if err := json.Unmarshal(raw, &routes); err != nil {
+		return nil
+	}
+	return routes
 }
 
 // routeHistory is the per-device result of buildRouteHistory: firstSeen gives
@@ -93,11 +106,11 @@ func buildRouteHistory(events []auditEvent, deviceID string) routeHistory {
 	if len(relevant) == 0 {
 		return h
 	}
-	for _, r := range relevant[0].Old {
+	for _, r := range routeList(relevant[0].Old) {
 		h.predatesWindow[r] = true
 	}
 	for _, e := range relevant {
-		for _, r := range e.New {
+		for _, r := range routeList(e.New) {
 			if h.predatesWindow[r] {
 				continue
 			}
