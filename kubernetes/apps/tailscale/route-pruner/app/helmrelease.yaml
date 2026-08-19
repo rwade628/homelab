@@ -22,6 +22,7 @@ spec:
       route-pruner:
         type: cronjob
         cronjob:
+          suspend: true # paused pending redesign -- see docs/adr/0008 (disable-via-API leaves routes stuck in "awaiting approval" forever, not self-healing as ADR 0004 assumed)
           schedule: 0 4 1 * *
           backoffLimit: 0
           concurrencyPolicy: Forbid
