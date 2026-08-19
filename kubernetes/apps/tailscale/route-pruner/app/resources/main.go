@@ -24,6 +24,12 @@ var connectorTagPattern = regexp.MustCompile(`^tag:.*-connector$`)
 
 var httpClient = &http.Client{Timeout: 30 * time.Second}
 
+// The Configuration Audit Log endpoint is observably slower than the rest of
+// the API on a tailnet with heavy route churn (a 30s timeout wasn't enough in
+// practice). It's a best-effort, log-only call on a monthly job with no time
+// pressure, so it gets a much longer budget rather than a guessed-tight one.
+var auditLogClient = &http.Client{Timeout: 2 * time.Minute}
+
 type device struct {
 	ID   string   `json:"id"`
 	Name string   `json:"name"`
@@ -141,7 +147,7 @@ func fetchAccessToken(clientID, clientSecret string) (string, error) {
 	}
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-	body, err := do(req)
+	body, err := do(httpClient, req)
 	if err != nil {
 		return "", err
 	}
@@ -162,7 +168,7 @@ func listDevices(token, tailnet string) ([]device, error) {
 	}
 	req.Header.Set("Authorization", "Bearer "+token)
 
-	body, err := do(req)
+	body, err := do(httpClient, req)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +199,7 @@ func getDeviceRoutes(token, deviceID string) (*routesResponse, error) {
 	}
 	req.Header.Set("Authorization", "Bearer "+token)
 
-	body, err := do(req)
+	body, err := do(httpClient, req)
 	if err != nil {
 		return nil, err
 	}
@@ -219,7 +225,7 @@ func setDeviceRoutes(token, deviceID string, routes []string) error {
 	req.Header.Set("Authorization", "Bearer "+token)
 	req.Header.Set("Content-Type", "application/json")
 
-	_, err = do(req)
+	_, err = do(httpClient, req)
 	return err
 }
 
@@ -240,7 +246,7 @@ func fetchAuditLog(token, tailnet string) (string, error) {
 	}
 	req.Header.Set("Authorization", "Bearer "+token)
 
-	body, err := do(req)
+	body, err := do(auditLogClient, req)
 	if err != nil {
 		return "", err
 	}
@@ -258,8 +264,8 @@ func lastApprovalTime(auditLog, cidr string) (string, bool) {
 	return "within trailing 90 days (see audit log for exact time)", true
 }
 
-func do(req *http.Request) ([]byte, error) {
-	resp, err := httpClient.Do(req)
+func do(client *http.Client, req *http.Request) ([]byte, error) {
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
