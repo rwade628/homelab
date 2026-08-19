@@ -8,3 +8,4 @@ components:
   - ../../components/alerts
 resources:
   - ./operator/ks.yaml
+  - ./route-pruner/ks.yaml
