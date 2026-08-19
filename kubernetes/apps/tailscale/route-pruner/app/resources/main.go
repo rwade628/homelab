@@ -49,6 +49,66 @@ type tokenResponse struct {
 	AccessToken string `json:"access_token"`
 }
 
+// auditLogResponse mirrors the real shape of GET /tailnet/{tailnet}/logging/configuration,
+// which is a list of full route-list snapshots (Old/New), not per-CIDR diffs —
+// confirmed by inspecting a live response; ADR 0004's assumption of a
+// "specific CIDR diff" per event doesn't hold. See buildRouteHistory.
+type auditLogResponse struct {
+	Logs []auditEvent `json:"logs"`
+}
+
+type auditEvent struct {
+	EventTime time.Time `json:"eventTime"`
+	Target    struct {
+		ID       string `json:"id"`
+		Property string `json:"property"`
+	} `json:"target"`
+	Old []string `json:"old"`
+	New []string `json:"new"`
+}
+
+// routeHistory is the per-device result of buildRouteHistory: firstSeen gives
+// a real approval timestamp for routes that entered the enabled set within
+// the trailing 90-day audit window; predatesWindow marks routes that were
+// already enabled at the start of that window (so they're at least that old,
+// but no more precise than that — the window doesn't reach far enough back to
+// say by how much, especially for a connector with 292+ days of accumulated
+// routes).
+type routeHistory struct {
+	firstSeen      map[string]time.Time
+	predatesWindow map[string]bool
+}
+
+func buildRouteHistory(events []auditEvent, deviceID string) routeHistory {
+	h := routeHistory{firstSeen: map[string]time.Time{}, predatesWindow: map[string]bool{}}
+
+	var relevant []auditEvent
+	for _, e := range events {
+		if e.Target.ID == deviceID && e.Target.Property == "AUTO_APPROVED_ROUTES" {
+			relevant = append(relevant, e)
+		}
+	}
+	sort.Slice(relevant, func(i, j int) bool { return relevant[i].EventTime.Before(relevant[j].EventTime) })
+
+	if len(relevant) == 0 {
+		return h
+	}
+	for _, r := range relevant[0].Old {
+		h.predatesWindow[r] = true
+	}
+	for _, e := range relevant {
+		for _, r := range e.New {
+			if h.predatesWindow[r] {
+				continue
+			}
+			if _, seen := h.firstSeen[r]; !seen {
+				h.firstSeen[r] = e.EventTime
+			}
+		}
+	}
+	return h
+}
+
 func main() {
 	dryRun := flag.Bool("dry-run", false, "compute and log the intended change without disabling any routes")
 	flag.Parse()
@@ -77,15 +137,15 @@ func main() {
 	// Best-effort only: audit-log timestamps are logged purely so real
 	// route-churn data accumulates for a future revisit of the selection
 	// algorithm (ADR 0006). A fetch failure here must never block pruning.
-	auditLog, err := fetchAuditLog(token, tailnet)
+	auditEvents, err := fetchAuditLog(token, tailnet)
 	if err != nil {
 		log.Printf("warning: fetching audit log (non-fatal, continuing without approval timestamps): %v", err)
-		auditLog = ""
+		auditEvents = nil
 	}
 
 	failed := false
 	for _, d := range targets {
-		if err := pruneDevice(token, d, auditLog, *dryRun); err != nil {
+		if err := pruneDevice(token, d, auditEvents, *dryRun); err != nil {
 			log.Printf("error pruning device %s (%s): %v", d.Name, d.ID, err)
 			failed = true
 			continue
@@ -97,7 +157,7 @@ func main() {
 	}
 }
 
-func pruneDevice(token string, d device, auditLog string, dryRun bool) error {
+func pruneDevice(token string, d device, auditEvents []auditEvent, dryRun bool) error {
 	routes, err := getDeviceRoutes(token, d.ID)
 	if err != nil {
 		return fmt.Errorf("getting current routes: %w", err)
@@ -110,12 +170,18 @@ func pruneDevice(token string, d device, auditLog string, dryRun bool) error {
 	toDisable := enabled[:disableCount]
 	toKeep := enabled[disableCount:]
 
+	history := buildRouteHistory(auditEvents, d.ID)
+
 	log.Printf("device %s (%s): %d routes enabled, disabling %d (capped at 50%%)", d.Name, d.ID, len(enabled), disableCount)
 	for _, r := range toDisable {
-		if ts, ok := lastApprovalTime(auditLog, r); ok {
-			log.Printf("  disabling %s (last approved %s)", r, ts)
-		} else {
-			log.Printf("  disabling %s (no approval event in trailing 90 days)", r)
+		switch {
+		case history.predatesWindow[r]:
+			log.Printf("  disabling %s (already enabled before the 90-day audit window started; older than that)", r)
+		case !history.firstSeen[r].IsZero():
+			age := time.Since(history.firstSeen[r]).Round(time.Hour)
+			log.Printf("  disabling %s (first approved %s, %s ago)", r, history.firstSeen[r].Format(time.RFC3339), age)
+		default:
+			log.Printf("  disabling %s (no matching AUTO_APPROVED_ROUTES event found)", r)
 		}
 	}
 
@@ -229,11 +295,10 @@ func setDeviceRoutes(token, deviceID string, routes []string) error {
 	return err
 }
 
-// fetchAuditLog returns the raw JSON body of the trailing-90-day Configuration
-// Audit Log. The exact response schema is not pinned to typed structs here —
-// this is a best-effort, log-only signal (see ADR 0006), so entries are
-// matched by substring below rather than parsed strictly.
-func fetchAuditLog(token, tailnet string) (string, error) {
+// fetchAuditLog returns the trailing-90-day Configuration Audit Log, used
+// purely to log real approval-recency data (see buildRouteHistory) — never to
+// gate which routes get disabled (ADR 0006).
+func fetchAuditLog(token, tailnet string) ([]auditEvent, error) {
 	end := time.Now().UTC()
 	start := end.AddDate(0, 0, -90)
 	q := url.Values{
@@ -242,26 +307,19 @@ func fetchAuditLog(token, tailnet string) (string, error) {
 	}
 	req, err := http.NewRequest(http.MethodGet, apiBase+"/tailnet/"+tailnet+"/logging/configuration?"+q.Encode(), nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	req.Header.Set("Authorization", "Bearer "+token)
 
 	body, err := do(auditLogClient, req)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return string(body), nil
-}
-
-// lastApprovalTime does a best-effort scan of the raw audit log body for an
-// entry mentioning the given CIDR and returns a human-readable marker. This
-// is intentionally crude (see fetchAuditLog) — it's a visibility aid, not a
-// decision input.
-func lastApprovalTime(auditLog, cidr string) (string, bool) {
-	if auditLog == "" || !strings.Contains(auditLog, cidr) {
-		return "", false
+	var resp auditLogResponse
+	if err := json.Unmarshal(body, &resp); err != nil {
+		return nil, fmt.Errorf("decoding audit log response: %w", err)
 	}
-	return "within trailing 90 days (see audit log for exact time)", true
+	return resp.Logs, nil
 }
 
 func do(client *http.Client, req *http.Request) ([]byte, error) {
