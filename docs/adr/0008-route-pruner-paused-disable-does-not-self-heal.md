@@ -10,7 +10,7 @@ ADR 0004 assumed this would be self-healing ("lets App Connector DNS interceptio
 
 Net effect if left running: every monthly cycle disables ~50% of whatever's currently enabled, and none of the previously-disabled routes ever leave the pending pile, since nothing can remove them from `advertisedRoutes`. The enabled-route count keeps shrinking (the intended security benefit is real and does work), but the "awaiting approval" backlog grows without bound and never resolves itself.
 
-We decided to suspend the CronJob (`cronjob.suspend: true` in `kubernetes/apps/tailscale/route-pruner/app/helmrelease.yaml`) rather than delete it, so the manifests, ADR trail, and current production state (874/761 enabled, 873/761 pending) are preserved while a redesign is decided. No further disables will happen until this is explicitly resumed or replaced.
+We decided to suspend the CronJob (`cronjob.suspend: true` in `kubernetes/apps/tailscale/route-pruner/app/helmrelease.yaml`) rather than delete it, so the manifests and ADR trail are preserved while a redesign is decided. Separately, the pending routes from the one live run were manually reapproved in the admin console (both replicas back to fully enabled — see Consequences) to avoid the risk of streaming breakage while this is unresolved; the CronJob itself remains suspended regardless, since the underlying mechanism is still unfixed.
 
 ## Considered options
 
@@ -19,5 +19,5 @@ We decided to suspend the CronJob (`cronjob.suspend: true` in `kubernetes/apps/t
 
 ## Consequences
 
-- Production is left in its current state (partially pruned, with a pending-approval backlog on both replicas) until a follow-up decision is made — this ADR doesn't roll that back.
+- Production was manually reset to its pre-run state (`streaming-connector-1` and `streaming-connector` both back to 100% enabled, 0 pending, confirmed against the live API) — the one live run's route-count reduction was undone by hand rather than accepted, so there is currently no net effect from having run the job.
 - Any future work on this job should re-litigate the pruning *mechanism* itself, not just tune the existing disable-based selection logic — the selection logic (ADR 0007) is sound, but the underlying action it drives doesn't achieve what ADR 0004 designed it to achieve.
