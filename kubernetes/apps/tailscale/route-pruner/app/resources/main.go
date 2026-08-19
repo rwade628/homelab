@@ -34,6 +34,11 @@ type device struct {
 	ID   string   `json:"id"`
 	Name string   `json:"name"`
 	Tags []string `json:"tags"`
+	// NodeID is a distinct identifier space from ID: ID is the numeric
+	// device ID used by the routes endpoints, NodeID (e.g. "nRJvHL7Yi611CNTRL")
+	// is what the audit log's target.id actually contains. Confirmed by
+	// inspecting a live device object -- the two are not interchangeable.
+	NodeID string `json:"nodeId"`
 }
 
 type devicesResponse struct {
@@ -183,7 +188,7 @@ func pruneDevice(token string, d device, auditEvents []auditEvent, dryRun bool) 
 	toDisable := enabled[:disableCount]
 	toKeep := enabled[disableCount:]
 
-	history := buildRouteHistory(auditEvents, d.ID)
+	history := buildRouteHistory(auditEvents, d.NodeID)
 
 	log.Printf("device %s (%s): %d routes enabled, disabling %d (capped at 50%%)", d.Name, d.ID, len(enabled), disableCount)
 	for _, r := range toDisable {
