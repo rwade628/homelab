@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: docker.io/library/golang
-              tag: 1.26-alpine
+              tag: 1.27-alpine
             envFrom:
               - secretRef:
                   name: route-pruner-secret
