@@ -12,6 +12,9 @@ spec:
   timeout: 10m
   values:
     cephClusterSpec:
+      cephConfig:
+        mon:
+          mon_cluster_log_level: info
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       crashCollector:
@@ -35,6 +38,11 @@ spec:
         osd:
           limits:
             memory: 8Gi # Required for bootstrap
+      security:
+        cephx:
+          daemon:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
       storage:
         # devicePathFilter: sdb
         useAllDevices: false

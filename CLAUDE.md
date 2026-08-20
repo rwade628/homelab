@@ -42,7 +42,7 @@ flux build ks <app> --path kubernetes/apps/<ns>/<app>/app --kustomization-file k
 
 ### Bootstrap tasks (legacy — cluster already exists, rarely needed)
 
-`task init`, `task configure`, `task bootstrap:talos`, `task bootstrap:flux`, `task workstation:venv` render `config.yaml` via makejinja and stand up a cluster from scratch. Don't run these against the live cluster unless deliberately re-bootstrapping.
+See the `cluster-bootstrap-and-new-apps` skill.
 
 ## Architecture
 
@@ -71,7 +71,7 @@ scripts/                    ← kubeconform.sh (CI validation), bootstrap-apps.s
 
 **Flux flow**: `flux-operator` (HelmRelease in `apps/flux-system/flux-operator`) reconciles a `FluxInstance` (`apps/flux-system/flux-instance`) whose `spec.sync.path` is `kubernetes/flux/cluster`. That single `cluster-apps` Kustomization applies `kubernetes/apps` and stamps every discovered child Kustomization/HelmRelease with shared defaults (SOPS decryption, `cluster-secrets`/`cluster-settings` substitution, retry/remediation strategy) via `spec.patches` — so individual app `ks.yaml`/`helmrelease.yaml` files stay minimal and don't repeat this boilerplate.
 
-**Adding a new app** means adding a `<namespace>/<app>/` directory following the `ks.yaml` + `app/kustomization.yaml` + `app/helmrelease.yaml` + `app/ocirepository.yaml` pattern, then adding `./<app>/ks.yaml` to the namespace's `kustomization.yaml` resources list. Copy an existing similar app (e.g. `kubernetes/apps/o11y/gatus`) as a template rather than starting from scratch.
+**Adding a new app**: see the `cluster-bootstrap-and-new-apps` skill.
 
 **Key platform components** (what's actually deployed, not template defaults):
 - **Networking**: Cilium (CNI + LB IPAM), **Envoy Gateway** (Gateway API — `Gateway`/`HTTPRoute`, not ingress-nginx/Ingress) with two Gateways in `network` ns: `envoy-external` (public, `external.${SECRET_DOMAIN}`) and `envoy-internal` (LAN-only, `internal.${SECRET_DOMAIN}`). Apps attach via `route.<name>.parentRefs` in their HelmRelease values.
