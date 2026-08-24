@@ -34,6 +34,6 @@ spec:
       serviceMonitor:
         enabled: true
       syslog:
-        tcp:
-          - name: syslog-tcp
+        udp:
+          - name: syslog-udp
             value: :514

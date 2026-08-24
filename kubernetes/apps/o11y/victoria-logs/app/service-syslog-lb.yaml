@@ -1,8 +1,10 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/service
 # The chart's own Service (victoria-logs, in this same namespace) is headless
-# (clusterIP: None) and already carries the syslog-tcp:514 port, but a headless
+# (clusterIP: None) and already carries the syslog-udp:514 port, but a headless
 # Service has no stable virtual IP for anything outside the cluster to target.
+# UDP, not TCP: RouterOS's remote logging action is UDP-only (RFC3164-style),
+# no TCP syslog client exists in RouterOS at all.
 # NodePort, not LoadBalancer: reachable at the Talos control-plane VIP
 # (10.0.10.245, ARP-based, already load-bearing for kube-apiserver) on any
 # node regardless of which one runs the pod - no dependency on Cilium LB
@@ -19,8 +21,8 @@ spec:
     app.kubernetes.io/instance: victoria-logs
     app.kubernetes.io/name: victoria-logs-single
   ports:
-    - name: syslog-tcp
+    - name: syslog-udp
       port: 514
-      protocol: TCP
-      targetPort: syslog-tcp
+      protocol: UDP
+      targetPort: syslog-udp
       nodePort: 31842
