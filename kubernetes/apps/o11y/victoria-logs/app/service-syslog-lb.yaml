@@ -3,20 +3,16 @@
 # The chart's own Service (victoria-logs, in this same namespace) is headless
 # (clusterIP: None) and already carries the syslog-tcp:514 port, but a headless
 # Service has no stable virtual IP for anything outside the cluster to target.
-# This gives the MikroTik router (per networking repo ADR 0005) a real,
-# BGP-advertised LoadBalancer IP to send DNS query-log syslog to, via the same
-# Cilium LB IPAM pool used by k8s-gateway.
+# NodePort, not LoadBalancer: reachable at the Talos control-plane VIP
+# (10.0.10.245, ARP-based, already load-bearing for kube-apiserver) on any
+# node regardless of which one runs the pod - no dependency on Cilium LB
+# IPAM or BGP, both flagged as not fully reliable here. See ADR 0005.
 apiVersion: v1
 kind: Service
 metadata:
   name: victoria-logs-syslog
-  annotations:
-    # Pinned: verified free against router static DHCP leases + ARP
-    # (10.0.10.150-239 has no static lease/ARP entry, unlike .249/.250
-    # which auto-assignment collided with - see networking repo ADR 0005).
-    lbipam.cilium.io/ips: "10.0.10.151"
 spec:
-  type: LoadBalancer
+  type: NodePort
   externalTrafficPolicy: Cluster
   selector:
     app: server
@@ -27,3 +23,4 @@ spec:
       port: 514
       protocol: TCP
       targetPort: syslog-tcp
+      nodePort: 31842

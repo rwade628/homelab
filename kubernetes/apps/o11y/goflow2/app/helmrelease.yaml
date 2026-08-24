@@ -43,13 +43,14 @@ spec:
     service:
       app:
         controller: goflow2
-        type: LoadBalancer
-        annotations:
-          # Pinned: verified free against router static DHCP leases + ARP
-          # (10.0.10.150-239 has no static lease/ARP entry, unlike .249/.250
-          # which auto-assignment collided with - see ADR 0005 discussion).
-          lbipam.cilium.io/ips: "10.0.10.150"
+        # NodePort, not LoadBalancer: reachable at the Talos control-plane
+        # VIP (10.0.10.245, ARP-based, already load-bearing for kube-apiserver)
+        # on any node regardless of which one runs the pod - no dependency on
+        # Cilium LB IPAM or BGP, both flagged as not fully reliable here.
+        # See ADR 0005.
+        type: NodePort
         ports:
           netflow:
             port: 2055
             protocol: UDP
+            nodePort: 30481
