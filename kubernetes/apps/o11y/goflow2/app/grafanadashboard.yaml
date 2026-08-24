@@ -31,11 +31,11 @@ spec:
           "description": "goflow2/NetFlow, egress direction only (src_addr in IOT_VLAN).",
           "type": "table",
           "gridPos": { "h": 12, "w": 24, "x": 0, "y": 0 },
-          "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_INFINITY}" },
+          "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "$${DS_INFINITY}" },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_INFINITY}" },
+              "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "$${DS_INFINITY}" },
               "type": "json",
               "source": "url",
               "format": "table",
@@ -61,11 +61,11 @@ spec:
           "description": "RouterOS DNS query logging (topics=dns) shipped via syslog.",
           "type": "table",
           "gridPos": { "h": 12, "w": 24, "x": 0, "y": 12 },
-          "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_INFINITY}" },
+          "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "$${DS_INFINITY}" },
           "targets": [
             {
               "refId": "A",
-              "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_INFINITY}" },
+              "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "$${DS_INFINITY}" },
               "type": "json",
               "source": "url",
               "format": "table",
