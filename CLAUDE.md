@@ -25,6 +25,8 @@ A GitOps-managed homelab Kubernetes cluster: **Talos Linux** nodes + **Flux** (v
 
 There is no app-level build/test/lint step — this is a pure manifest repo. "Testing" a change means: render/validate it with kubeconform, and/or `flux build` it locally before applying.
 
+**Agents must not apply changes to the live cluster.** This is a GitOps repo — the only path from a change to the cluster is commit + push, with Flux reconciling from git. Never run `task kubernetes:apply-ks`, `flux build ... | kubectl apply`, or any other `kubectl apply`/`create`/`patch`/`delete` as a way to push agent-authored changes live, even "just to test before committing" — `apply-ks` exists for a human operator to use interactively, not for an agent to invoke unprompted. Read-only `kubectl`/`flux get`/`stern` for inspection and debugging is fine. Validate changes with `kubeconform`/`flux build --dry-run` (no `kubectl apply`) instead, and leave getting them onto the cluster to the human, via a normal commit.
+
 ### Validating a single app before pushing
 
 ```sh
