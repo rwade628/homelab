@@ -31,3 +31,30 @@ spec:
     jsonData:
       implementation: prometheus
     url: http://alertmanager-operated.o11y.svc.cluster.local:9093
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadatasource_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: infinity
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  # Grafana-signed (signatureType: grafana, verified via Grafana's plugin
+  # API before use) - no allow_unsigned_plugins config needed, unlike the
+  # victoria-logs-datasource plugin tried and rejected in ADR 0005. Used to
+  # query Victoria Logs' /select/logsql/stats_query endpoint, which returns
+  # a Prometheus-vector-shaped JSON response Infinity's JSON parser can
+  # read directly.
+  plugins:
+    - name: yesoreyeram-infinity-datasource
+      version: latest
+  datasource:
+    type: yesoreyeram-infinity-datasource
+    name: infinity
+    access: proxy
+    jsonData:
+      auth_method: none
+      allowedHosts:
+        - http://victoria-logs.o11y.svc.cluster.local:9428

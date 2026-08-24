@@ -1,0 +1,89 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
+# Implements networking repo ADR 0005: two panels (destination IPs+bytes
+# from goflow2/NetFlow, domains queried from RouterOS DNS logging),
+# deliberately not joined into one table - see the ADR for why. Both query
+# Victoria Logs' /select/logsql/stats_query endpoint (a Prometheus-vector-
+# shaped JSON response) via the Infinity datasource, GET with the LogsQL
+# query as a URL param.
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: iot-egress-visibility
+spec:
+  allowCrossNamespaceImport: true
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  datasources:
+    - datasourceName: infinity
+      inputName: DS_INFINITY
+  json: |
+    {
+      "title": "IoT Egress Visibility",
+      "uid": "iot-egress-visibility",
+      "schemaVersion": 39,
+      "time": { "from": "now-24h", "to": "now" },
+      "panels": [
+        {
+          "id": 1,
+          "title": "Bytes sent by IoT device, by destination IP",
+          "description": "goflow2/NetFlow, egress direction only (src_addr in IOT_VLAN).",
+          "type": "table",
+          "gridPos": { "h": 12, "w": 24, "x": 0, "y": 0 },
+          "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_INFINITY}" },
+          "targets": [
+            {
+              "refId": "A",
+              "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_INFINITY}" },
+              "type": "json",
+              "source": "url",
+              "format": "table",
+              "url": "http://victoria-logs.o11y.svc.cluster.local:9428/select/logsql/stats_query",
+              "url_options": {
+                "method": "GET",
+                "params": [
+                  { "key": "query", "value": "src_addr:10.0.30.0/24 | stats by (src_addr, dst_addr) sum(bytes) as bytes_sent | sort by (bytes_sent) desc | limit 100" }
+                ]
+              },
+              "root_selector": "data.result",
+              "columns": [
+                { "selector": "metric.src_addr", "text": "Device", "type": "string" },
+                { "selector": "metric.dst_addr", "text": "Destination", "type": "string" },
+                { "selector": "value.1", "text": "Bytes sent", "type": "number" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Domains queried by IoT device",
+          "description": "RouterOS DNS query logging (topics=dns) shipped via syslog.",
+          "type": "table",
+          "gridPos": { "h": 12, "w": 24, "x": 0, "y": 12 },
+          "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_INFINITY}" },
+          "targets": [
+            {
+              "refId": "A",
+              "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_INFINITY}" },
+              "type": "json",
+              "source": "url",
+              "format": "table",
+              "url": "http://victoria-logs.o11y.svc.cluster.local:9428/select/logsql/stats_query",
+              "url_options": {
+                "method": "GET",
+                "params": [
+                  { "key": "query", "value": "_msg:\"dns query from\" | extract \"dns query from <client_ip>: #<_> <domain>. <qtype>\" | filter client_ip:\"10.0.30.\" | stats by (client_ip, domain) count() as queries | sort by (queries) desc | limit 200" }
+                ]
+              },
+              "root_selector": "data.result",
+              "columns": [
+                { "selector": "metric.client_ip", "text": "Device", "type": "string" },
+                { "selector": "metric.domain", "text": "Domain", "type": "string" },
+                { "selector": "value.1", "text": "Queries", "type": "number" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
