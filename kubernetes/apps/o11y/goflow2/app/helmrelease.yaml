@@ -1,0 +1,50 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: goflow2
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      goflow2:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          # Decodes NetFlow/IPFIX from the router and prints each flow as one
+          # JSON line to stdout (no -transport flag = stdout, goflow2's
+          # default). victoria-logs-collector (vlagent DaemonSet, already
+          # running cluster-wide) picks up container stdout automatically -
+          # no dedicated shipper needed. Docs/ADR: networking repo, ADR 0005.
+          goflow2:
+            image:
+              repository: netsampler/goflow2
+              tag: v2.2.6@sha256:b930e69d1bc7bd765da5b45d12f04edd10970c310b33ba44fd12a07a870da8e6
+            args:
+              - -listen=netflow://:2055
+              - -format=json
+            resources:
+              requests:
+                cpu: 50m
+              limits:
+                memory: 256Mi
+    service:
+      app:
+        controller: goflow2
+        type: LoadBalancer
+        ports:
+          netflow:
+            port: 2055
+            protocol: UDP

@@ -11,6 +11,7 @@ resources:
   - ./blackbox-exporter/ks.yaml
   - ./drm-exporter/ks.yaml
   - ./gatus/ks.yaml
+  - ./goflow2/ks.yaml
   - ./grafana/ks.yaml
   - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml

@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/service
+# The chart's own Service (victoria-logs, in this same namespace) is headless
+# (clusterIP: None) and already carries the syslog-tcp:514 port, but a headless
+# Service has no stable virtual IP for anything outside the cluster to target.
+# This gives the MikroTik router (per networking repo ADR 0005) a real,
+# BGP-advertised LoadBalancer IP to send DNS query-log syslog to, via the same
+# Cilium LB IPAM pool used by k8s-gateway.
+apiVersion: v1
+kind: Service
+metadata:
+  name: victoria-logs-syslog
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Cluster
+  selector:
+    app: server
+    app.kubernetes.io/instance: victoria-logs
+    app.kubernetes.io/name: victoria-logs-single
+  ports:
+    - name: syslog-tcp
+      port: 514
+      protocol: TCP
+      targetPort: syslog-tcp
