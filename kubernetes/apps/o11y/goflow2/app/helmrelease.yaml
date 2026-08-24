@@ -43,14 +43,17 @@ spec:
     service:
       app:
         controller: goflow2
-        # NodePort, not LoadBalancer: reachable at the Talos control-plane
-        # VIP (10.0.10.245, ARP-based, already load-bearing for kube-apiserver)
-        # on any node regardless of which one runs the pod - no dependency on
-        # Cilium LB IPAM or BGP, both flagged as not fully reliable here.
-        # See ADR 0005.
-        type: NodePort
+        # Cilium LoadBalancer, same pattern as k8s-gateway (network ns) -
+        # proven in production for real UDP traffic (DNS:53) under this
+        # cluster's dsr LB mode. Two things were tried and rejected first:
+        # the Talos control-plane VIP (only actually serves port 6443, not
+        # a general floating IP - proven by direct UDP test) and a single
+        # node's IP via NodePort (works, but ties reachability to one node
+        # with no failover, which is worse than this). See ADR 0005.
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: "10.0.10.150"
         ports:
           netflow:
             port: 2055
             protocol: UDP
-            nodePort: 30481
