@@ -39,11 +39,12 @@ spec:
               "type": "json",
               "source": "url",
               "format": "table",
+              "parser": "backend",
               "url": "http://victoria-logs.o11y.svc.cluster.local:9428/select/logsql/stats_query",
               "url_options": {
                 "method": "GET",
                 "params": [
-                  { "key": "query", "value": "src_addr:10.0.30.0/24 | stats by (src_addr, dst_addr) sum(bytes) as bytes_sent | sort by (bytes_sent) desc | limit 100" }
+                  { "key": "query", "value": "src_addr:\"10.0.30.\" | stats by (src_addr, dst_addr) sum(bytes) as bytes_sent | sort by (bytes_sent) desc | limit 100" }
                 ]
               },
               "root_selector": "data.result",
@@ -69,6 +70,7 @@ spec:
               "type": "json",
               "source": "url",
               "format": "table",
+              "parser": "backend",
               "url": "http://victoria-logs.o11y.svc.cluster.local:9428/select/logsql/stats_query",
               "url_options": {
                 "method": "GET",
