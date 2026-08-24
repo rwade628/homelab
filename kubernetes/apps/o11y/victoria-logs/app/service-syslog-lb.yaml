@@ -10,6 +10,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: victoria-logs-syslog
+  annotations:
+    # Pinned: verified free against router static DHCP leases + ARP
+    # (10.0.10.150-239 has no static lease/ARP entry, unlike .249/.250
+    # which auto-assignment collided with - see networking repo ADR 0005).
+    lbipam.cilium.io/ips: "10.0.10.151"
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Cluster

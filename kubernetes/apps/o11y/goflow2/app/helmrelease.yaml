@@ -44,6 +44,11 @@ spec:
       app:
         controller: goflow2
         type: LoadBalancer
+        annotations:
+          # Pinned: verified free against router static DHCP leases + ARP
+          # (10.0.10.150-239 has no static lease/ARP entry, unlike .249/.250
+          # which auto-assignment collided with - see ADR 0005 discussion).
+          lbipam.cilium.io/ips: "10.0.10.150"
         ports:
           netflow:
             port: 2055
