@@ -11,14 +11,25 @@ spec:
   interval: 1h
   timeout: 10m
   values:
-    # Pin to pre-upgrade Squid so the chart bump alone can't also change the Ceph daemon
-    cephImage:
+    cephImage: # decouples the daemon version from the chart version
       repository: quay.io/ceph/ceph
-      tag: v19.2.6
+      tag: v20.2.4
     cephClusterSpec:
       cephConfig:
         mon:
           mon_cluster_log_level: info
+      healthCheck:
+        # aes keys are already accepted (kernel < 7.0, see security.cephx.csi below);
+        # was muted imperatively via `ceph health mute`, now managed declaratively
+        muteHealthWarning:
+          AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_CLIENT_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_KEYS_ALLOWED:
+            policy: mute
+          AUTH_INSECURE_KEYS_CREATABLE:
+            policy: mute
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       crashCollector:
@@ -47,6 +58,8 @@ spec:
           daemon:
             keyRotationPolicy: KeyGeneration
             keyGeneration: 2
+          csi:
+            keyType: aes # aes256k requires kernel 7.0+
       storage:
         # devicePathFilter: sdb
         useAllDevices: false
