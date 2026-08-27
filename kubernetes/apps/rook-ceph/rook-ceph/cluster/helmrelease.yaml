@@ -11,9 +11,6 @@ spec:
   interval: 1h
   timeout: 10m
   values:
-    cephImage: # decouples the daemon version from the chart version
-      repository: quay.io/ceph/ceph
-      tag: v20.2.4
     cephClusterSpec:
       cephConfig:
         mon:
