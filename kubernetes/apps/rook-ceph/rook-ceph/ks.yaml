@@ -23,6 +23,8 @@ metadata:
 spec:
   dependsOn:
     - name: rook-ceph
+    - name: ceph-csi-drivers
+      namespace: rook-ceph
     - name: volsync
       namespace: volsync-system
   healthChecks:

@@ -11,6 +11,10 @@ spec:
   interval: 1h
   timeout: 10m
   values:
+    # Pin to pre-upgrade Squid so the chart bump alone can't also change the Ceph daemon
+    cephImage:
+      repository: quay.io/ceph/ceph
+      tag: v19.2.6
     cephClusterSpec:
       cephConfig:
         mon:
