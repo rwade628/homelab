@@ -119,7 +119,6 @@ patches:
   - "@./patches/global/machine-sysctls.yaml"
   - "@./patches/global/machine-time.yaml"
   - "@./patches/global/machine-udev.yaml"
-  - "@./patches/global/openebs-local.yaml"
 
 # Controller patches
 controlPlane:
