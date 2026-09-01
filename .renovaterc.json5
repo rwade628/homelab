@@ -125,6 +125,16 @@
       },
       minimumGroupSize: 2,
     },
+    // Holds
+    {
+      // CoreDNS 1.14.3+ (chart >=1.46.3, appVersion 1.14.6 in 1.47.0) has an
+      // autopath/prefetch cache race that intermittently drops A answers
+      // (coredns/coredns#8390) -- see docs/adr/0011. Re-enable once that's fixed upstream.
+      description: "Hold CoreDNS on 1.46.2 (appVersion 1.13.1) pending coredns/coredns#8390",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/coredns/charts/coredns"],
+      enabled: false,
+    },
     // Labeling rules
     {
       matchUpdateTypes: ["major"],
