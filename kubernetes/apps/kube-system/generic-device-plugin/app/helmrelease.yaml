@@ -35,7 +35,7 @@ spec:
             # once and rely on the kernel to time-slice between them. See
             # docs/adr/0003-reject-amd-gpu-operator-for-integrated-graphics.md
             #
-            # card0 and kfd ride along with renderD128 in the same group:
+            # card and kfd ride along with renderD128 in the same group:
             # AMF-based encode (Channels DVR) needs /dev/kfd, not just the
             # render node — confirmed by CreateComponent failing until it
             # was granted. This matches every device the old amd.com/gpu
@@ -44,6 +44,13 @@ spec:
             # attaches /dev/kfd plus card+renderD for every claim). VAAPI
             # (jellyfin) only ever needed renderD128; it just gets the rest
             # for free as part of the same bundle.
+            #
+            # card/render are referenced via /dev/dri/by-path (udev's
+            # PCI-address-keyed symlinks), not /dev/dri/card0 or renderD128
+            # directly — the Talos 1.14 kernel bump (6.12 -> 6.18) renumbered
+            # the card node from card0 to card1 on all 3 nodes, which zeroed
+            # out this resource cluster-wide since the group's declared paths
+            # no longer all resolved. by-path is stable across renumbering.
             args:
               - --domain
               - devic.es
@@ -53,8 +60,8 @@ spec:
                 groups:
                   - count: 2
                     paths:
-                      - path: /dev/dri/renderD128
-                      - path: /dev/dri/card0
+                      - path: "/dev/dri/by-path/pci-0000:66:00.0-render"
+                      - path: "/dev/dri/by-path/pci-0000:66:00.0-card"
                       - path: /dev/kfd
             securityContext:
               privileged: true
