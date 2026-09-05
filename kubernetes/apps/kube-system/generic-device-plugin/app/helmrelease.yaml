@@ -45,12 +45,24 @@ spec:
             # (jellyfin) only ever needed renderD128; it just gets the rest
             # for free as part of the same bundle.
             #
-            # card/render are referenced via /dev/dri/by-path (udev's
-            # PCI-address-keyed symlinks), not /dev/dri/card0 or renderD128
-            # directly — the Talos 1.14 kernel bump (6.12 -> 6.18) renumbered
-            # the card node from card0 to card1 on all 3 nodes, which zeroed
-            # out this resource cluster-wide since the group's declared paths
-            # no longer all resolved. by-path is stable across renumbering.
+            # HOST paths are /dev/dri/by-path (udev's PCI-address-keyed
+            # symlinks), not /dev/dri/card0 or renderD128 directly — the
+            # Talos 1.14 kernel bump (6.12 -> 6.18) started registering
+            # simpledrm on the EFI framebuffer before amdgpu probes, so
+            # amdgpu now lands on DRM minor 1 (card1) instead of minor 0.
+            # That zeroed out this resource cluster-wide, since the group's
+            # declared paths no longer all resolved. by-path is keyed on the
+            # PCI address and is stable across that renumbering.
+            #
+            # mountPath pins the CONTAINER paths back to the canonical
+            # /dev/dri names. Without it the plugin defaults mountPath to
+            # path, and the container sees only by-path/* device nodes —
+            # libdrm resolves a node's canonical name out of sysfs and then
+            # requires it under /dev/dri, so libva (VAAPI/jellyfin) and radv
+            # (Vulkan -> AMF/Channels) both fail to find any device and
+            # silently fall back to software. Verified: creating just
+            # /dev/dri/renderD128 flips vainfo and h264_amf from failing to
+            # working, with no other change.
             args:
               - --domain
               - devic.es
@@ -61,7 +73,9 @@ spec:
                   - count: 2
                     paths:
                       - path: "/dev/dri/by-path/pci-0000:66:00.0-render"
+                        mountPath: /dev/dri/renderD128
                       - path: "/dev/dri/by-path/pci-0000:66:00.0-card"
+                        mountPath: /dev/dri/card0
                       - path: /dev/kfd
             securityContext:
               privileged: true
