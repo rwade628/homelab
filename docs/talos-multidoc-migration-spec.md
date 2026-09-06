@@ -366,6 +366,7 @@ upgrade-k8s version:
     talosctl --nodes $(talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1) upgrade-k8s --to {{version}}
 
 # Reset all nodes back to maintenance mode (destructive)
+[confirm('This will destroy your cluster and reset the nodes back to maintenance mode. Continue? [y|N]')]
 reset *args:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -452,3 +453,43 @@ the human-executed apply flow was declined for this session):
   `scheduler`/`proxy`/`coreDNS` blocks populated-but-inert once the corresponding multi-doc
   document exists, or whether they need explicit deletion — both are addressed by the diff-step
   guidance above, whichever way it lands.
+
+### Resolved during implementation (#1501)
+
+Generating against the real secrets bundle (with a `talosctl` v1.14.0 client — the workstation's
+installed client was still v1.13.8, which doesn't recognize the v1.14 multi-doc kinds at all)
+resolved both items above, plus two more the spec didn't anticipate:
+
+- **`certExtraSANs` was indeed duplicated.** `--additional-sans 127.0.0.1,10.0.10.245` already
+  populates `KubeAPIServerConfig.certExtraSANs`; the explicit patch in `controlplane.yaml` just
+  repeated the same two entries. Removed the explicit patch.
+- **The legacy `cluster.apiServer`/`controllerManager`/`scheduler`/`proxy`/`coreDNS`/`kubelet`
+  blocks came back empty (`null`)** once the corresponding multi-doc documents existed — no
+  conflict, no stale legacy values, no delete-patches needed.
+- **`KubeNodeConfig` auto-defaults leaked through and needed explicit deletion** (not anticipated
+  by the spec at all): the control-plane base auto-adds a `node-role.kubernetes.io/control-plane:
+  NoSchedule` taint and a `node.kubernetes.io/exclude-from-external-load-balancers` label,
+  kubeadm-style. Neither exists on any live node today (confirmed via `kubectl get node ... -o
+  jsonpath='{.metadata.labels}'` and the taint's absence, matching `allowSchedulingOnControlPlanes:
+  true`), so both are cancelled in `talos/controlplane.yaml` via `$patch: delete` on the specific
+  map key — same directive Talos's own patch documents use (not talhelper's `$$patch` escaping).
+- **`KubeNetworkConfig` auto-defaults to Kubernetes' stock subnets** (`10.244.0.0/16` /
+  `10.96.0.0/12`), silently coexisting with the correctly-set legacy `cluster.network.podSubnets`/
+  `serviceSubnets` (`10.69.0.0/16` / `10.96.0.0/16`) with no conflict error — the same
+  silently-coexists risk class the spec worried about for the other legacy blocks, just not one it
+  named. Since which of the two would actually govern kube-apiserver/controller-manager/kubelet
+  flags wasn't verified, `talos/cluster.yaml` now carries an explicit `KubeNetworkConfig` document
+  with the correct subnets, removing the ambiguity regardless of precedence.
+- **`KubeAdmissionControlConfig`/`PodSecurity` is auto-populated by the base**, contradicting
+  ADR-0012's assumption that omitting the document is sufficient — the base doesn't leave it
+  absent, it defaults it in. `talos/controlplane.yaml` now explicitly deletes it (`name:
+  PodSecurity` + `$patch: delete`) to reach the same "no admission-plugin config" state. See
+  ADR-0012's implementation note.
+
+All three nodes' final rendered configs are identical except `HostnameConfig.hostname` and the
+`LinkAliasConfig` MAC selector — confirmed by diffing `ser8a`/`ser8b`/`ser8c` renders directly.
+
+Also restored during review: the deleted `.taskfiles/talos/Taskfile.yaml`'s `reset` task had a
+`prompt:` confirmation before wiping the cluster; the `mod.just` content above originally dropped
+it. `reset` now carries a `[confirm(...)]` attribute, matching the existing convention in
+`bootstrap/mod.just`'s own destructive `cluster` recipe.

@@ -1,0 +1,15 @@
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: ser8c
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: bond0-m0
+selector:
+  match: glob("70:70:fc:07:d0:d4", mac(link.hardware_addr))
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+labels:
+  feature.node.kubernetes.io/amd-gpu: "true"
+  topology.kubernetes.io/zone: m

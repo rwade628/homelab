@@ -50,3 +50,13 @@ change, not a config-representation detail.
 - Adopting PodSecurity enforcement (or any other admission plugin config) later means adding a new
   `KubeAdmissionControlConfig` document as a standalone, deliberate change — not something that
   falls out of finishing this migration.
+
+**Implementation note** (added once the migration was actually generated against this cluster):
+"omit" turned out to require an explicit delete, not mere absence. `talosctl gen config`'s
+control-plane base auto-populates a `KubeAdmissionControlConfig`/`PodSecurity` document
+(baseline/restricted) by default — unlike `onedr0p/home-ops`, whose absence of the document in
+their patch files is sufficient because they never observed this default (older `talosctl`
+behavior/version). `talos/controlplane.yaml` therefore carries an explicit
+`{apiVersion: v1alpha1, kind: KubeAdmissionControlConfig, name: PodSecurity, $patch: delete}`
+document to cancel the base's default and reach the same "no admission-plugin configuration" end
+state this ADR calls for.

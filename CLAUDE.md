@@ -16,11 +16,11 @@ A GitOps-managed homelab Kubernetes cluster: **Talos Linux** nodes + **Flux** (v
 | `task kubernetes:apply-ks PATH=<ns>/<app> [NS=<namespace>]` | Force-apply a single Flux Kustomization from local disk, e.g. `PATH=o11y/gatus` |
 | `task kubernetes:kubeconform` | Validate all rendered manifests under `kubernetes/` with kubeconform (also runs in CI) |
 | `task kubernetes:resources` | Dump nodes/gitrepositories/kustomizations/helmreleases/certs/ingresses/pods (debugging snapshot) |
-| `task talos:upgrade-cluster` | Rolling Talos upgrade across all nodes (suspends Flux, upgrades each node, resumes) |
-| `task talos:upgrade-node HOSTNAME=<node>` | Upgrade Talos on one node |
-| `task talos:upgrade-k8s` | Upgrade the Kubernetes version via `talosctl upgrade-k8s` |
-| `task talos:apply-config HOSTNAME=<node> [MODE=no-reboot\|auto\|reboot]` | Push regenerated Talos machine config to a node |
-| `task talos:reset [--force]` | Wipe the cluster back to maintenance mode (destructive, confirms first) |
+| `just talos upgrade-cluster` | Rolling Talos upgrade across all nodes (suspends Flux, upgrades each node, resumes) |
+| `just talos upgrade-node <hostname>` | Upgrade Talos on one node |
+| `just talos upgrade-k8s <version>` | Upgrade the Kubernetes version via `talosctl upgrade-k8s` |
+| `just talos apply-config <hostname> [mode]` | Push regenerated Talos machine config to a node (mode: no-reboot\|auto\|reboot) |
+| `just talos reset` | Wipe the cluster back to maintenance mode (destructive, confirms first) |
 | `task sops:encrypt` | Encrypt every `*.sops.*` file under `kubernetes/` that isn't already encrypted |
 
 There is no app-level build/test/lint step — this is a pure manifest repo. "Testing" a change means: render/validate it with kubeconform, and/or `flux build` it locally before applying.
@@ -66,7 +66,9 @@ kubernetes/
     sops/                   ← cluster-secrets.sops.yaml, sops-age.sops.yaml, ghcr-secret.sops.yaml
     alerts/                 ← Alertmanager alert/provider wiring
     volsync/                ← PVC + ReplicationSource/Destination snippets for backup-enabled apps
-talos/                      ← talconfig.yaml (talhelper), talenv.yaml, talsecret.sops.yaml, clusterconfig/ (generated, gitignored except talosconfig)
+talos/                      ← cluster.yaml/controlplane.yaml/nodes/<hostname>.yaml (hand-written `talosctl machineconfig patch` layers,
+                                see talos/mod.just — `just talos <recipe>`), versions.yaml, talsecret.sops.yaml,
+                                clusterconfig/ (generated, gitignored except talosconfig)
 bootstrap/                  ← one-time cluster bring-up (makejinja templates, helmfile, kustomize) — legacy path, not day-to-day
 scripts/                    ← kubeconform.sh (CI validation), bootstrap-apps.sh, plugin.py (makejinja custom filters)
 ```
