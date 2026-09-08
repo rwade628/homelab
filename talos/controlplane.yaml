@@ -22,11 +22,13 @@ cluster:
   serviceAccount:
     key: ${CLUSTER_SERVICEACCOUNT_KEY}
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeNodeConfig
 labels:
   node-role.kubernetes.io/control-plane: ""
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeAPIServerConfig
 image: registry.k8s.io/kube-apiserver:${KUBERNETES_VERSION}
@@ -34,10 +36,11 @@ certExtraSANs:
   - 127.0.0.1
   - 10.0.10.245
 extraArgs:
-  enable-aggregator-routing: true
+  enable-aggregator-routing: "true"
   feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
   runtime-config: admissionregistration.k8s.io/v1beta1=true
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeAuditPolicyConfig
 configuration:
@@ -46,6 +49,7 @@ configuration:
   rules:
     - level: Metadata
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeAuthenticationConfig
 configuration:
@@ -57,26 +61,31 @@ configuration:
     enabled: true
   jwt: []
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeAuthorizerConfig
 name: node
 type: Node
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeAuthorizerConfig
 name: rbac
 type: RBAC
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeControllerManagerConfig
 extraArgs:
   bind-address: 0.0.0.0
 image: registry.k8s.io/kube-controller-manager:${KUBERNETES_VERSION}
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeCoreDNSConfig
 enabled: false
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeEtcdEncryptionConfig
 config:
@@ -90,17 +99,20 @@ config:
       resources:
         - secrets
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeProxyConfig
 enabled: false
 image: registry.k8s.io/kube-proxy:${KUBERNETES_VERSION}
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeSchedulerConfig
 extraArgs:
   bind-address: 0.0.0.0
 image: registry.k8s.io/kube-scheduler:${KUBERNETES_VERSION}
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeTalosAPIAccessConfig
 allowedRoles:

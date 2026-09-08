@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 version: v1alpha1
 machine:
   ca:
@@ -28,6 +29,7 @@ cluster:
     endpoint: https://10.0.10.245:6443
   token: ${CLUSTER_TOKEN}
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: BondConfig
 name: bond0
@@ -36,15 +38,18 @@ links:
 bondMode: active-backup
 mtu: 9000
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: DHCPv4Config
 name: bond0
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: Layer2VIPConfig
 name: 10.0.10.245
 link: bond0
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: VLANConfig
 name: bond0.30
@@ -52,6 +57,7 @@ vlanID: 30
 parent: bond0
 mtu: 9000
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: VLANConfig
 name: bond0.50
@@ -59,6 +65,7 @@ vlanID: 50
 parent: bond0
 mtu: 9000
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: VLANConfig
 name: bond0.99
@@ -66,6 +73,7 @@ vlanID: 99
 parent: bond0
 mtu: 9000
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: ResolverConfig
 searchDomains:
@@ -75,16 +83,19 @@ hostDNS:
   forwardKubeDNSToHost: true # Requires Cilium `bpf.masquerade: false`
   resolveMemberNames: true
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: DiscoveryServiceConfig
 name: default
 endpoint: https://discovery.talos.dev/
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: DiscoveryIdentityConfig
 clusterID: ${CLUSTER_ID}
 clusterSecret: ${CLUSTER_SECRET}
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: UnattendedInstallConfig
 installer:
@@ -94,14 +105,17 @@ provisioning:
     match: disk.model == "CT1000P3PSSD8"
   wipe: false
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: FilesystemTrimConfig
 interval: 168h0m0s
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: FilesystemScrubConfig
 interval: 168h0m0s
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: SysctlConfig
 params:
@@ -126,6 +140,7 @@ params:
   sunrpc.tcp_slot_table_entries: "128"
   user.max_user_namespaces: "11255"
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: EtcFileConfig
 name: nfsmount.conf
@@ -139,6 +154,7 @@ contents: |
   rsize=1048576
   wsize=1048576
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: CRICustomizationConfig
 name: containerd
@@ -148,6 +164,7 @@ content: |
   [plugins."io.containerd.cri.v1.runtime"]
     device_ownership_from_security_context = true
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeNodeConfig
 nodeIP:
@@ -156,6 +173,7 @@ nodeIP:
 labels:
   topology.kubernetes.io/region: main
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeletConfig
 config:
@@ -171,10 +189,12 @@ extraArgs:
 defaultRuntimeSeccompProfileEnabled: true
 image: ghcr.io/siderolabs/kubelet:${KUBERNETES_VERSION}
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: SecurityProfileConfig
 workloadIsolation: false
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubeNetworkConfig
 dnsDomain: cluster.local
@@ -183,6 +203,7 @@ podSubnets:
 serviceSubnets:
   - 10.96.0.0/16
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/v1.14.0/website/content/v1.14/schemas/config.schema.json
 apiVersion: v1alpha1
 kind: KubePrismConfig
 port: 7445
