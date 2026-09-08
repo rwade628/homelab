@@ -60,3 +60,10 @@ behavior/version). `talos/controlplane.yaml` therefore carries an explicit
 `{apiVersion: v1alpha1, kind: KubeAdmissionControlConfig, name: PodSecurity, $patch: delete}`
 document to cancel the base's default and reach the same "no admission-plugin configuration" end
 state this ADR calls for.
+
+**Update** ([ADR-0014](0014-hand-authored-talos-base-instead-of-gen-config.md)): the explicit
+delete above is no longer needed. Once `talos/cluster.yaml`/`controlplane.yaml` stopped being
+generated via `talosctl gen config` and became a hand-authored base, the default
+`KubeAdmissionControlConfig`/`PodSecurity` document this ADR was cancelling is never introduced in
+the first place — the underlying decision (zero admission-plugin configuration) is unchanged, but
+it's now reached by plain omission, as originally intended.

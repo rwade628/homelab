@@ -1,19 +1,16 @@
-apiVersion: v1alpha1
-kind: HostnameConfig
-# `talosctl gen config`'s base auto-populates `auto: stable`, which conflicts with an explicit
-# `hostname` ("'auto' and 'hostname' cannot be set at the same time") — this repo pins hostnames
-# per-node, so auto-hostname mode must stay off.
-auto: "off"
-hostname: ser8a
 ---
 apiVersion: v1alpha1
-kind: LinkAliasConfig
-name: bond0-m0
-selector:
-  match: glob("70:70:fc:07:d0:7b", mac(link.hardware_addr))
+kind: HostnameConfig
+hostname: ser8a
 ---
 apiVersion: v1alpha1
 kind: KubeNodeConfig
 labels:
   feature.node.kubernetes.io/amd-gpu: "true"
   topology.kubernetes.io/zone: m
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: bond0-m0
+selector:
+  match: glob("70:70:fc:07:d0:7b", mac(link.hardware_addr))

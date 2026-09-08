@@ -2,7 +2,6 @@
 
 export TALOSCONFIG := "clusterconfig/talosconfig"
 
-endpoint := "https://10.0.10.245:6443"
 hostnames := "ser8a ser8b ser8c"
 
 # Render a node's full machine config to stdout
@@ -10,29 +9,45 @@ hostnames := "ser8a ser8b ser8c"
 render hostname:
     #!/usr/bin/env bash
     set -euo pipefail
-    talos_version=$(yq '.talosVersion' versions.yaml)
-    kubernetes_version=$(yq '.kubernetesVersion' versions.yaml)
-    schematic=$(yq '.schematicId' versions.yaml)
-    talosctl gen config homelab {{endpoint}} \
-      --with-secrets <(sops -d talsecret.sops.yaml) \
-      --kubernetes-version "${kubernetes_version}" \
-      --install-image "factory.talos.dev/installer/${schematic}:${talos_version}" \
-      --additional-sans 127.0.0.1,10.0.10.245 \
-      --output-types controlplane -o - \
-    | talosctl machineconfig patch /dev/stdin \
-        -p @cluster.yaml \
-        -p @controlplane.yaml \
+    # cluster.yaml/controlplane.yaml are a hand-authored base (see ADR-0014, not talosctl gen
+    # config) with secret fields as $VAR placeholders, filled in here from talsecret.sops.yaml via
+    # yq's built-in envsubst operator (avoids a new dependency on GNU gettext's envsubst, which
+    # isn't guaranteed to be installed). Substituted content is written to real temp files with a
+    # .yaml suffix — talosctl's patch-type detection needs a recognizable extension, which a bare
+    # process-substitution fd (/dev/fd/N) doesn't have.
+    secrets=$(sops -d talsecret.sops.yaml)
+    export MACHINE_CA_CRT=$(yq -r '.certs.os.crt' <<< "$secrets")
+    export MACHINE_CA_KEY=$(yq -r '.certs.os.key' <<< "$secrets")
+    export MACHINE_TOKEN=$(yq -r '.trustdinfo.token' <<< "$secrets")
+    export CLUSTER_CA_CRT=$(yq -r '.certs.k8s.crt' <<< "$secrets")
+    export CLUSTER_CA_KEY=$(yq -r '.certs.k8s.key' <<< "$secrets")
+    export CLUSTER_AGGREGATOR_CA_CRT=$(yq -r '.certs.k8saggregator.crt' <<< "$secrets")
+    export CLUSTER_AGGREGATOR_CA_KEY=$(yq -r '.certs.k8saggregator.key' <<< "$secrets")
+    export CLUSTER_ETCD_CA_CRT=$(yq -r '.certs.etcd.crt' <<< "$secrets")
+    export CLUSTER_ETCD_CA_KEY=$(yq -r '.certs.etcd.key' <<< "$secrets")
+    export CLUSTER_SERVICEACCOUNT_KEY=$(yq -r '.certs.k8sserviceaccount.key' <<< "$secrets")
+    export CLUSTER_TOKEN=$(yq -r '.secrets.bootstraptoken' <<< "$secrets")
+    export CLUSTER_ID=$(yq -r '.cluster.id' <<< "$secrets")
+    export CLUSTER_SECRET=$(yq -r '.cluster.secret' <<< "$secrets")
+    export CLUSTER_SECRETBOX_ENCRYPTION_SECRET=$(yq -r '.secrets.secretboxencryptionsecret' <<< "$secrets")
+    export TALOS_VERSION=$(yq '.talosVersion' versions.yaml)
+    export KUBERNETES_VERSION=$(yq '.kubernetesVersion' versions.yaml)
+    export TALOS_SCHEMATIC=$(yq '.schematicId' versions.yaml)
+
+    base=$(mktemp --suffix=.yaml)
+    cp_patch=$(mktemp --suffix=.yaml)
+    trap 'rm -f "$base" "$cp_patch"' EXIT
+
+    yq e '(.. | select(tag == "!!str")) |= envsubst' cluster.yaml > "$base"
+    yq e '(.. | select(tag == "!!str")) |= envsubst' controlplane.yaml > "$cp_patch"
+
+    talosctl machineconfig patch "$base" \
+        -p @"$cp_patch" \
         -p @nodes/{{hostname}}.yaml
 
 # Diff a node's rendered config against its live running config
 diff hostname:
-    #!/usr/bin/env bash
-    set -uo pipefail
-    # `get machineconfig` with no id returns both the `persistent` and `v1alpha1` (active) resources;
-    # pin `v1alpha1` so we're not diffing the two concatenated together.
-    if diff <(just talos render {{hostname}}) <(talosctl -n {{hostname}} get machineconfig v1alpha1 -o yaml | yq '.spec' | sed -e '$d'); then
-      echo "{{hostname}}: no differences"
-    fi
+    just talos render {{hostname}} | talosctl apply-config --dry-run --nodes {{hostname}} --file /dev/stdin
 
 # Apply a node's rendered config. mode: no-reboot|auto|reboot
 apply-config hostname mode="no-reboot":

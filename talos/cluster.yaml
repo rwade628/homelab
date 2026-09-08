@@ -1,10 +1,16 @@
-cluster:
-  etcd:
-    advertisedSubnets:
-      - 10.0.10.0/24
-    extraArgs:
-      listen-metrics-urls: http://0.0.0.0:2381
+---
+version: v1alpha1
 machine:
+  ca:
+    crt: ${MACHINE_CA_CRT}
+  certSANs:
+    - 127.0.0.1
+    - 10.0.10.245
+  features:
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    rbac: true
+  token: ${MACHINE_TOKEN}
   time:
     disabled: false
     servers:
@@ -14,6 +20,87 @@ machine:
     rules:
       - SUBSYSTEM=="drm", KERNEL=="card*", GROUP="44", MODE="0660"
       - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
+cluster:
+  ca:
+    crt: ${CLUSTER_CA_CRT}
+  clusterName: homelab
+  controlPlane:
+    endpoint: https://10.0.10.245:6443
+  token: ${CLUSTER_TOKEN}
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - bond0-m0
+bondMode: active-backup
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: bond0
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: 10.0.10.245
+link: bond0
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.30
+vlanID: 30
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.50
+vlanID: 50
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.99
+vlanID: 99
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+searchDomains:
+  domains: []
+hostDNS:
+  enabled: true
+  forwardKubeDNSToHost: true # Requires Cilium `bpf.masquerade: false`
+  resolveMemberNames: true
+---
+apiVersion: v1alpha1
+kind: DiscoveryServiceConfig
+name: default
+endpoint: https://discovery.talos.dev/
+---
+apiVersion: v1alpha1
+kind: DiscoveryIdentityConfig
+clusterID: ${CLUSTER_ID}
+clusterSecret: ${CLUSTER_SECRET}
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/installer/${TALOS_SCHEMATIC}:${TALOS_VERSION}
+provisioning:
+  diskSelector:
+    match: disk.model == "CT1000P3PSSD8"
+  wipe: false
+---
+apiVersion: v1alpha1
+kind: FilesystemTrimConfig
+interval: 168h0m0s
+---
+apiVersion: v1alpha1
+kind: FilesystemScrubConfig
+interval: 168h0m0s
 ---
 apiVersion: v1alpha1
 kind: SysctlConfig
@@ -62,77 +149,27 @@ content: |
     device_ownership_from_security_context = true
 ---
 apiVersion: v1alpha1
-kind: ResolverConfig
-searchDomains:
-  domains: []
-hostDNS:
-  enabled: true
-  forwardKubeDNSToHost: true # Requires Cilium `bpf.masquerade: false`
-  resolveMemberNames: true
----
-apiVersion: v1alpha1
-kind: KubeFlannelCNIConfig
-$patch: delete
----
-apiVersion: v1alpha1
-kind: UnattendedInstallConfig
-provisioning:
-  diskSelector:
-    match: disk.model == "CT1000P3PSSD8"
----
-apiVersion: v1alpha1
-kind: BondConfig
-name: bond0
-links:
-  - bond0-m0
-bondMode: active-backup
-mtu: 9000
----
-apiVersion: v1alpha1
-kind: DHCPv4Config
-name: bond0
----
-apiVersion: v1alpha1
-kind: Layer2VIPConfig
-name: 10.0.10.245
-link: bond0
----
-apiVersion: v1alpha1
-kind: VLANConfig
-name: bond0.30
-vlanID: 30
-parent: bond0
-mtu: 9000
----
-apiVersion: v1alpha1
-kind: VLANConfig
-name: bond0.50
-vlanID: 50
-parent: bond0
-mtu: 9000
----
-apiVersion: v1alpha1
-kind: VLANConfig
-name: bond0.99
-vlanID: 99
-parent: bond0
-mtu: 9000
----
-apiVersion: v1alpha1
 kind: KubeNodeConfig
-labels:
-  topology.kubernetes.io/region: main
 nodeIP:
   validSubnets:
     - 10.0.10.0/24
+labels:
+  topology.kubernetes.io/region: main
 ---
 apiVersion: v1alpha1
 kind: KubeletConfig
+config:
+  crashLoopBackOff:
+    maxContainerRestartPeriod: 60s
+  imageMaximumGCAge: 168h
+  maxParallelImagePulls: 3
+  serializeImagePulls: false
+  shutdownGracePeriod: 90s
+  shutdownGracePeriodCriticalPods: 60s
 extraArgs:
   allowed-unsafe-sysctls: net.ipv6.*
-config:
-  serializeImagePulls: false
-  imageMaximumGCAge: 60m
+defaultRuntimeSeccompProfileEnabled: true
+image: ghcr.io/siderolabs/kubelet:${KUBERNETES_VERSION}
 ---
 apiVersion: v1alpha1
 kind: SecurityProfileConfig
@@ -140,7 +177,12 @@ workloadIsolation: false
 ---
 apiVersion: v1alpha1
 kind: KubeNetworkConfig
+dnsDomain: cluster.local
 podSubnets:
   - 10.69.0.0/16
 serviceSubnets:
   - 10.96.0.0/16
+---
+apiVersion: v1alpha1
+kind: KubePrismConfig
+port: 7445
