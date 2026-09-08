@@ -24,13 +24,29 @@ render hostname:
         -p @controlplane.yaml \
         -p @nodes/{{hostname}}.yaml
 
-# Diff a node's rendered config against its live running config (secrets/generated-only fields noisy — review by eye)
+# Diff a node's rendered config against its live running config
 diff hostname:
-    diff <(just talos render {{hostname}}) <(talosctl -n {{hostname}} get machineconfig -o yaml)
+    #!/usr/bin/env bash
+    set -uo pipefail
+    # `get machineconfig` with no id returns both the `persistent` and `v1alpha1` (active) resources;
+    # pin `v1alpha1` so we're not diffing the two concatenated together.
+    if diff <(just talos render {{hostname}}) <(talosctl -n {{hostname}} get machineconfig v1alpha1 -o yaml | yq '.spec' | sed -e '$d'); then
+      echo "{{hostname}}: no differences"
+    fi
 
 # Apply a node's rendered config. mode: no-reboot|auto|reboot
 apply-config hostname mode="no-reboot":
     just talos render {{hostname}} | talosctl apply-config --mode={{mode}} --nodes {{hostname}} --file /dev/stdin
+
+# Reboot a single node, cordoning/draining first to avoid pod-scheduling churn during shutdown
+reboot hostname:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    kubectl cordon {{hostname}}
+    kubectl drain {{hostname}} --ignore-daemonsets --delete-emptydir-data --timeout=5m
+    talosctl --nodes {{hostname}} reboot
+    talosctl --nodes {{hostname}} health --wait-timeout=10m --server=false
+    kubectl uncordon {{hostname}}
 
 # Upgrade Talos on a single node. rollout=true skips the Flux suspend/resume (caller already did it)
 upgrade-node hostname rollout="false":

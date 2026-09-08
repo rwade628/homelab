@@ -1,37 +1,26 @@
-machine:
-  features:
-    kubernetesTalosAPIAccess:
-      enabled: true
-      allowedRoles:
-        - os:admin
-      allowedKubernetesNamespaces:
-        - system-upgrade
+apiVersion: v1alpha1
+kind: KubeTalosAPIAccessConfig
+allowedRoles:
+  - os:admin
+allowedKubernetesNamespaces:
+  - system-upgrade
 ---
 apiVersion: v1alpha1
 kind: KubeNodeConfig
 labels:
   node-role.kubernetes.io/control-plane: ""
-  # `talosctl gen config`'s control-plane base auto-adds this label (kubeadm-style); it isn't
-  # present on any live node today, so delete it to keep this migration behavior-neutral.
   node.kubernetes.io/exclude-from-external-load-balancers:
     $patch: delete
 taints:
-  # This cluster's current `allowSchedulingOnControlPlanes: true` is exactly "control-plane
-  # label present, matching NoSchedule taint absent". `talosctl gen config`'s control-plane
-  # base auto-populates this taint by default (kubeadm-style); delete it to preserve that.
   node-role.kubernetes.io/control-plane:
     $patch: delete
 ---
 apiVersion: v1alpha1
 kind: KubeAPIServerConfig
 extraArgs:
-  # https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/
   enable-aggregator-routing: true
   feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
   runtime-config: admissionregistration.k8s.io/v1beta1=true
-# certExtraSANs intentionally omitted: `talosctl gen config --additional-sans` already
-# populates this field from the base config; an explicit patch here just duplicated the
-# same two entries.
 ---
 apiVersion: v1alpha1
 kind: KubeControllerManagerConfig
@@ -54,8 +43,4 @@ enabled: false
 apiVersion: v1alpha1
 kind: KubeAdmissionControlConfig
 name: PodSecurity
-# `talosctl gen config`'s base auto-populates a baseline/restricted PodSecurity admission
-# plugin config; today's cluster deletes this outright (no admission-plugin configuration
-# supplied), so delete the base's default here too. See ADR-0012 — this is a deliberate
-# behavior-neutral choice, not an oversight.
 $patch: delete

@@ -1,5 +1,9 @@
 apiVersion: v1alpha1
 kind: HostnameConfig
+# `talosctl gen config`'s base auto-populates `auto: stable`, which conflicts with an explicit
+# `hostname` ("'auto' and 'hostname' cannot be set at the same time") — this repo pins hostnames
+# per-node, so auto-hostname mode must stay off.
+auto: "off"
 hostname: ser8c
 ---
 apiVersion: v1alpha1
