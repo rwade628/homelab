@@ -1,0 +1,29 @@
+listen = "[::]:8080"
+
+allowed-hosts = ["attic.${SECRET_DOMAIN}", "attic.${TAILSCALE_DOMAIN}"]
+# Tailscale hostname, not the LAN one: this is embedded in cache-config responses
+# and drives `attic use`'s auto-configured substituter URL. The tailnet is reachable
+# from every real consumer (idun, GitHub Actions CI) including from on-LAN, while the
+# reverse isn't true for a roaming/remote client hitting the LAN-only hostname.
+api-endpoint = "https://attic.${TAILSCALE_DOMAIN}/"
+
+[database]
+url = "sqlite:///attic-data/db.sqlite?mode=rwc"
+
+[storage]
+type = "local"
+path = "/attic-storage"
+
+# Attic's own defaults, listed explicitly rather than tuned.
+[chunking]
+nar-size-threshold = 65536
+min-size = 16384
+avg-size = 65536
+max-size = 262144
+
+[compression]
+type = "zstd"
+
+[garbage-collection]
+interval = "1 day"
+default-retention-period = "30 days"
