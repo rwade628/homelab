@@ -1,11 +1,14 @@
 listen = "[::]:8080"
 
-allowed-hosts = ["attic.${SECRET_DOMAIN}", "attic.${TAILSCALE_DOMAIN}"]
+allowed-hosts = ["attic.${SECRET_DOMAIN}", "attic.${TAILSCALE_DOMAIN}", "attic.${TAILSCALE_DOMAIN}:8080"]
 # Tailscale hostname, not the LAN one: this is embedded in cache-config responses
 # and drives `attic use`'s auto-configured substituter URL. The tailnet is reachable
 # from every real consumer (idun, GitHub Actions CI) including from on-LAN, while the
 # reverse isn't true for a roaming/remote client hitting the LAN-only hostname.
-api-endpoint = "https://attic.${TAILSCALE_DOMAIN}/"
+# Plain HTTP on the raw service port: the tailscale.com LoadBalancer class forwards
+# the Service's port as-is with no TLS termination (same as every other
+# loadBalancerClass:tailscale app here) — there's nothing listening on 443.
+api-endpoint = "http://attic.${TAILSCALE_DOMAIN}:8080/"
 
 [database]
 url = "sqlite:///attic-data/db.sqlite?mode=rwc"
