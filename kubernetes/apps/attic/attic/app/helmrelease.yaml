@@ -47,6 +47,9 @@ spec:
                   httpGet:
                     path: /
                     port: &port 8080
+                    httpHeaders:
+                      - name: Host
+                        value: "attic.${SECRET_DOMAIN}"
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -58,6 +61,9 @@ spec:
                   httpGet:
                     path: /
                     port: *port
+                    httpHeaders:
+                      - name: Host
+                        value: "attic.${SECRET_DOMAIN}"
                   failureThreshold: 30
                   periodSeconds: 10
             securityContext:
