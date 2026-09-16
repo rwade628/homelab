@@ -69,7 +69,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
@@ -89,6 +89,7 @@ spec:
         loadBalancerClass: tailscale
         annotations:
           tailscale.com/hostname: "{{ .Release.Name }}"
+          tailscale.com/tags: "tag:k8s,tag:attic"
         ports:
           http:
             port: *port
