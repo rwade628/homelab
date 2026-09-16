@@ -103,7 +103,12 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 5,
+      // Only `kubelet` is ever tracked here (talos/versions.yaml + the tuppr
+      // KubernetesUpgrade pin the whole k8s version via that one depName) --
+      // the other four control-plane binaries aren't separate Renovate deps
+      // in this repo, so minimumGroupSize: 5 could never be met and silently
+      // held every k8s upgrade behind a manual dashboard click.
+      minimumGroupSize: 1,
     },
     {
       description: "Rook-Ceph Group",
