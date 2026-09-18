@@ -89,7 +89,7 @@ spec:
         loadBalancerClass: tailscale
         annotations:
           tailscale.com/hostname: "{{ .Release.Name }}"
-          tailscale.com/tags: "tag:k8s,tag:attic"
+          tailscale.com/tags: "tag:k8s,tag:ci"
         ports:
           http:
             port: *port
