@@ -25,9 +25,8 @@ spec:
             - name: envoy-internal
               namespace: network
       service:
-        type: LoadBalancer
-        loadBalancerClass: tailscale
         annotations:
+          tailscale.com/expose: "true"
           tailscale.com/hostname: alertmanager
           tailscale.com/tags: "tag:k8s,tag:ci"
       alertmanagerSpec:
