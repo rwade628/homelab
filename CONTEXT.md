@@ -19,6 +19,10 @@ and the underlying PVCs)
 A dedicated Home Assistant entity (`binary_sensor.alert_*` or `input_boolean.alert_*`) whose sole purpose is to be flipped by an HA automation and exposed through the HomeKit Bridge as a trip-wire. It carries no control semantics of its own — the actual notification is fired by an Apple Home/Shortcuts automation on the Apple TV hub that watches the entity, not by HA. See [ADR-0001](./docs/adr/0001-homekit-bridge-for-apple-home-notifications.md).
 _Avoid_: notification entity, trigger sensor (too generic — this is specifically the HA-side half of a two-system handoff, not a general-purpose trigger)
 
+**AP**:
+A TP-Link Omada access point (the EAP225v3s, the EAP775-Wall) adopted by the in-cluster Omada controller. It is the thing that degrades and gets rebooted when Wi-Fi turns bad — distinct from the edge router (the RB5009), which is not involved in that failure mode.
+_Avoid_: router, "the routers" (in casual use this has meant the APs; the actual router is a different device owned by the `mikrotik` repo)
+
 ## Related vocabulary (owned by sibling repos)
 
 - **Trusted Zone / Restricted Zone / Pinhole** — network segmentation vocabulary for VLANs, defined in the `mikrotik` repo's `CONTEXT.md`. Referenced but not redefined here; see [ADR-0002](./docs/adr/0002-macvlan-dual-homing-for-cross-vlan-device-discovery.md) for how this cluster's workloads interact with those zones.
