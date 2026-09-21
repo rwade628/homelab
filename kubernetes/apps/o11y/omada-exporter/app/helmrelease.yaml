@@ -34,11 +34,6 @@ spec:
               OMADA_TRACK_CLIENT_METRICS: "true"
               OMADA_TRACK_PORT_METRICS: "false"
               OMADA_TRACK_INSIGHT_METRICS: "false"
-              OMADA_SECRET_ID:
-                valueFrom:
-                  secretKeyRef:
-                    name: omada-exporter-credentials
-                    key: OMADA_CLIENT_SECRET
             envFrom:
               - secretRef:
                   name: omada-exporter-credentials
