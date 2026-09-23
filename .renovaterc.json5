@@ -114,7 +114,10 @@
       description: "Rook-Ceph Group",
       groupName: "rook-ceph",
       matchDatasources: ["docker"],
-      matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/", "/ceph-csi-drivers/"],
+      // ceph-csi-drivers is deliberately excluded: it versions independently
+      // (1.0.x vs rook's v1.20.x), so it rarely lands alongside a rook bump
+      // and minimumGroupSize: 2 would hold it forever.
+      matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
