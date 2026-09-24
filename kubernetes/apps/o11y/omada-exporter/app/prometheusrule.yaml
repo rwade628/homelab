@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/prometheusrule_v1.json
+# Management-plane health for the Omada APs (networking repo CONTEXT.md:
+# "Management plane"). Heartbeat-miss episodes recur per controller-pod
+# lifetime and were invisible without this - see networking repo
+# docs/wifi-experiments.md.
+#
+# The exporter has no heartbeat counter, but every miss walks the AP through
+# non-Connected states (Heartbeat Missed -> Adopting -> Provisioning/
+# Configuring, sometimes Adopt Failed), which shows up as samples whose
+# device_status label isn't "Connected". Between episodes this is ~0/hour;
+# during the 2026-09-23 episode it ran ~57/hour across 3 APs at a 60s scrape.
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: omada-exporter-rules
+spec:
+  groups:
+    - name: omada.rules
+      rules:
+        - alert: OmadaApManagementFlapping
+          expr: |-
+            sum by (device_mac, device_model) (
+              count_over_time(omada_device_uptime_seconds{device_status!="Connected"}[1h])
+            ) > 5
+          for: 15m
+          annotations:
+            summary: >-
+              Omada AP {{ $labels.device_model }} ({{ $labels.device_mac }})
+              spent {{ $value }} scrapes in the last hour not Connected to
+              the controller - likely a heartbeat-miss episode
+          labels:
+            severity: warning

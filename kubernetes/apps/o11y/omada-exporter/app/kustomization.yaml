@@ -7,3 +7,5 @@ resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
   - ./grafanadashboard.yaml
+  - ./grafanadashboard-wifi-health.yaml
+  - ./prometheusrule.yaml
