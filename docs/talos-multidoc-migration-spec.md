@@ -55,7 +55,7 @@ Renovate-side change.
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosVersion: v1.14.0
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.37.0
+kubernetesVersion: v1.37.1
 # schematic ID is stable — bump manually only if the Image Factory schematic (system
 # extensions/kernel args) changes; not tracked by the renovate managers above
 schematicId: 4b82055dec8c9571600a4ceeebddbe33b8ca9ec9a9aaefa64853b2bab3b76993
