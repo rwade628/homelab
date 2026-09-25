@@ -33,7 +33,8 @@ spec:
               - --mode
               - monolithic
             env:
-              RUST_LOG: info
+              # sqlx logs every statement at info - thousands per upload.
+              RUST_LOG: info,sqlx=warn
               ATTIC_SERVER_TOKEN_HS256_SECRET_BASE64:
                 valueFrom:
                   secretKeyRef:

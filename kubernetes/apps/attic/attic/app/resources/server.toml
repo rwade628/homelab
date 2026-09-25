@@ -17,12 +17,17 @@ url = "sqlite:///attic-data/db.sqlite?mode=rwc"
 type = "local"
 path = "/attic-storage"
 
-# Attic's own defaults, listed explicitly rather than tuned.
+# 16x Attic's defaults (64K/16K/64K/256K). On SQLite, finishing an upload
+# fires one holders_count decrement per chunk, each grabbing its own pool
+# connection; a ~200 MiB NAR at 64 KiB chunks is ~3000 of them, which starves
+# the pool past its 30s acquire timeout and 500s whatever request comes next.
+# 1 MiB chunks cut that storm ~16x at the cost of some cross-NAR dedup.
+# Existing chunks stay valid; only new uploads use the new boundaries.
 [chunking]
-nar-size-threshold = 65536
-min-size = 16384
-avg-size = 65536
-max-size = 262144
+nar-size-threshold = 1048576
+min-size = 262144
+avg-size = 1048576
+max-size = 4194304
 
 [compression]
 type = "zstd"
