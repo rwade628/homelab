@@ -31,7 +31,7 @@ spec:
           goflow2:
             image:
               repository: netsampler/goflow2
-              tag: v2.2.6@sha256:b930e69d1bc7bd765da5b45d12f04edd10970c310b33ba44fd12a07a870da8e6
+              tag: v2.2.7@sha256:b8fdc8f3666b05b0022ada3a3c8c50dcde97f7d19e3f42d050695fa0571fb952
             args:
               - -listen=netflow://:2055
               - -format=json
