@@ -23,6 +23,18 @@ _Avoid_: notification entity, trigger sensor (too generic — this is specifical
 A TP-Link Omada access point (the EAP225v3s, the EAP775-Wall) adopted by the in-cluster Omada controller. It is the thing that degrades and gets rebooted when Wi-Fi turns bad — distinct from the edge router (the RB5009), which is not involved in that failure mode.
 _Avoid_: router, "the routers" (in casual use this has meant the APs; the actual router is a different device owned by the `mikrotik` repo)
 
+**Secrets Stack**:
+The pair of products that hold every secret: a **Human Vault** and a **Machine-Secrets Backend**. Chosen as Keeper (human) + Bitwarden Secrets Manager (machine).
+_Avoid_: "the vault" (ambiguous between the two halves)
+
+**Human Vault**:
+The password manager people use directly: logins, passkeys, notes, family sharing. It is Keeper, on the business-sponsored Family plan. The cluster never reads from it.
+_Avoid_: password manager (when the machine half could be meant), Keeper vault (names the vendor, not the role)
+
+**Machine-Secrets Backend**:
+The store the cluster reads secrets from through External Secrets. It is a Bitwarden Secrets Manager project in its own free Bitwarden organization, separate from the Human Vault.
+_Avoid_: KSM (a Keeper product this stack ruled out), secret store (ESO's `SecretStore` is the in-cluster object pointing *at* the backend, not the backend)
+
 ## Related vocabulary (owned by sibling repos)
 
 - **Trusted Zone / Restricted Zone / Pinhole** — network segmentation vocabulary for VLANs, defined in the `mikrotik` repo's `CONTEXT.md`. Referenced but not redefined here; see [ADR-0002](./docs/adr/0002-macvlan-dual-homing-for-cross-vlan-device-discovery.md) for how this cluster's workloads interact with those zones.
