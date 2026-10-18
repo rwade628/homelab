@@ -28,7 +28,7 @@ The pair of products that hold every secret: a **Human Vault** and a **Machine-S
 _Avoid_: "the vault" (ambiguous between the two halves)
 
 **Human Vault**:
-The password manager people use directly: logins, passkeys, notes, family sharing. It is Keeper, on the business-sponsored Family plan. The cluster never reads from it.
+The password manager people use directly: logins, passkeys, notes, family sharing. It is Keeper, on the sponsored Family plan. The cluster never reads from it.
 _Avoid_: password manager (when the machine half could be meant), Keeper vault (names the vendor, not the role)
 
 **Machine-Secrets Backend**:
