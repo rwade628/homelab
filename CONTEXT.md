@@ -32,8 +32,16 @@ The password manager people use directly: logins, passkeys, notes, family sharin
 _Avoid_: password manager (when the machine half could be meant), Keeper vault (names the vendor, not the role)
 
 **Machine-Secrets Backend**:
-The store the cluster reads secrets from through External Secrets. It is a Bitwarden Secrets Manager project in its own free Bitwarden organization, separate from the Human Vault.
+The store the cluster reads secrets from through External Secrets. It is Bitwarden Secrets Manager, in its own free Bitwarden organization, separate from the Human Vault. See [ADR-0016](./docs/adr/0016-secret-delivery-bitwarden-sm-eso.md).
 _Avoid_: KSM (a Keeper product this stack ruled out), secret store (ESO's `SecretStore` is the in-cluster object pointing *at* the backend, not the backend)
+
+**Credential Source**:
+The external service or system a secret belongs to (Cloudflare, Tailscale, the Kopia repository), as opposed to the app that consumes it. The Machine-Secrets Backend holds one secret per Credential Source, and several apps can read the same one.
+_Avoid_: app secret, per-app secret (that names the consumer, and one Credential Source often serves several)
+
+**Bootstrap Seed**:
+A Secret written into the cluster by the operator's CLI during bootstrap, before ESO can deliver anything. It lives in no file and isn't managed by Flux. There are exactly two: ESO's root credential and the tailnet name.
+_Avoid_: bootstrap secret (too broad, since the Talos bundle is also needed at bootstrap but is never written into the cluster)
 
 ## Related vocabulary (owned by sibling repos)
 
