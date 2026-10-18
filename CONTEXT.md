@@ -43,6 +43,10 @@ _Avoid_: app secret, per-app secret (that names the consumer, and one Credential
 A Secret written into the cluster by the operator's CLI during bootstrap, before ESO can deliver anything. It lives in no file and isn't managed by Flux. There are exactly two: ESO's root credential and the tailnet name.
 _Avoid_: bootstrap secret (too broad, since the Talos bundle is also needed at bootstrap but is never written into the cluster)
 
+**Root Account**:
+An account that can recover a vault: the primary email and the Apple account. Its second factor and backup codes never depend on the Human Vault, because recovering the Human Vault depends on it.
+_Avoid_: main account, master account (says nothing about the recovery dependency)
+
 ## Related vocabulary (owned by sibling repos)
 
 - **Trusted Zone / Restricted Zone / Pinhole** — network segmentation vocabulary for VLANs, defined in the `mikrotik` repo's `CONTEXT.md`. Referenced but not redefined here; see [ADR-0002](./docs/adr/0002-macvlan-dual-homing-for-cross-vlan-device-discovery.md) for how this cluster's workloads interact with those zones.
