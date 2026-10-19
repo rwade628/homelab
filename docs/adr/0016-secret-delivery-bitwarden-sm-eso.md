@@ -96,3 +96,25 @@ are deleted last.
   self-referential garbage-collection risk described above.
 - **One BWS secret per Talos field, injected with `bws run`.** Rejected because it changes 14
   secrets and the render script, for no gain over one bundle.
+
+## Addendum (2026-10-19): one seed, not two
+
+Planning the cutover ([#1649](https://github.com/rwade628/homelab/issues/1649)) found that the
+`cluster-apps` patch in `kubernetes/flux/cluster/ks.yaml` **replaces** each child
+Kustomization's `postBuild.substituteFrom` list rather than merging into it. The live
+`attic`, `cloudflare-tunnel` and `reloader` Kustomizations carry exactly the patch's two
+entries, whatever their own `ks.yaml` says. An attic-only `substituteFrom` would be silently
+dropped.
+
+So the tailnet name doesn't use Flux substitution. Its only consumer is attic's `server.toml`,
+which becomes an ESO template: the committed ConfigMap holds `{{ .TAILNET }}`, and the attic
+`ExternalSecret` renders `server.toml` into `attic-secret`, reading `TAILNET` from the
+`tailscale` Credential Source. It still stays out of git. Nothing substitutes from that Secret,
+so the deadlock that ruled out an ESO-built `cluster-secrets` doesn't apply.
+
+Bootstrap now seeds exactly **one** Secret, the `eso` root credential. The `bootstrap` project
+holds the Talos bundle and the `eso` token, and no longer the tailnet name.
+
+Rejected: an extra `optional: true` entry in the global patch (a missing seed would render
+`attic.` with no error), and a label-selected second patch variant (two copies of a
+load-bearing patch to keep in sync).

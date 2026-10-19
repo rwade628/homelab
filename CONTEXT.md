@@ -40,7 +40,7 @@ The external service or system a secret belongs to (Cloudflare, Tailscale, the K
 _Avoid_: app secret, per-app secret (that names the consumer, and one Credential Source often serves several)
 
 **Bootstrap Seed**:
-A Secret written into the cluster by the operator's CLI during bootstrap, before ESO can deliver anything. It lives in no file and isn't managed by Flux. There are exactly two: ESO's root credential and the tailnet name.
+A Secret written into the cluster by the operator's CLI during bootstrap, before ESO can deliver anything. It lives in no file and isn't managed by Flux. There is exactly one: ESO's root credential.
 _Avoid_: bootstrap secret (too broad, since the Talos bundle is also needed at bootstrap but is never written into the cluster)
 
 **Root Account**:
