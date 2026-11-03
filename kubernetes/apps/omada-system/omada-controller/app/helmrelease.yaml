@@ -78,7 +78,7 @@ spec:
             "name": "mgmt",
             "namespace": "kube-system",
             "ips": ["192.168.88.154/24"],
-            "mac": "76:61:b0:81:85:c5"
+            "mac": "ee:97:59:f4:87:71"
           }]
       securityContext: {}
         # runAsNonRoot: false
