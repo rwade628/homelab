@@ -1,0 +1,18 @@
+{
+  "hostname": "rethink.internal",
+  "homeassistant": {
+    "mqtt_url": "mqtt://mosquitto.homeassistant.svc.cluster.local:1883",
+    "discovery_prefix": "homeassistant",
+    "rethink_prefix": "rethink",
+    "mqtt_user": "rethink",
+    "mqtt_pass": "@RETHINK_MQTT_PASSWORD@"
+  },
+  "ca_key_file": "/app/data/ca.key",
+  "ca_cert_file": "/app/data/ca.cert",
+  "https_port": { "bind": 443, "address": "10.0.30.250" },
+  "mqtts_port": { "bind": 8883, "address": "10.0.30.250" },
+  "thinq1_https_port": {},
+  "thinq1_port": {},
+  "management_port": { "bind": 44401, "address": "127.0.0.1" },
+  "log": ["status", "incoming", "HTTPS", "publish", "MGMT"]
+}
