@@ -38,6 +38,8 @@ spec:
           # password is hex (see the generator script), so sed needs no
           # escaping.
           render-config:
+            # Bumping this? persistence.patches overlays a v0.1.4 copy of one
+            # file: drop it (or re-base it) in the same change.
             image: &image
               repository: ghcr.io/anszom/rethink
               tag: 0.1.4@sha256:bed0d44367866b3e7faafa759e67b7bd254aa380a4c68259d0c7838f31709641
@@ -110,6 +112,16 @@ spec:
         medium: Memory
         globalMounts:
           - path: /config
+      # Local patch over one shipped file; see patches/WIN_056905_WW.js.
+      # subPath mounts don't see ConfigMap updates, but reloader (above)
+      # restarts the pod when the ConfigMap changes.
+      patches:
+        type: configMap
+        name: rethink-patches
+        globalMounts:
+          - path: /app/dist/cloud/devices/WIN_056905_WW.js
+            subPath: WIN_056905_WW.js
+            readOnly: true
       tmp:
         type: emptyDir
         globalMounts:
