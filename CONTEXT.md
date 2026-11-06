@@ -47,6 +47,14 @@ _Avoid_: bootstrap secret (too broad, since the Talos bundle is also needed at b
 An account that can recover a vault: the primary email and the Apple account. Its second factor and backup codes never depend on the Human Vault, because recovering the Human Vault depends on it.
 _Avoid_: main account, master account (says nothing about the recovery dependency)
 
+**Household Occupancy**:
+Whether anyone in the household is home, as decided by Apple Home's per-person location logic and passed to Home Assistant through the HomeKit Bridge. It drives whole-house behaviour such as the thermostat's Away.
+_Avoid_: presence (used loosely for both this and Room Occupancy), home/away (names the values, not the concept)
+
+**Room Occupancy**:
+Whether one particular room is in use right now. It is inferred locally from that room's own signals: its occupancy sensor, and things that only happen with someone there, such as the TV being on. It is independent of Household Occupancy: a room can be vacant while the household is home.
+_Avoid_: presence (see Household Occupancy), motion (motion is one input; a person sitting still is still Room Occupancy)
+
 ## Related vocabulary (owned by sibling repos)
 
 - **Trusted Zone / Restricted Zone / Pinhole** — network segmentation vocabulary for VLANs, defined in the `mikrotik` repo's `CONTEXT.md`. Referenced but not redefined here; see [ADR-0002](./docs/adr/0002-macvlan-dual-homing-for-cross-vlan-device-discovery.md) for how this cluster's workloads interact with those zones.
