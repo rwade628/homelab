@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./ocirepository.yaml
+  - ./helmrelease.yaml
+configMapGenerator:
+  - name: rethink-configmap
+    files:
+      - config.json=./resources/config.json
+  # Local fixes over rethink's shipped JS until upstream releases them.
+  # Each file's header names its upstream PR and when to delete it.
+  - name: rethink-patches
+    files:
+      - WIN_056905_WW.js=./patches/WIN_056905_WW.js
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

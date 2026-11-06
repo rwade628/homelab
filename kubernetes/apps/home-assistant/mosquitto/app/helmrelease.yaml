@@ -1,0 +1,87 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app mosquitto
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      mosquitto:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          # mosquitto 2 wants a hashed password_file. Build a plaintext one
+          # from mosquitto-secret, then hash it in place. Passwords are hex
+          # (see the generator script), so printf needs no escaping.
+          # umask 077: mosquitto warns about (and will later refuse) a
+          # world-readable password file. mosquitto_passwd -U needs a
+          # writable /tmp for its scratch file.
+          render-passwd:
+            image: &image
+              repository: eclipse-mosquitto
+              tag: 2.0.22@sha256:09b62ff32c2e7b64d4b431b9a89236073289b68db273de2b089edeb9b0d92b5c
+            envFrom:
+              - secretRef:
+                  name: mosquitto-secret
+            command:
+              - sh
+              - -c
+              - |
+                umask 077
+                printf 'rethink:%s\nhomeassistant:%s\n' "$${RETHINK_MQTT_PASSWORD}" "$${HASS_MQTT_PASSWORD}" > /mosquitto/passwd/passwd
+                mosquitto_passwd -U /mosquitto/passwd/passwd
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+        containers:
+          app:
+            image: *image
+            command: ["mosquitto", "-c", "/mosquitto/config/mosquitto.conf"]
+            securityContext: *securityContext
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 128Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1883
+        runAsGroup: 1883
+        fsGroup: 1883
+    service:
+      app:
+        controller: mosquitto
+        ports:
+          mqtt:
+            port: 1883
+    persistence:
+      config:
+        type: configMap
+        name: mosquitto-configmap
+        globalMounts:
+          - path: /mosquitto/config/mosquitto.conf
+            subPath: mosquitto.conf
+            readOnly: true
+      passwd:
+        type: emptyDir
+        medium: Memory
+        globalMounts:
+          - path: /mosquitto/passwd
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

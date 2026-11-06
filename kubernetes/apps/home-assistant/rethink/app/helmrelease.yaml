@@ -1,0 +1,128 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# rethink: a Cloud Stand-in for LG ThinQ appliances. Decision and trade-offs:
+# workbench repo, docs/adr/0001-lg-cloud-stand-in.md.
+#
+# Appliances reach it on IOT_VLAN directly (macvlan leg, 10.0.30.250), never
+# through the router's forward chain. Only the two ports an appliance uses
+# (443, 8883) listen on that address. The management UI listens on
+# 127.0.0.1 only: reach it with
+#   kubectl -n homeassistant port-forward deploy/rethink 44401
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app rethink
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      rethink:
+        # One pod at a time: two would both claim 10.0.30.250 and its pinned
+        # MAC, and the RWO PVC can't attach to both anyway.
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          # rethink only reads its MQTT password from config.json. Render the
+          # git-tracked template with it into a memory-backed emptyDir. The
+          # password is hex (see the generator script), so sed needs no
+          # escaping.
+          render-config:
+            # Bumping this? persistence.patches overlays a v0.1.4 copy of one
+            # file: drop it (or re-base it) in the same change.
+            image: &image
+              repository: ghcr.io/anszom/rethink
+              tag: 0.1.4@sha256:bed0d44367866b3e7faafa759e67b7bd254aa380a4c68259d0c7838f31709641
+            env:
+              RETHINK_MQTT_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: mosquitto-secret
+                    key: RETHINK_MQTT_PASSWORD
+            command:
+              - sh
+              - -c
+              - sed "s|@RETHINK_MQTT_PASSWORD@|$${RETHINK_MQTT_PASSWORD}|" /config-template/config.json > /config/config.json
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+        containers:
+          app:
+            image: *image
+            command: ["node", "dist/rethink-cloud.js", "/config/config.json"]
+            securityContext: *securityContext
+            # Nothing listens on the pod's cluster IP, so kubelet has no
+            # port to probe. A crashed process restarts the pod on its own.
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+    defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "iot",
+            "namespace": "kube-system",
+            "ips": ["10.0.30.250/24"],
+            "mac": "4e:41:27:9b:82:06"
+          }]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        # Lets the non-root process bind 443 and 8883. Namespaced to the
+        # pod's network namespace, and on Kubernetes' safe-sysctl list.
+        sysctls:
+          - name: net.ipv4.ip_unprivileged_port_start
+            value: "0"
+    persistence:
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /app/data
+      config-template:
+        type: configMap
+        name: rethink-configmap
+        globalMounts:
+          - path: /config-template
+            readOnly: true
+      config:
+        type: emptyDir
+        medium: Memory
+        globalMounts:
+          - path: /config
+      # Local patch over one shipped file; see patches/WIN_056905_WW.js.
+      # subPath mounts don't see ConfigMap updates, but reloader (above)
+      # restarts the pod when the ConfigMap changes.
+      patches:
+        type: configMap
+        name: rethink-patches
+        globalMounts:
+          - path: /app/dist/cloud/devices/WIN_056905_WW.js
+            subPath: WIN_056905_WW.js
+            readOnly: true
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
