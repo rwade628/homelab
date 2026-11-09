@@ -54,6 +54,8 @@ kubectl -n $NS get pvc $PVC                                                     
 
 In Prometheus, `kubelet_volume_stats_capacity_bytes{persistentvolumeclaim="prometheus-kube-prometheus-stack-db-prometheus-kube-prometheus-stack-0"}` should show about 128.8e9, and `up{job="wifi-probe"}` should be 1.
 
+To check retention, use `/api/v1/status/runtimeinfo` (`storageRetention` should read `90d or 110GiB`), **not** `/api/v1/status/flags`. Operator v0.95 sets retention in the generated config file, which is hot-reloaded, so the flags endpoint keeps showing the old startup values (30d / 50GiB) until the pod restarts.
+
 ## If something goes wrong
 
 - **The PVC stays at 50Gi:** run `kubectl -n $NS describe pvc $PVC` and look for resize events. If an RBD resize is stuck, the CSI driver logs live in `rook-ceph`.
