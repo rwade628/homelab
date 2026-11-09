@@ -65,9 +65,6 @@ spec:
         # 90d so a Wi-Fi experiment window can be reviewed after it ends
         # (30d lost most of the step 3a baseline; rwade628/workbench#24).
         # Growing the PVC is a manual step: docs/prometheus-pvc-resize-runbook.md
-        # TEMPORARY: paused so the operator doesn't recreate the StatefulSet
-        # before the PVC is grown. Remove once the runbook's manual steps are done.
-        paused: true
         retention: 90d
         retentionSize: 110GB
         resources:
