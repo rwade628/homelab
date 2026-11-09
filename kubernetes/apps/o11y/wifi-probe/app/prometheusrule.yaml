@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/prometheusrule_v1.json
+# A crashed Safari or a stopped Wired Reference looks the same as "no Probe
+# Gaps" unless silence is itself an alert (workbench#24).
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: wifi-probe-rules
+spec:
+  groups:
+    - name: wifi-probe.rules
+      rules:
+        - alert: WifiProbeDeviceSilent
+          # Ticks, not uploads: the flush timer keeps sending (empty) batches
+          # even if the tick loop has died, so upload time alone would stay
+          # fresh while nothing is being measured.
+          expr: increase(wifi_probe_ticks_total[10m]) == 0
+          for: 1m
+          annotations:
+            summary: >-
+              wifi-probe device {{ $labels.device }} has recorded no ticks for
+              10 minutes; its Probe Gap record has a hole
+          labels:
+            severity: warning
+        - alert: WifiProbeUploadsStale
+          expr: time() - wifi_probe_last_upload_timestamp_seconds > 600
+          for: 1m
+          annotations:
+            summary: >-
+              wifi-probe device {{ $labels.device }} has not uploaded for
+              {{ $value | humanizeDuration }}
+          labels:
+            severity: warning
+        - alert: WifiProbeDeviceMissing
+          # Catches a device that never uploaded since the collector last
+          # started (the gauge above only exists after a first upload).
+          expr: |-
+            absent(wifi_probe_ticks_total{device="ipad"})
+            or absent(wifi_probe_ticks_total{device="wired-reference"})
+          for: 15m
+          annotations:
+            summary: a wifi-probe device has not uploaded since the collector started
+          labels:
+            severity: warning

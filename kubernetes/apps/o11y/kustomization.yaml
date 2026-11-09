@@ -22,3 +22,4 @@ resources:
   - ./victoria-logs/ks.yaml
   - ./mktxp/ks.yaml
   - ./omada-exporter/ks.yaml
+  - ./wifi-probe/ks.yaml
